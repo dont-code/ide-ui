@@ -32,10 +32,10 @@ jobs:
       if: failure()
       with:
         name: cypress-screenshots
-        path: apps/ide-ui-e2e/cypress/screenshots
+        path: dist/cypress/apps/ide-ui-e2e/screenshots
       # Test run video was always captured, so this action uses "always()" condition
     - uses: actions/upload-artifact@v1
       if: always()
       with:
         name: cypress-videos
-        path: apps/ide-ui-e2e/cypress/videos
+        path: dist/cypress/apps/ide-ui-e2e/videos
