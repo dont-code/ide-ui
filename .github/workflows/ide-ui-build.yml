@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: IDE-UI
 
 on:
   push:
@@ -24,11 +24,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Run Cypress
-      uses: cypress-io/github-action@v1.16.1
-      working-directory: apps/ide-ui-e2e 
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
     - uses: actions/upload-artifact@v1
-      working-directory: apps/ide-ui-e2e 
+      working-directory: apps/ide-ui-e2e
       # Test run screenshots only on failure
       if: failure()
       with:
@@ -36,7 +36,7 @@ jobs:
         path: cypress/screenshots
       # Test run video was always captured, so this action uses "always()" condition
     - uses: actions/upload-artifact@v1
-      working-directory: apps/ide-ui-e2e 
+      working-directory: apps/ide-ui-e2e
       if: always()
       with:
         name: cypress-videos
