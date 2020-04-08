@@ -24,9 +24,20 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
-    - name: Cypress.io
+    - name: Run Cypress
       uses: cypress-io/github-action@v1.16.1
-      env:
-        CI: true
+      working-directory: apps/ide-ui-e2e 
+    - uses: actions/upload-artifact@v1
+      working-directory: apps/ide-ui-e2e 
+      # Test run screenshots only on failure
+      if: failure()
+      with:
+        name: cypress-screenshots
+        path: cypress/screenshots
+      # Test run video was always captured, so this action uses "always()" condition
+    - uses: actions/upload-artifact@v1
+      working-directory: apps/ide-ui-e2e 
+      if: always()
+      with:
+        name: cypress-videos
+        path: cypress/videos
