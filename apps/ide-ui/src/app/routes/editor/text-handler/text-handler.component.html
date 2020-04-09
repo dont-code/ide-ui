@@ -1,0 +1,6 @@
+<ng-container *ngFor="let element of listOfElements">
+  <ng-container [ngSwitch]="(element | typeOf)">
+    <ide-ui-text-element *ngSwitchCase="'string'" [text]="element"></ide-ui-text-element>
+    <ide-ui-select-element *ngSwitchCase="'array'" [options]="element"></ide-ui-select-element>
+  </ng-container>
+</ng-container>
