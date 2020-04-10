@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TextHandlerComponent } from './text-handler.component';
+import { SelectElementComponent } from '../select-element/select-element.component';
+import { TextElementComponent } from '../text-element/text-element.component';
+import { SharedModule } from '../../../shared/shared.module';
+import { EditorModule } from '../editor.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TextHandlerComponent', () => {
   let component: TextHandlerComponent;
@@ -8,7 +13,7 @@ describe('TextHandlerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextHandlerComponent ]
+      imports: [NoopAnimationsModule, SharedModule, EditorModule]
     })
     .compileComponents();
   }));

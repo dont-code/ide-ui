@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainEditorComponent } from './main-editor.component';
+import { EditorModule } from '../editor.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('MainEditorComponent', () => {
   let component: MainEditorComponent;
@@ -8,7 +10,7 @@ describe('MainEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainEditorComponent ]
+      imports: [NoopAnimationsModule, EditorModule]
     })
     .compileComponents();
   }));
