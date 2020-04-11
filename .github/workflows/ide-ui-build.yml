@@ -19,24 +19,35 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm run ng test
-    - run: npm test
-    - uses: actions/upload-artifact@v1
-      # Test run screenshots only on failure
-      if: failure()
-      with:
-        name: cypress-screenshots
-        path: dist/cypress/apps/ide-ui-e2e/screenshots
-      # Test run video was always captured, so this action uses "always()" condition
-    - uses: actions/upload-artifact@v1
-      if: always()
-      with:
-        name: cypress-videos
-        path: dist/cypress/apps/ide-ui-e2e/videos
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: building
+        run: npm ci
+      - name: building
+        run: npm run build --if-present
+      - name: Unit tests
+        run: npm run ng test
+      - name: End to End Tests
+        run: npm test
+      - uses: actions/upload-artifact@v1
+        # Test run screenshots only on failure
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: dist/cypress/apps/ide-ui-e2e/screenshots
+        # Test run video was always captured, so this action uses "always()" condition
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: cypress-videos
+          path: dist/cypress/apps/ide-ui-e2e/videos
+      - name: Deploy
+        if: success()
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: dist/apps/ide-ui
