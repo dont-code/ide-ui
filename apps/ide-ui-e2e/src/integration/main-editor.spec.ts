@@ -1,4 +1,4 @@
-import { getApplicationSelect } from '../support/main-editor.po';
+import { getApplicationOption, getApplicationSelect } from '../support/main-editor.po';
 
 
 describe('main-editor', () => {
@@ -10,6 +10,7 @@ describe('main-editor', () => {
 
     // Function helper example, see `../support/app.po.ts` file
 
-    getApplicationSelect().contains('application');
+    getApplicationSelect().click();
+    getApplicationOption().contains('application');
   });
 });

@@ -24,10 +24,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm run ng test
-    - run: npm test
+    - name: building
+      run: npm ci
+    - name: building
+      run: npm run build --if-present
+    - name: Unit tests
+      run: npm run ng test
+    - name: End to End Tests
+      run: npm test
     - uses: actions/upload-artifact@v1
       # Test run screenshots only on failure
       if: failure()
