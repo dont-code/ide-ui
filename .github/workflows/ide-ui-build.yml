@@ -40,10 +40,3 @@ jobs:
       with:
         name: cypress-videos
         path: dist/cypress/apps/ide-ui-e2e/videos
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      if: success()
-      with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages # The branch the action should deploy to.
-        FOLDER: dist/apps/ide-ui
