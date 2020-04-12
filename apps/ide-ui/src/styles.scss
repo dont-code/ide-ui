@@ -30,3 +30,11 @@ $ide-ui-theme: mat-light-theme($ide-ui-primary, $ide-ui-accent, $ide-ui-warn);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.displayable {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.displayable:hover {
+  color: red;
+}

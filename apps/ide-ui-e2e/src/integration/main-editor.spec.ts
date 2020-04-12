@@ -1,4 +1,9 @@
-import { getApplicationOption, getApplicationSelect } from '../support/main-editor.po';
+import {
+  getApplicationOption,
+  getApplicationSelect,
+  getItemScreenOption,
+  getItemSelect
+} from '../support/main-editor.po';
 
 
 describe('main-editor', () => {
@@ -12,5 +17,9 @@ describe('main-editor', () => {
 
     getApplicationSelect().click();
     getApplicationOption().contains('application');
+    getApplicationOption().click();
+    getItemSelect().click();
+    getItemScreenOption().contains('screens');
+    getItemScreenOption().click();
   });
 });

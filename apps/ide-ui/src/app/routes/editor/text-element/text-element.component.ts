@@ -7,6 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TextElementComponent implements OnInit {
   @Input()
+  elementId: string;
+
+  @Input()
   text: string;
 
   constructor() { }

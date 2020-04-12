@@ -9,6 +9,8 @@ export class SelectElementComponent implements OnInit {
 
   @Input()
   options: string[]
+  @Input()
+  elementId: string;
 
   constructor() { }
 

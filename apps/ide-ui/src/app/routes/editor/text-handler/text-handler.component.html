@@ -1,6 +1,8 @@
-<ng-container *ngFor="let element of listOfElements">
-  <ng-container [ngSwitch]="(element | typeOf)">
-    <ide-ui-text-element *ngSwitchCase="'string'" [text]="element"></ide-ui-text-element>
-    <ide-ui-select-element *ngSwitchCase="'array'" [options]="element"></ide-ui-select-element>
+<ng-container *ngIf="(context$ | async) as ctx">
+  <ng-container *ngFor="let element of listOfElements">
+    <ng-container [ngSwitch]="element.type">
+      <ide-ui-text-element *ngSwitchCase="'string'" [text]="element.value" [elementId]="element.id"></ide-ui-text-element>
+      <ide-ui-select-element *ngSwitchCase="'array'" [options]="element.values" [elementId]="element.id"></ide-ui-select-element>
+    </ng-container>
   </ng-container>
 </ng-container>
