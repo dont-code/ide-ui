@@ -1,8 +1,10 @@
 <ng-container *ngIf="(context$ | async) as ctx">
   <ng-container *ngFor="let element of listOfElements">
     <ng-container [ngSwitch]="element.type">
+      <br *ngSwitchCase="'newLine'"/>
       <ide-ui-text-element *ngSwitchCase="'string'" [text]="element.value" [elementId]="element.id"></ide-ui-text-element>
       <ide-ui-select-element *ngSwitchCase="'array'" [options]="element.values" [elementId]="element.id"></ide-ui-select-element>
+      <ide-ui-input-element *ngSwitchCase="'input'" [elementId]="element.id"></ide-ui-input-element>
     </ng-container>
   </ng-container>
 </ng-container>

@@ -16,6 +16,10 @@ export class EditorElement {
     }else if (action.isArray()){
       ret.type='array';
       ret.values=action.values;
+    } else if (action.isInput()) {
+      ret.type='input';
+    } else if (action.isNewline()) {
+      ret.type='newLine';
     }
     return ret;
   }

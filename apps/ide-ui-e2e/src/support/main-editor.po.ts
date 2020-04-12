@@ -1,4 +1,7 @@
-export const getApplicationSelect = () => cy.get('#appType');
-export const getApplicationOption = () => cy.get('[ng-reflect-value=appType-application]');
-export const getItemSelect = () => cy.get('#items');
-export const getItemScreenOption = () => cy.get('[ng-reflect-value=items-screens]');
+export const getAppNameInput = () => cy.get('#appName');
+export const getAppMainEntityName = () => cy.get('#appMainEntityName');
+
+export const getAppMainActionSelect = () => cy.get('#appMainAction');
+export const getAppMainActionOption = () => cy.get('[ng-reflect-value=appMainAction-view]');
+export const getPropNameSelect = () => cy.get('#entityPropNameType');
+export const getPropNameOptionName = () => cy.get('[ng-reflect-value=entityPropNameType-name]');

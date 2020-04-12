@@ -1,8 +1,8 @@
 import {
-  getApplicationOption,
-  getApplicationSelect,
-  getItemScreenOption,
-  getItemSelect
+  getAppMainActionOption,
+  getAppMainActionSelect, getAppMainEntityName, getAppNameInput,
+  getPropNameOptionName,
+  getPropNameSelect
 } from '../support/main-editor.po';
 
 
@@ -15,11 +15,13 @@ describe('main-editor', () => {
 
     // Function helper example, see `../support/app.po.ts` file
 
-    getApplicationSelect().click();
-    getApplicationOption().contains('application');
-    getApplicationOption().click();
-    getItemSelect().click();
-    getItemScreenOption().contains('screens');
-    getItemScreenOption().click();
+    getAppNameInput().type('To Do App');
+    getAppMainEntityName().type('ToDo');
+    getAppMainActionSelect().click();
+    getAppMainActionOption().contains('view');
+    getAppMainActionOption().click();
+    getPropNameSelect().click();
+    getPropNameOptionName().contains('name');
+    getPropNameOptionName().click();
   });
 });
