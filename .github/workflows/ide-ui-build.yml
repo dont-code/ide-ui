@@ -31,7 +31,7 @@ jobs:
       - name: Unit tests
         run: npm run ng test
       - name: End to End Tests
-        run: npm test
+        run: npm run ng e2e
       - uses: actions/upload-artifact@v1
         # Test run screenshots only on failure
         if: failure()
