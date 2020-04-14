@@ -1,4 +1,4 @@
-export class ModelAction {
+export class TextAction {
   protected type: string;
   id: string;
   textValue: string;

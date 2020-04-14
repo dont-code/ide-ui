@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { ModelAction } from '../../../shared/model/model-action';
 import { map } from 'rxjs/operators';
-import { ModelService } from '../../../shared/model/services/model.service';
+import { TextService } from '../../../shared/text/services/text.service';
 import { EditorElement } from '../editor-element';
 
 @Component({
@@ -15,14 +14,14 @@ export class TextHandlerComponent implements OnInit {
   listOfElements:EditorElement[] = [];
   context$: Observable<any>;
 
-  constructor(protected model: ModelService) { }
+  constructor(protected model: TextService) { }
 
   ngOnInit(): void {
 
     this.context$ = combineLatest([this.model.listEvents()])
-      .pipe(map ((modelAction) => {
-        this.listOfElements.push(EditorElement.fromModelAction (modelAction[0]));
-        return {modelAction};
+      .pipe(map ((textAction) => {
+        this.listOfElements.push(EditorElement.fromTextAction (textAction[0]));
+        return {modelAction: textAction};
       }));
   }
 

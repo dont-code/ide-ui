@@ -1,4 +1,4 @@
-import { ModelAction } from '../../shared/model/model-action';
+import { TextAction } from '../../shared/text/text-action';
 
 export class EditorElement {
   type: string;
@@ -8,7 +8,7 @@ export class EditorElement {
   constructor(public id:string) {
   }
 
-  static fromModelAction(action: ModelAction) {
+  static fromTextAction(action: TextAction) {
     let ret = new EditorElement(action.id);
     if (action.isText()) {
       ret.type='string';
