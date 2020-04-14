@@ -14,20 +14,14 @@ export class TextHandlerComponent implements OnInit {
 
   listOfElements:EditorElement[] = [];
   context$: Observable<any>;
-  modelActions$: Observable<ModelAction>;
 
   constructor(protected model: ModelService) { }
 
   ngOnInit(): void {
-    this.modelActions$ = this.model.listEvents().pipe(
-      map (action => {
-        this.listOfElements.push(EditorElement.fromModelAction (action));
-        return action;
-      })
-    );
 
-    this.context$ = combineLatest([this.modelActions$])
+    this.context$ = combineLatest([this.model.listEvents()])
       .pipe(map ((modelAction) => {
+        this.listOfElements.push(EditorElement.fromModelAction (modelAction[0]));
         return {modelAction};
       }));
   }

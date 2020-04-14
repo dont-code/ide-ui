@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ModelService } from '../../../shared/model/services/model.service';
 
 @Component({
   selector: 'ide-ui-main-editor',
