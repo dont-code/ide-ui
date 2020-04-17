@@ -8,6 +8,7 @@ import { EditorModule } from './routes/editor/editor.module';
 import { RouterModule, Routes } from '@angular/router';
 import { MainEditorComponent } from './routes/editor/main-editor/main-editor.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: '', component: MainEditorComponent }]
@@ -19,7 +20,8 @@ const appRoutes: Routes = [
     FlexLayoutModule, RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
-    )],
+    ),
+  HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]
 })

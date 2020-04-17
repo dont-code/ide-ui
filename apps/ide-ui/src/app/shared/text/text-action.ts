@@ -1,5 +1,5 @@
 export class TextAction {
-  protected type: string;
+  type: string;
   id: string;
   textValue: string;
   values: string[]

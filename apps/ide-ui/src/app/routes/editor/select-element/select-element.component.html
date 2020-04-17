@@ -1,4 +1,5 @@
 <mat-form-field class="displayable">
+  <mat-label>{{elementId}}</mat-label>
   <mat-select [id]="elementId">
     <mat-option [value]="elementId+'-'+option" *ngFor="let option of options" >
       {{option}}

@@ -10,7 +10,17 @@
   </button>
   <img src="assets/images/logo64.png">
   <span>Non-Development Environment</span>
-</mat-toolbar>
+    <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
+    <button
+      type="button"
+      aria-label="Load Schema"
+      mat-icon-button
+      (click)="loadSchema()">
+      <mat-icon aria-label="Load the schema">cloud_download</mat-icon>
+    </button>
+
+  </mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav id="mainSidePanel" #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"

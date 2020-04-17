@@ -8,11 +8,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '../../shared/shared.module';
 import { InputElementComponent } from './input-element/input-element.component';
 import { MatInputModule } from '@angular/material/input';
+import { SubTextElementComponent } from './sub-text-element/sub-text-element.component';
 
 
 
 @NgModule({
-  declarations: [MainEditorComponent, TextHandlerComponent, TextElementComponent, SelectElementComponent, InputElementComponent],
+  declarations: [MainEditorComponent, TextHandlerComponent, TextElementComponent, SelectElementComponent, InputElementComponent, SubTextElementComponent],
   exports: [
     MainEditorComponent
   ],

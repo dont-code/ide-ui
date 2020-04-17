@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { TextService } from '../../../shared/text/services/text.service';
 import { EditorElement } from '../editor-element';
+import { MarginService } from '../margin.service';
 
 @Component({
   selector: 'ide-ui-text-handler',
@@ -12,17 +11,12 @@ import { EditorElement } from '../editor-element';
 export class TextHandlerComponent implements OnInit {
 
   listOfElements:EditorElement[] = [];
-  context$: Observable<any>;
 
-  constructor(protected model: TextService) { }
+  constructor(protected model: TextService, protected margin:MarginService) { }
 
   ngOnInit(): void {
-
-    this.context$ = combineLatest([this.model.listEvents()])
-      .pipe(map ((textAction) => {
-        this.listOfElements.push(EditorElement.fromTextAction (textAction[0]));
-        return {modelAction: textAction};
-      }));
+    this.listOfElements = this.model.listOfElements;
+    this.margin.reset();
   }
 
 }
