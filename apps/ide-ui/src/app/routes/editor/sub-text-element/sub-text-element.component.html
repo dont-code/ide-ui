@@ -1,3 +1,18 @@
-<br/>{{updateMargin()}}
-<span [style.margin-left.px]="value" class="displayable" [id]="elementId">{{text}}</span>
-<br/>
+<mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <span class="displayable" [id]="elementId">{{text}}</span>
+    </mat-panel-title>
+    <mat-panel-description>
+      A description
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div style="margin-left: 50px">
+    <ng-content></ng-content>
+  </div>
+  <mat-action-row>
+    <button *ngIf="type==='array'" type="button" mat-icon-button (click)="addElement()">
+      <mat-icon aria-label="Add item">add</mat-icon>
+    </button>
+  </mat-action-row>
+</mat-expansion-panel>

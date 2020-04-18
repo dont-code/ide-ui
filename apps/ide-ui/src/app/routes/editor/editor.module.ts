@@ -9,6 +9,9 @@ import { SharedModule } from '../../shared/shared.module';
 import { InputElementComponent } from './input-element/input-element.component';
 import { MatInputModule } from '@angular/material/input';
 import { SubTextElementComponent } from './sub-text-element/sub-text-element.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 
@@ -17,11 +20,14 @@ import { SubTextElementComponent } from './sub-text-element/sub-text-element.com
   exports: [
     MainEditorComponent
   ],
-    imports: [
-        CommonModule,
-        MatSelectModule,
-        SharedModule,
-        MatInputModule
-    ]
+  imports: [
+    CommonModule,
+    MatSelectModule,
+    SharedModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatExpansionModule
+  ]
 })
 export class EditorModule { }

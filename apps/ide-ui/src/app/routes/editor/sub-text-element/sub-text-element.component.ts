@@ -1,5 +1,4 @@
-import { Component, Host, Input, OnInit } from '@angular/core';
-import { MarginService } from '../margin.service';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ide-ui-sub-text-element',
@@ -14,22 +13,14 @@ export class SubTextElementComponent implements OnInit {
   text: string;
 
   @Input()
-  start: boolean;
+  type: string;
 
-  value:number;
-
-  constructor(protected margin: MarginService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  updateMargin () {
-    if( this.start) {
-      this.value=this.margin.value();
-    }
-    this.margin.change(this.start);
-    if( !this.start) {
-      this.value=this.margin.value();
-    }
+  addElement() {
+
   }
 }

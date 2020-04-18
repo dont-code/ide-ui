@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TextService } from '../../../shared/text/services/text.service';
 import { EditorElement } from '../editor-element';
-import { MarginService } from '../margin.service';
 
 @Component({
   selector: 'ide-ui-text-handler',
@@ -10,13 +9,15 @@ import { MarginService } from '../margin.service';
 })
 export class TextHandlerComponent implements OnInit {
 
+  @Input()
+  position:string;
+
   listOfElements:EditorElement[] = [];
 
-  constructor(protected model: TextService, protected margin:MarginService) { }
+  constructor(protected model: TextService) { }
 
   ngOnInit(): void {
-    this.listOfElements = this.model.listOfElements;
-    this.margin.reset();
+    this.listOfElements = this.model.getList(this.position);
   }
 
 }

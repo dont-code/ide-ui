@@ -1,11 +1,10 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { Observable, ReplaySubject, Subject, Subscriber } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 import { TextAction } from '../text-action';
 import { DontCodeModel } from '../../model/dont-code-model';
 import { DontCodeSchema } from '../../model/dont-code-schema';
 import { SubTextAction } from '../sub-text-action';
 import { EditorElement } from '../../../routes/editor/editor-element';
-import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,9 @@ export class TextService {
     [DontCodeModel.ROOT, 'I want to create'],
     [DontCodeModel.ROOT+'/'+DontCodeModel.APP_NAME_NODE, 'name'],
   ]);
-  listOfElements:EditorElement[] = [];
+  listOfElementsStack:EditorElement[][]=[];
+  rootListOfElements:EditorElement[] = [];
+  mapOfElements = new Map<string, EditorElement[]>();
 
   /*  event = new Observable<TextAction> ((observer) => {
       observer.next(new TextAction('createTxt','I want to create an application'));
@@ -49,14 +50,32 @@ export class TextService {
     });*/
 
   constructor() {
+    this.listOfElementsStack.push(this.rootListOfElements);
+    this.mapOfElements.set('', this.rootListOfElements);
     this.event
       .subscribe(textAction => {
-        this.listOfElements.push(EditorElement.fromTextAction (textAction));
+        if( textAction instanceof SubTextAction) {
+          const subAction = textAction as SubTextAction;
+          if (subAction.isStart()) {
+            this.currentList().push(EditorElement.fromTextAction (textAction));
+            const newList:EditorElement[]=[];
+            this.listOfElementsStack.push(newList );
+            this.mapOfElements.set(subAction.id, newList);
+          } else {
+            this.listOfElementsStack.pop();
+            this.currentList().push(EditorElement.fromTextAction (textAction));
+          }
+        }
+        else {
+          this.currentList().push(EditorElement.fromTextAction (textAction));
+        }
       });
   }
 
-  listEvents (): Observable<TextAction> {
-    return this.event;
+  protected currentList (): EditorElement[] {
+    if( this.listOfElementsStack.length==0)
+      return null;
+    return this.listOfElementsStack[this.listOfElementsStack.length-1];
   }
 
   /**
@@ -144,5 +163,11 @@ export class TextService {
         ret = context;
     }
   return ret;
+  }
+
+  getList(fromId?:string) : EditorElement[] {
+    if (!fromId)
+      fromId='';
+    return this.mapOfElements.get(fromId);
   }
 }
