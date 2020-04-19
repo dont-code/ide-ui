@@ -7,10 +7,18 @@
   </mat-expansion-panel-header>
   <div style="margin-left: 20px">
     <ng-content></ng-content>
-  </div>
-  <mat-action-row>
-    <button *ngIf="element.type==='array'" type="button" mat-icon-button (click)="addElement()">
+    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button (click)="addElement()">
       <mat-icon aria-label="Add item">add</mat-icon>
     </button>
-  </mat-action-row>
+    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button (click)="addElement()">
+      <mat-icon aria-label="Remove item">remove</mat-icon>
+    </button>
+    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button (click)="addElement()">
+      <mat-icon aria-label="Up">keyboard_arrow_up</mat-icon>
+    </button>
+    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button (click)="addElement()">
+      <mat-icon aria-label="Down">keyboard_arrow_down</mat-icon>
+    </button>
+
+  </div>
 </mat-expansion-panel>
