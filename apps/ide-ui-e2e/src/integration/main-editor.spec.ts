@@ -1,13 +1,10 @@
 import {
-  getAppMainActionOption,
-  getAppMainActionSelect,
   getAppMainEntityName,
   getAppNameInput,
   getEntityFieldName,
-  getEntityFieldType, getEntityFieldTypeString,
-  getLoadSchemaButton,
-  getPropNameOptionName,
-  getPropNameSelect
+  getEntityFieldType,
+  getEntityFieldTypeString,
+  getLoadSchemaButton
 } from '../support/main-editor.po';
 
 
