@@ -1,7 +1,6 @@
 export class TextAction {
   type: string;
   id: string;
-  textValue: string;
   values: string[]
 
   constructor (id: string, ...text:string[]) {
@@ -14,7 +13,6 @@ export class TextAction {
       }
     } else if (text.length==1){
       this.type='text';
-      this.textValue = text[0];
       }else {
         this.type='array';
         this.values=text;

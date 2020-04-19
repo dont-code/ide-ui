@@ -7,13 +7,15 @@ export class EditorElement {
   values: string[];
 
   constructor(public id:string) {
+    if( this.id)
+      this.id=this.id.split('/').join('-');
   }
 
   static fromTextAction(action: TextAction) {
     let ret = new EditorElement(action.id);
+    ret.value=action.id;
     if (action.isText()) {
       ret.type='string';
-      ret.value=action.textValue;
     }else if (action.isArray()){
       ret.type='list';
       ret.values=action.values;
@@ -33,7 +35,6 @@ export class EditorElement {
           ret.type=ret.type+'-start';
         else
           ret.type=ret.type+'-end';
-        ret.value = subAction.textValue;
     }
     return ret;
   }

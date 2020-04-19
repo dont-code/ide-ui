@@ -9,6 +9,9 @@ export class InputElementComponent implements OnInit {
   @Input()
   elementId: string;
 
+  @Input()
+  position: string;
+
   constructor() { }
 
   ngOnInit(): void {

@@ -10,12 +10,11 @@ export class SubTextAction extends TextAction {
   multiple: boolean;
   startOrEnd: boolean;
 
-  constructor(id: string, text:string, type:string, startOrEnd:boolean) {
+  constructor(id: string, type:string, startOrEnd:boolean) {
     super(id);
     this.type = 'object';
     this.multiple = (type===SubTextAction.MULTIPLE);
     this.startOrEnd = startOrEnd;
-    this.textValue = text;
   }
 
   isObject(): boolean {

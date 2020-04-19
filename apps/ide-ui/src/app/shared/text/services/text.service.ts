@@ -15,10 +15,6 @@ export class TextService {
 
   event = new ReplaySubject<TextAction> ();
 
-  texts = new Map<string, string> ([
-    [DontCodeModel.ROOT, 'I want to create'],
-    [DontCodeModel.ROOT+'/'+DontCodeModel.APP_NAME_NODE, 'name'],
-  ]);
   listOfElementsStack:EditorElement[][]=[];
   rootListOfElements:EditorElement[] = [];
   mapOfElements = new Map<string, EditorElement[]>();
@@ -86,7 +82,7 @@ export class TextService {
     this.jsonSchema = schemaAsJson;
     const root= this.goto(schemaAsJson, DontCodeSchema.ROOT);
     if( root) {
-      this.event.next(new TextAction(DontCodeModel.ROOT, this.toText (DontCodeModel.ROOT)));
+      this.event.next(new TextAction(DontCodeModel.ROOT, DontCodeModel.ROOT));
       this.readSubSchema (root['properties'], DontCodeModel.ROOT);
     }
   }
@@ -102,17 +98,17 @@ export class TextService {
           this.event.next(new TextAction(position+'/'+key, ...value['enum']));
           break;
         case 'array':
-          this.event.next(new SubTextAction(position+'/'+key, this.toText(position+'/'+key)
+          this.event.next(new SubTextAction(position+'/'+key
             ,SubTextAction.MULTIPLE, SubTextAction.START));
           this.readSubSchema(value['items'], position+'/'+key);
-          this.event.next(new SubTextAction(position+'/'+key, this.toText(position+'/'+key)
+          this.event.next(new SubTextAction(position+'/'+key
             ,SubTextAction.MULTIPLE, SubTextAction.END));
           break;
         case 'object':
-          this.event.next(new SubTextAction(position+'/'+key,this.toText(position+'/'+key)
+          this.event.next(new SubTextAction(position+'/'+key
             ,SubTextAction.SINGLE, SubTextAction.START));
           this.readSubSchema(value['properties'], position+'/'+key);
-          this.event.next(new SubTextAction(position+'/'+key, this.toText(position+'/'+key)
+          this.event.next(new SubTextAction(position+'/'+key
             ,SubTextAction.SINGLE,SubTextAction.END));
           break;
       }
@@ -148,21 +144,6 @@ export class TextService {
         ret = 'enum'
     }
     return ret;
-  }
-
-  toText (context:string, element?:string): string {
-    let ret:string;
-    if (element) {
-      ret = this.texts.get(context+'/'+element);
-      if (!ret) {
-        ret = context+'/'+element;
-      }
-    }else {
-      ret = this.texts.get(context);
-      if (!ret)
-        ret = context;
-    }
-  return ret;
   }
 
   getList(fromId?:string) : EditorElement[] {

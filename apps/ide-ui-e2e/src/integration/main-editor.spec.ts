@@ -1,6 +1,11 @@
 import {
   getAppMainActionOption,
-  getAppMainActionSelect, getAppMainEntityName, getAppNameInput,
+  getAppMainActionSelect,
+  getAppMainEntityName,
+  getAppNameInput,
+  getEntityFieldName,
+  getEntityFieldType, getEntityFieldTypeString,
+  getLoadSchemaButton,
   getPropNameOptionName,
   getPropNameSelect
 } from '../support/main-editor.po';
@@ -10,18 +15,14 @@ describe('main-editor', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display correct text', () => {
-    // Custom command example, see `../support/commands.ts` file
-//    cy.login('my-email@something.com', 'myPassword');
-
+    getLoadSchemaButton().click();
     // Function helper example, see `../support/app.po.ts` file
 
     getAppNameInput().type('To Do App');
     getAppMainEntityName().type('ToDo');
-    getAppMainActionSelect().click();
-    getAppMainActionOption().contains('view');
-    getAppMainActionOption().click();
-    getPropNameSelect().click();
-    getPropNameOptionName().contains('name');
-    getPropNameOptionName().click();
+    getEntityFieldName().type('name');
+    getEntityFieldType().click();
+    getEntityFieldTypeString().contains('string');
+    getEntityFieldTypeString().click();
   });
 });

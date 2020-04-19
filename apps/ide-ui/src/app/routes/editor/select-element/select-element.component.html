@@ -1,8 +1,11 @@
+<span class="displayable">{{(position | locale)}}</span>
 <mat-form-field class="displayable">
-  <mat-label>{{elementId}}</mat-label>
+  <mat-label>{{(position | localeDesc)}}</mat-label>
   <mat-select [id]="elementId">
-    <mat-option [value]="elementId+'-'+option" *ngFor="let option of options" >
-      {{option}}
-    </mat-option>
+    <ng-container *ngFor="let option of options">
+      <mat-option [value]="calculateOptionValue(option)" >
+        {{(option | locale)}}
+      </mat-option>
+    </ng-container>
   </mat-select>
 </mat-form-field>

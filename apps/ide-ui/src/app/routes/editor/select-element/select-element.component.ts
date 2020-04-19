@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { LocaleService } from '../../../shared/text/services/locale.service';
 
 @Component({
   selector: 'ide-ui-select-element',
@@ -12,9 +13,17 @@ export class SelectElementComponent implements OnInit {
   @Input()
   elementId: string;
 
-  constructor() { }
+  @Input()
+  position: string;
+
+  constructor() {
+
+  }
 
   ngOnInit(): void {
   }
 
+  calculateOptionValue(option: string): string {
+    return option;
+  }
 }

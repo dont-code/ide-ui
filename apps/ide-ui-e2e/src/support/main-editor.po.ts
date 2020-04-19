@@ -1,7 +1,7 @@
-export const getAppNameInput = () => cy.get('#appName');
-export const getAppMainEntityName = () => cy.get('#appMainEntityName');
+export const getLoadSchemaButton = () => cy.get('#loadSchema');
+export const getAppNameInput = () => cy.get('#creation-name');
+export const getAppMainEntityName = () => cy.get('#creation-entities-name');
 
-export const getAppMainActionSelect = () => cy.get('#appMainAction');
-export const getAppMainActionOption = () => cy.get('[ng-reflect-value=appMainAction-view]');
-export const getPropNameSelect = () => cy.get('#entityPropNameType');
-export const getPropNameOptionName = () => cy.get('[ng-reflect-value=entityPropNameType-name]');
+export const getEntityFieldName = () => cy.get('#creation-entities-fields-name');
+export const getEntityFieldType = () => cy.get('#creation-entities-fields-type');
+export const getEntityFieldTypeString = () => cy.get('[ng-reflect-value=string]');

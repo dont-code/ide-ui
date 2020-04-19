@@ -1,13 +1,11 @@
+<span class="displayable" >{{(text | locale)}}</span>
 <mat-expansion-panel [expanded]="true">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      <span class="displayable" [id]="elementId">{{text}}</span>
+      <span class="displayable" [id]="elementId">{{(text | localeDesc)}}</span>
     </mat-panel-title>
-    <mat-panel-description>
-      A description
-    </mat-panel-description>
   </mat-expansion-panel-header>
-  <div style="margin-left: 50px">
+  <div style="margin-left: 20px">
     <ng-content></ng-content>
   </div>
   <mat-action-row>
