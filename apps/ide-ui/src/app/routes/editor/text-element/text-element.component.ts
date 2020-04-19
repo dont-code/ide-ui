@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { EditorElement } from '../editor-element';
 
 @Component({
   selector: 'ide-ui-text-element',
@@ -7,10 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TextElementComponent implements OnInit {
   @Input()
-  elementId: string;
-
-  @Input()
-  text: string;
+  element: EditorElement;
 
   constructor() { }
 

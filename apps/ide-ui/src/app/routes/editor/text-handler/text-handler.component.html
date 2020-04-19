@@ -2,15 +2,15 @@
   <ng-container *ngFor="let element of listOfElements">
     <ng-container [ngSwitch]="element.type">
       <br *ngSwitchCase="'newLine'"/>
-      <ide-ui-text-element *ngSwitchCase="'string'" [text]="element.value" [elementId]="element.id"></ide-ui-text-element>
-      <ide-ui-sub-text-element *ngSwitchCase="'object-start'" [text]="element.value" [elementId]="element.id" type="object">
-        <ide-ui-text-handler [position]="element.value"></ide-ui-text-handler>
+      <ide-ui-text-element *ngSwitchCase="'string'" [element]="element"></ide-ui-text-element>
+      <ide-ui-sub-text-element *ngSwitchCase="'object-start'" [element]="element">
+        <ide-ui-text-handler [position]="element.position+'/a'"></ide-ui-text-handler>
       </ide-ui-sub-text-element>
-      <ide-ui-sub-text-element *ngSwitchCase="'array-start'" [text]="element.value" [elementId]="element.id" type="array">
-        <ide-ui-text-handler [position]="element.value"></ide-ui-text-handler>
+      <ide-ui-sub-text-element *ngSwitchCase="'array-start'" [element]="element">
+        <ide-ui-text-handler [position]="element.position+'/a'"></ide-ui-text-handler>
       </ide-ui-sub-text-element>
-      <ide-ui-select-element *ngSwitchCase="'list'" [options]="element.values" [elementId]="element.id" [position]="element.value"></ide-ui-select-element>
-      <ide-ui-input-element *ngSwitchCase="'input'" [elementId]="element.id" [position]="element.value"></ide-ui-input-element>
+      <ide-ui-select-element *ngSwitchCase="'list'" [element]="element"></ide-ui-select-element>
+      <ide-ui-input-element *ngSwitchCase="'input'" [element]="element"></ide-ui-input-element>
     </ng-container>
   </ng-container>
 </ng-container>

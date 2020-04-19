@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LocaleService } from '../../../shared/text/services/locale.service';
+import { EditorElement } from '../editor-element';
 
 @Component({
   selector: 'ide-ui-select-element',
@@ -9,12 +10,7 @@ import { LocaleService } from '../../../shared/text/services/locale.service';
 export class SelectElementComponent implements OnInit {
 
   @Input()
-  options: string[]
-  @Input()
-  elementId: string;
-
-  @Input()
-  position: string;
+  element: EditorElement;
 
   constructor() {
 

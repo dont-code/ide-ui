@@ -12,6 +12,7 @@ export class SubTextAction extends TextAction {
 
   constructor(id: string, type:string, startOrEnd:boolean) {
     super(id);
+
     this.type = 'object';
     this.multiple = (type===SubTextAction.MULTIPLE);
     this.startOrEnd = startOrEnd;

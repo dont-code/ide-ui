@@ -1,10 +1,16 @@
 export class TextAction {
   type: string;
   id: string;
+  relativeId:string;
   values: string[]
 
   constructor (id: string, ...text:string[]) {
     this.id=id;
+    if( id.lastIndexOf('/')==-1) {
+      this.relativeId = id;
+    }else {
+      this.relativeId=id.substring(id.lastIndexOf('/')+1);
+    }
     if( text.length == 0) {
       if (this.id==null) {
         this.type='newline';

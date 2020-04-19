@@ -1,5 +1,5 @@
-<span class="displayable">{{(position | locale)}}</span>
+<span class="displayable">{{(element.schemaPosition | locale)}}</span>
 <mat-form-field class="displayable">
-  <mat-label>{{(position | localeDesc)}}</mat-label>
-  <input matInput [id]="elementId" [name]="elementId">
+  <mat-label>{{(element.schemaPosition | localeDesc)}}</mat-label>
+  <input matInput [id]="element.id" [name]="element.id">
 </mat-form-field>

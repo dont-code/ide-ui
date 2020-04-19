@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { EditorElement } from '../editor-element';
 
 @Component({
   selector: 'ide-ui-sub-text-element',
@@ -7,13 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SubTextElementComponent implements OnInit {
   @Input()
-  elementId: string;
-
-  @Input()
-  text: string;
-
-  @Input()
-  type: string;
+  element: EditorElement;
 
   constructor() { }
 

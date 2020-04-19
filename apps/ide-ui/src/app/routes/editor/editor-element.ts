@@ -2,18 +2,25 @@ import { TextAction } from '../../shared/text/text-action';
 import { SubTextAction } from '../../shared/text/sub-text-action';
 
 export class EditorElement {
+  id: string;
   type: string;
-  value: string;
+  position: string;
+  schemaPosition: string;
   values: string[];
 
-  constructor(public id:string) {
+  constructor(id:string, position?:string, schemaPosition?:string) {
+    this.id = id;
+    this.position=position;
+    this.schemaPosition=schemaPosition;
+
     if( this.id)
       this.id=this.id.split('/').join('-');
   }
 
-  static fromTextAction(action: TextAction) {
-    let ret = new EditorElement(action.id);
-    ret.value=action.id;
+  static fromTextAction(action: TextAction, position: string) {
+    let ret = new EditorElement(position);
+    ret.position = position;
+    ret.schemaPosition=action.id;
     if (action.isText()) {
       ret.type='string';
     }else if (action.isArray()){

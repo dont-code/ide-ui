@@ -16,6 +16,8 @@ export class TextService {
   event = new ReplaySubject<TextAction> ();
 
   listOfElementsStack:EditorElement[][]=[];
+  positionStack:string[]=[];
+
   rootListOfElements:EditorElement[] = [];
   mapOfElements = new Map<string, EditorElement[]>();
 
@@ -48,22 +50,30 @@ export class TextService {
   constructor() {
     this.listOfElementsStack.push(this.rootListOfElements);
     this.mapOfElements.set('', this.rootListOfElements);
+    this.positionStack.push('');
     this.event
       .subscribe(textAction => {
+        let position = this.currentPosition()+'/'+textAction.relativeId;
+        if (textAction.id===DontCodeModel.ROOT) {
+          this.positionStack.push(textAction.id);
+          position = textAction.id;
+        }
         if( textAction instanceof SubTextAction) {
           const subAction = textAction as SubTextAction;
           if (subAction.isStart()) {
-            this.currentList().push(EditorElement.fromTextAction (textAction));
+            this.currentList().push(EditorElement.fromTextAction (textAction, position));
             const newList:EditorElement[]=[];
             this.listOfElementsStack.push(newList );
-            this.mapOfElements.set(subAction.id, newList);
+            this.positionStack.push(position+'/a');
+            this.mapOfElements.set(this.currentPosition(), newList);
           } else {
             this.listOfElementsStack.pop();
-            this.currentList().push(EditorElement.fromTextAction (textAction));
+            this.positionStack.pop();
+            this.currentList().push(EditorElement.fromTextAction (textAction, this.currentPosition()));
           }
         }
         else {
-          this.currentList().push(EditorElement.fromTextAction (textAction));
+          this.currentList().push(EditorElement.fromTextAction (textAction, position));
         }
       });
   }
@@ -72,6 +82,11 @@ export class TextService {
     if( this.listOfElementsStack.length==0)
       return null;
     return this.listOfElementsStack[this.listOfElementsStack.length-1];
+  }
+  protected currentPosition (): string {
+    if( this.positionStack.length==0)
+      return null;
+    return this.positionStack[this.positionStack.length-1];
   }
 
   /**
