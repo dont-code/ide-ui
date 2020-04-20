@@ -8,13 +8,14 @@ export class EditorElement {
   schemaPosition: string;
   values: string[];
 
-  constructor(id:string, position?:string, schemaPosition?:string) {
+  constructor(id:string, position?:string, schemaPosition?:string, type?:string) {
     this.id = id;
     this.position=position;
     this.schemaPosition=schemaPosition;
 
     if( this.id)
       this.id=this.id.split('/').join('-');
+    this.type=type;
   }
 
   static fromTextAction(action: TextAction, position: string) {

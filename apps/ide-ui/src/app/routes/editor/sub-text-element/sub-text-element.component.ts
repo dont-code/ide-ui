@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EditorElement } from '../editor-element';
+import { TextService } from '../../../shared/text/services/text.service';
 
 @Component({
   selector: 'ide-ui-sub-text-element',
@@ -10,12 +11,14 @@ export class SubTextElementComponent implements OnInit {
   @Input()
   element: EditorElement;
 
-  constructor() { }
+  items: EditorElement[];
+  constructor(protected service:TextService) { }
 
   ngOnInit(): void {
+    this.items = this.service.getList(this.element.position);
   }
 
   addElement() {
-
+    this.service.addSubElement(this.element);
   }
 }

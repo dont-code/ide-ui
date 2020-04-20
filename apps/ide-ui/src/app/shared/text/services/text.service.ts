@@ -20,6 +20,7 @@ export class TextService {
 
   rootListOfElements:EditorElement[] = [];
   mapOfElements = new Map<string, EditorElement[]>();
+  mapOfJson = new Map<string, any>();
 
   /*  event = new Observable<TextAction> ((observer) => {
       observer.next(new TextAction('createTxt','I want to create an application'));
@@ -62,6 +63,8 @@ export class TextService {
           const subAction = textAction as SubTextAction;
           if (subAction.isStart()) {
             this.currentList().push(EditorElement.fromTextAction (textAction, position));
+            this.mapOfElements.set(position, [new EditorElement(position+'/a', position+'/a', textAction.id, 'arrayItem' )]);
+
             const newList:EditorElement[]=[];
             this.listOfElementsStack.push(newList );
             this.positionStack.push(position+'/a');
@@ -103,6 +106,7 @@ export class TextService {
   }
 
   readSubSchema (parent: any, position:string) {
+    this.mapOfJson.set (position, parent);
     parent = this.resolveRefs (parent);
     Object.entries(parent).forEach (([key,value]) => {
       switch (this.schemaTypeOf(value)) {
@@ -165,5 +169,23 @@ export class TextService {
     if (!fromId)
       fromId='';
     return this.mapOfElements.get(fromId);
+  }
+
+  addSubElement(element: EditorElement) {
+    const list = this.getList(element.position);
+    const subSchema = this.mapOfJson.get(element.schemaPosition);
+
+    list.push (new EditorElement(element.position+'/b', element.position+'/b', element.schemaPosition, 'arrayItem' ));
+
+    this.listOfElementsStack.length=0;
+    this.positionStack.length=0;
+    const newList:EditorElement[]=[];
+    this.listOfElementsStack.push(newList );
+    this.positionStack.push(element.position+'/b');
+    this.mapOfElements.set(this.currentPosition(), newList);
+
+    this.readSubSchema(subSchema, element.schemaPosition);
+
+
   }
 }
