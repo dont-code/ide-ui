@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="mainTab()">
   <mat-toolbar id="mainToolbar" color="primary">
   <button
     type="button"
@@ -20,7 +20,14 @@
       (click)="loadSchema()">
       <mat-icon aria-label="Load the schema">cloud_download</mat-icon>
     </button>
+    <mat-menu #devMenu="matMenu">
+      <button mat-menu-item (click)="openDevUrl()"><mat-icon>trending_up</mat-icon>View Changes</button>
+      <button mat-menu-item>Help</button>
+    </mat-menu>
 
+    <button mat-icon-button [matMenuTriggerFor]="devMenu">
+      <mat-icon>code</mat-icon>
+    </button>
   </mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav id="mainSidePanel" #drawer class="sidenav" fixedInViewport
@@ -39,4 +46,7 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+</div>
+<div *ngIf="!mainTab()">
+  <router-outlet></router-outlet>
 </div>

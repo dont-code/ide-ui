@@ -9,14 +9,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainEditorComponent } from './routes/editor/main-editor/main-editor.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
+import { ListChangesComponent } from './routes/dev/list-changes/list-changes.component';
+import { DevModule } from './routes/dev/dev.module';
 
 const appRoutes: Routes = [
-  { path: '', component: MainEditorComponent }]
+  { path: '', component: MainEditorComponent },
+  {path: 'dev', component: ListChangesComponent}]
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, BrowserAnimationsModule
-    , EditorModule, LayoutModule,
+    , EditorModule, LayoutModule, DevModule,
     FlexLayoutModule, RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only

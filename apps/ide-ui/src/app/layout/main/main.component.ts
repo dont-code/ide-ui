@@ -28,4 +28,11 @@ export class MainComponent {
     });
   }
 
+  openDevUrl() {
+    window.open('/dev', '_blank');
+  }
+
+  mainTab(): boolean {
+    return window.location.pathname.indexOf('/dev')==-1;
+  }
 }

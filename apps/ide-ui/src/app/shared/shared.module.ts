@@ -5,6 +5,7 @@ import { TextModule } from './text/text.module';
 import { ModelModule } from './model/model.module';
 import { LocalePipe } from './pipes/locale.pipe';
 import { LocaleDescPipe } from './pipes/locale-desc.pipe';
+import { ChangeModule } from './change/change.module';
 
 @NgModule({
     declarations: [TypeOfPipe, LocalePipe, LocaleDescPipe],
@@ -16,7 +17,8 @@ import { LocaleDescPipe } from './pipes/locale-desc.pipe';
     imports: [
         CommonModule,
         TextModule,
-        ModelModule
+        ModelModule,
+      ChangeModule
     ]
 })
 export class SharedModule { }
