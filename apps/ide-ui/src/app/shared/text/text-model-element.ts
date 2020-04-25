@@ -1,4 +1,4 @@
-export class TextAction {
+export class TextModelElement {
   type: string;
   id: string;
   relativeId:string;

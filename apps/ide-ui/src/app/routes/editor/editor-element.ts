@@ -1,5 +1,5 @@
-import { TextAction } from '../../shared/text/text-action';
-import { SubTextAction } from '../../shared/text/sub-text-action';
+import { TextModelElement } from '../../shared/text/text-model-element';
+import { SubTextModelElement } from '../../shared/text/sub-text-model-element';
 
 export class EditorElement {
   id: string;
@@ -18,7 +18,7 @@ export class EditorElement {
     this.type=type;
   }
 
-  static fromTextAction(action: TextAction, position: string) {
+  static fromTextAction(action: TextModelElement, position: string) {
     let ret = new EditorElement(position);
     ret.position = position;
     ret.schemaPosition=action.id;
@@ -31,8 +31,8 @@ export class EditorElement {
       ret.type='input';
     } else if (action.isNewline()) {
       ret.type='newLine';
-    } else if(action instanceof SubTextAction) {
-        const subAction = action as SubTextAction;
+    } else if(action instanceof SubTextModelElement) {
+        const subAction = action as SubTextModelElement;
         if (subAction.isMultiple()) {
           ret.type='array';
         }else

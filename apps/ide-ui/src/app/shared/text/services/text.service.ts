@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { TextAction } from '../text-action';
+import { TextModelElement } from '../text-model-element';
 import { DontCodeModel } from '../../model/dont-code-model';
 import { DontCodeSchema } from '../../model/dont-code-schema';
-import { SubTextAction } from '../sub-text-action';
+import { SubTextModelElement } from '../sub-text-model-element';
 import { EditorElement } from '../../../routes/editor/editor-element';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class TextService {
 
   protected jsonSchema:any;
 
-  event = new ReplaySubject<TextAction> ();
+  event = new ReplaySubject<TextModelElement> ();
 
   listOfElementsStack:EditorElement[][]=[];
   positionStack:string[]=[];
@@ -59,8 +59,8 @@ export class TextService {
           this.positionStack.push(textAction.id);
           position = textAction.id;
         }
-        if( textAction instanceof SubTextAction) {
-          const subAction = textAction as SubTextAction;
+        if( textAction instanceof SubTextModelElement) {
+          const subAction = textAction as SubTextModelElement;
           if (subAction.isStart()) {
             this.currentList().push(EditorElement.fromTextAction (textAction, position));
             this.mapOfElements.set(position, [new EditorElement(position+'/a', position+'/a', textAction.id, 'arrayItem' )]);
@@ -100,7 +100,7 @@ export class TextService {
     this.jsonSchema = schemaAsJson;
     const root= this.goto(schemaAsJson, DontCodeSchema.ROOT);
     if( root) {
-      this.event.next(new TextAction(DontCodeModel.ROOT, DontCodeModel.ROOT));
+      this.event.next(new TextModelElement(DontCodeModel.ROOT, DontCodeModel.ROOT));
       this.readSubSchema (root['properties'], DontCodeModel.ROOT);
     }
   }
@@ -111,24 +111,24 @@ export class TextService {
     Object.entries(parent).forEach (([key,value]) => {
       switch (this.schemaTypeOf(value)) {
         case 'string':
-          this.event.next(new TextAction(position+'/'+key));
+          this.event.next(new TextModelElement(position+'/'+key));
           break;
         case 'enum':
-          this.event.next(new TextAction(position+'/'+key, ...value['enum']));
+          this.event.next(new TextModelElement(position+'/'+key, ...value['enum']));
           break;
         case 'array':
-          this.event.next(new SubTextAction(position+'/'+key
-            ,SubTextAction.MULTIPLE, SubTextAction.START));
+          this.event.next(new SubTextModelElement(position+'/'+key
+            ,SubTextModelElement.MULTIPLE, SubTextModelElement.START));
           this.readSubSchema(value['items'], position+'/'+key);
-          this.event.next(new SubTextAction(position+'/'+key
-            ,SubTextAction.MULTIPLE, SubTextAction.END));
+          this.event.next(new SubTextModelElement(position+'/'+key
+            ,SubTextModelElement.MULTIPLE, SubTextModelElement.END));
           break;
         case 'object':
-          this.event.next(new SubTextAction(position+'/'+key
-            ,SubTextAction.SINGLE, SubTextAction.START));
+          this.event.next(new SubTextModelElement(position+'/'+key
+            ,SubTextModelElement.SINGLE, SubTextModelElement.START));
           this.readSubSchema(value['properties'], position+'/'+key);
-          this.event.next(new SubTextAction(position+'/'+key
-            ,SubTextAction.SINGLE,SubTextAction.END));
+          this.event.next(new SubTextModelElement(position+'/'+key
+            ,SubTextModelElement.SINGLE,SubTextModelElement.END));
           break;
       }
     });

@@ -1,6 +1,6 @@
-import { TextAction } from './text-action';
+import { TextModelElement } from './text-model-element';
 
-export class SubTextAction extends TextAction {
+export class SubTextModelElement extends TextModelElement {
   static readonly MULTIPLE: 'multiple';
   static readonly SINGLE: 'single';
 
@@ -14,7 +14,7 @@ export class SubTextAction extends TextAction {
     super(id);
 
     this.type = 'object';
-    this.multiple = (type===SubTextAction.MULTIPLE);
+    this.multiple = (type===SubTextModelElement.MULTIPLE);
     this.startOrEnd = startOrEnd;
   }
 
