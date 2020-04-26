@@ -29,7 +29,7 @@ export class MainComponent {
   }
 
   openDevUrl() {
-    window.open('/dev', '_blank');
+    window.open('dev', '_blank');
   }
 
   mainTab(): boolean {
