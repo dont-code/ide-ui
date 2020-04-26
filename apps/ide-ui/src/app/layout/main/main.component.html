@@ -1,4 +1,4 @@
-<div *ngIf="mainTab()">
+<div>
   <mat-toolbar id="mainToolbar" color="primary">
   <button
     type="button"
@@ -37,8 +37,8 @@
     fixedTopGap="64">
     <mat-toolbar id="sideNavToolbar">Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
+      <a mat-list-item [routerLink]="['/']">Editor</a>
+      <a mat-list-item [routerLink]="['/dev']">Dev</a>
       <a mat-list-item href="#">Link 3</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -46,7 +46,4 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
-</div>
-<div *ngIf="!mainTab()">
-  <router-outlet></router-outlet>
 </div>
