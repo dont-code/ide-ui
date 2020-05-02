@@ -171,21 +171,43 @@ export class TextService {
     return this.mapOfElements.get(fromId);
   }
 
+  getNextId(position: string) {
+    const list = this.getList(position);
+    let tentative = 97+list.length;
+    let found = false;
+    let id : string;
+    do {
+      id = String.fromCharCode(tentative);
+      const toTest = position+'/'+id;
+      found = false;
+      list.forEach(value => {
+          if (value.position===toTest) {
+            found=true;
+          }
+        }
+      );
+      tentative++;
+    } while(found);
+    return id;
+  }
+
   addSubElement(element: EditorElement) {
     const list = this.getList(element.position);
     const subSchema = this.mapOfJson.get(element.schemaPosition);
+    const nextId = this.getNextId (element.position);
 
-    list.push (new EditorElement(element.position+'/b', element.position+'/b', element.schemaPosition, 'arrayItem' ));
+    list.push (new EditorElement(element.position+'/'+nextId, element.position+'/'+nextId, element.schemaPosition, 'arrayItem' ));
 
     this.listOfElementsStack.length=0;
     this.positionStack.length=0;
     const newList:EditorElement[]=[];
     this.listOfElementsStack.push(newList );
-    this.positionStack.push(element.position+'/b');
+    this.positionStack.push(element.position+'/'+nextId);
     this.mapOfElements.set(this.currentPosition(), newList);
 
     this.readSubSchema(subSchema, element.schemaPosition);
 
 
   }
+
 }
