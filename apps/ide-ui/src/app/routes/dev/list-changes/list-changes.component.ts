@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { Change } from '../../../shared/change/change';
+import { Change, ChangeType } from '../../../shared/change/change';
 import { ChangeListenService } from '../../../shared/change/services/change-listen.service';
-import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ide-ui-list-changes',
@@ -27,6 +25,9 @@ export class ListChangesComponent implements OnInit {
     this.listOfChanges=this.changeService.getListOfChanges();
     this.changeService.getChangeEvents ().subscribe(value => {
 //      console.log("newVal", value);
+      if (value.type===ChangeType.RESET) {
+        this.listOfChanges=this.changeService.getListOfChanges();
+      }
         //We have to force refresh when displayed in another tab
       this.ref.detectChanges();
     });

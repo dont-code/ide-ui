@@ -12,5 +12,5 @@ export class Change {
 }
 
 export enum ChangeType {
-  ADD ,UPDATE, DELETE
+  ADD='ADD' ,UPDATE='UPDATE', DELETE='DELETE', RESET='RESET'
 }

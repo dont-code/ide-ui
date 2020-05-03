@@ -8,6 +8,8 @@ export class EditorElement {
   schemaPosition: string;
   values: string[];
 
+  editedValue: any;
+
   constructor(id:string, position?:string, schemaPosition?:string, type?:string) {
     this.id = id;
     this.position=position;

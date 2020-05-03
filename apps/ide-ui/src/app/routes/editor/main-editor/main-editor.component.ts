@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChangeListenService } from '../../../shared/change/services/change-listen.service';
 
 @Component({
   selector: 'ide-ui-main-editor',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainEditorComponent implements OnInit {
 
-  constructor() { }
+  constructor(protected changeListener: ChangeListenService) {
+    // Make sure the dev change listener is already started and listening
+
+  }
 
   ngOnInit(): void {
   }

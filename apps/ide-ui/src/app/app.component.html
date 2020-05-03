@@ -1,1 +1,2 @@
-<ide-ui-main><ide-ui-main-editor></ide-ui-main-editor></ide-ui-main>
+<ide-ui-main *ngIf="mainTab()"><ide-ui-main-editor></ide-ui-main-editor></ide-ui-main>
+<ng-container *ngIf="!mainTab()"><router-outlet></router-outlet></ng-container>

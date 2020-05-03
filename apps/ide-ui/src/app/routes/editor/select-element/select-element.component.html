@@ -1,7 +1,7 @@
 <span class="displayable">{{(element.schemaPosition | locale)}}</span>
 <mat-form-field class="displayable">
   <mat-label>{{(element.schemaPosition | localeDesc)}}</mat-label>
-  <mat-select [id]="element.id" (selectionChange)="onChange($event)">
+  <mat-select [id]="element.id" (selectionChange)="onChange($event)" [value]="element.editedValue">
     <ng-container *ngFor="let option of element.values">
       <mat-option [value]="calculateOptionValue(option)" >
         {{(option | locale)}}

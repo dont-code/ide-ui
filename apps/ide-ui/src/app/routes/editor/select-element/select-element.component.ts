@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { LocaleService } from '../../../shared/text/services/locale.service';
 import { EditorElement } from '../editor-element';
 import { MatSelectChange } from '@angular/material/select';
 import { ChangeUpdateService } from '../../../shared/change/services/change-update.service';
@@ -26,6 +25,7 @@ export class SelectElementComponent implements OnInit {
   }
 
   onChange(change:MatSelectChange) {
+    this.element.editedValue=change.value;
     this.changeService.pushChange(
       new Change(ChangeType.UPDATE,
         this.element.position,

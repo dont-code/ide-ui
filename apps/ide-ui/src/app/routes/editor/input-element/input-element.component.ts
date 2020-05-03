@@ -20,9 +20,17 @@ export class InputElementComponent implements OnInit {
   onChange(event: Event) {
     const target = event.target as HTMLInputElement;
 
+    this.element.editedValue=target.value;
     this.changeService.pushChange(
       new Change(ChangeType.UPDATE,
         this.element.position,
         target.value));
+  }
+
+  editedValue() {
+    if (this.element.editedValue)
+      return this.element.editedValue;
+    else
+      return '';
   }
 }

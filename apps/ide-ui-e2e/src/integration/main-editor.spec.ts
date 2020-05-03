@@ -1,6 +1,6 @@
 import {
   getAppMainEntityName,
-  getAppNameInput,
+  getAppNameInput, getDevMenu,
   getEntityFieldName,
   getEntityFieldType,
   getEntityFieldTypeString,
@@ -12,7 +12,7 @@ describe('main-editor', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display correct text', () => {
-    getLoadSchemaButton().click();
+//    getLoadSchemaButton().click();
     // Function helper example, see `../support/app.po.ts` file
 
     getAppNameInput().type('To Do App');
@@ -22,4 +22,14 @@ describe('main-editor', () => {
     getEntityFieldTypeString().contains('string');
     getEntityFieldTypeString().click();
   });
+
+  it('should switch correctly with dev', () => {
+//    getLoadSchemaButton().click();
+    // Function helper example, see `../support/app.po.ts` file
+
+    getAppNameInput().type('Testing');
+    getAppMainEntityName().type('ToDo');
+    getDevMenu ().click();
+  });
+
 });

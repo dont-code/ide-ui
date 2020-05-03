@@ -12,9 +12,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListChangesComponent } from './routes/dev/list-changes/list-changes.component';
 import { DevModule } from './routes/dev/dev.module';
 
-const appRoutes: Routes = [
+const appRoutes:Routes = [
   { path: '', component: MainEditorComponent },
-  {path: 'dev', component: ListChangesComponent}]
+  {path: 'dev', component: ListChangesComponent},
+  {path: 'newTabDev', component: ListChangesComponent}]
 
 @NgModule({
   declarations: [AppComponent],

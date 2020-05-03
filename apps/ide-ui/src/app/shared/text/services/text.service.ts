@@ -5,7 +5,13 @@ import { DontCodeModel } from '../../model/dont-code-model';
 import { DontCodeSchema } from '../../model/dont-code-schema';
 import { SubTextModelElement } from '../sub-text-model-element';
 import { EditorElement } from '../../../routes/editor/editor-element';
+import { HttpClient } from '@angular/common/http';
+import { ChangeUpdateService } from '../../change/services/change-update.service';
+import { Change, ChangeType } from '../../change/change';
 
+/**
+  Manages the model to be edited and as well the list of elements that informs the UI about what to display.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +21,7 @@ export class TextService {
 
   event = new ReplaySubject<TextModelElement> ();
 
+  // Temporary variables when recursively reading elements
   listOfElementsStack:EditorElement[][]=[];
   positionStack:string[]=[];
 
@@ -22,33 +29,8 @@ export class TextService {
   mapOfElements = new Map<string, EditorElement[]>();
   mapOfJson = new Map<string, any>();
 
-  /*  event = new Observable<TextAction> ((observer) => {
-      observer.next(new TextAction('createTxt','I want to create an application'));
-      observer.next(new TextAction('nameTxt','with name'));
-      observer.next(new TextAction('appName'));
-      observer.next(new TextAction('toText','to'));
-      observer.next(new TextAction('appMainAction','manage', 'view'));
-      observer.next(new TextAction('appMainEntityName'));
-      observer.next(new TextAction(null));
 
-      observer.next(new TextAction('entityTxt', 'The entity is made of'));
-      observer.next(new TextAction('entityPropName'));
-      observer.next(new TextAction('entityPropNameTxt', 'of type'));
-      observer.next(new TextAction('entityPropNameType', 'name','description','string','number','boolean'));
-      observer.next(new TextAction('entityPropDescription'));
-      observer.next(new TextAction('entityPropDescTxt', 'of type'));
-      observer.next(new TextAction('entityPropDescType', 'name','description','string','number','boolean'));
-      observer.next(new TextAction('entityPropDone'));
-      observer.next(new TextAction('entityPropDoneTxt', 'of type'));
-      observer.next(new TextAction('entityPropDoneType', 'name','description','string','number','boolean'));
-
-      observer.next(new TextAction(null));
-      observer.next(new TextAction('firstScreenTxt', 'It will first display'));
-      observer.next(new TextAction('firstScreenType', 'a list', 'an editor', 'a view'));
-
-    });*/
-
-  constructor() {
+  constructor(protected http:HttpClient, protected updateService:ChangeUpdateService) {
     this.listOfElementsStack.push(this.rootListOfElements);
     this.mapOfElements.set('', this.rootListOfElements);
     this.positionStack.push('');
@@ -90,6 +72,18 @@ export class TextService {
     if( this.positionStack.length==0)
       return null;
     return this.positionStack[this.positionStack.length-1];
+  }
+
+  resetSchema () {
+    this.rootListOfElements.length=0;
+    this.mapOfElements.clear();
+    this.positionStack.length=0;
+    this.mapOfElements.clear();
+    this.mapOfJson.clear();
+    this.listOfElementsStack.push(this.rootListOfElements);
+    this.mapOfElements.set('', this.rootListOfElements);
+    this.positionStack.push('');
+    this.updateService.pushChange(new Change(ChangeType.RESET, null,null));
   }
 
   /**
@@ -210,4 +204,10 @@ export class TextService {
 
   }
 
+  readSchemaFormUrl(url: string) {
+    this.http.get(url, {responseType:'json'}).subscribe(value => {
+      this.readSchema(value);
+    });
+
+  }
 }
