@@ -1,13 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 
 import { TextService } from './text.service';
-import arrayContaining = jasmine.arrayContaining;
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ChangeUpdateService } from '../../change/services/change-update.service';
 
 describe('TextService', () => {
   let service: TextService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    const fakeUpdateService:ChangeUpdateService= jest.genMockFromModule('../../change/services/change-update.service');
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [ {
+        provide:ChangeUpdateService, useValue:fakeUpdateService
+      }]
+    });
     service = TestBed.inject(TextService);
   });
 
