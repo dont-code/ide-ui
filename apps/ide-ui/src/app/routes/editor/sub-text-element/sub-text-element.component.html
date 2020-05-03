@@ -8,10 +8,10 @@
   <div style="margin-left: 20px">
     <ng-container *ngFor="let item of items">
       <ide-ui-text-handler [position]="item.position"></ide-ui-text-handler>
-    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button (click)="addElement()">
+    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="item.id+'-add-button'" (click)="addElement()">
       <mat-icon aria-label="Add item">add</mat-icon>
     </button>
-    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button (click)="addElement()">
+    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="item.id+'-remove-button'" (click)="addElement()">
       <mat-icon aria-label="Remove item">remove</mat-icon>
     </button>
     <button *ngIf="element.type==='array-start'" type="button" mat-icon-button (click)="addElement()">

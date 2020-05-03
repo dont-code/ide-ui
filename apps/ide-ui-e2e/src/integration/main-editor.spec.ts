@@ -1,9 +1,10 @@
 import {
+  get2ndEntityFieldName, get2ndEntityFieldNameValue,
   getAppMainEntityName,
-  getAppNameInput, getDevMenu,
-  getEntityFieldName,
+  getAppNameInput, getDevMenu, getEditorMenu, getEntityAddButton,
+  getEntityFieldName, getEntityFieldNameValue,
   getEntityFieldType,
-  getEntityFieldTypeString,
+  getEntityFieldTypeString, getListOfChanges,
   getLoadSchemaButton
 } from '../support/main-editor.po';
 
@@ -21,15 +22,15 @@ describe('main-editor', () => {
     getEntityFieldType().click();
     getEntityFieldTypeString().contains('string');
     getEntityFieldTypeString().click();
-  });
-
-  it('should switch correctly with dev', () => {
-//    getLoadSchemaButton().click();
-    // Function helper example, see `../support/app.po.ts` file
-
-    getAppNameInput().type('Testing');
-    getAppMainEntityName().type('ToDo');
+    getEntityAddButton().click();
+    get2ndEntityFieldName().type('description');
     getDevMenu ().click();
+    getListOfChanges().should('have.length.greaterThan', 0);
+    getEditorMenu().click();
+    getEntityFieldNameValue().should('equal','name');
+    getEntityFieldTypeString().contains('string');
+    get2ndEntityFieldNameValue().should('equal','description');
+
   });
 
 });
