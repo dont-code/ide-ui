@@ -3,6 +3,7 @@ import { Change, ChangeType } from '../change';
 import { BroadcastChannel } from 'broadcast-channel';
 import { webSocket, WebSocketSubject, WebSocketSubjectConfig } from 'rxjs/webSocket';
 
+import {environment} from '../../../../environments/environment';
 /**
  * Updates all changes to the edited elements (what the user entered in the IDE)
  * to a broadcastchannel (for dev tab) and the websocket to the services.
@@ -30,7 +31,7 @@ export class ChangeUpdateService {
       }
     }
     const config:WebSocketSubjectConfig<any> = {
-      url:'ws://localhost:8080/ide'
+      url: environment.webSocketUrl
     }
 
     this.myWebSocket = webSocket(config);

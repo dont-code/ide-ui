@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  webSocketUrl: 'ws://ide-service-demo.apps.us-west-1.starter.openshift-online.com/ide'
 };
