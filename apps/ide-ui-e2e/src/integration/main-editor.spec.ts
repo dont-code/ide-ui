@@ -1,11 +1,16 @@
 import {
-  get2ndEntityFieldName, get2ndEntityFieldNameValue,
+  get2ndEntityFieldName,
+  get2ndEntityFieldNameValue,
   getAppMainEntityName,
-  getAppNameInput, getDevMenu, getEditorMenu, getEntityAddButton,
-  getEntityFieldName, getEntityFieldNameValue,
+  getAppNameInput,
+  getDevMenu,
+  getEditorMenu,
+  getEntityAddButton,
+  getEntityFieldName,
+  getEntityFieldNameValue,
   getEntityFieldType,
-  getEntityFieldTypeString, getListOfChanges,
-  getLoadSchemaButton
+  getEntityFieldTypeString,
+  getListOfChanges
 } from '../support/main-editor.po';
 
 
@@ -16,6 +21,7 @@ describe('main-editor', () => {
 //    getLoadSchemaButton().click();
     // Function helper example, see `../support/app.po.ts` file
 
+    getEditorMenu().click();
     getAppNameInput().type('To Do App');
     getAppMainEntityName().type('ToDo');
     getEntityFieldName().type('name');

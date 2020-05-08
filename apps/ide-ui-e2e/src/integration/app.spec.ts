@@ -1,4 +1,4 @@
-import { getMainEditor, getSidePanel, getToolbar, getToolbarTitle } from '../support/app.po';
+import {getMainEditor, getSidePanel, getToolbar, getToolbarTitle, getWelcome} from '../support/app.po';
 
 describe('ide-ui', () => {
   beforeEach(() => cy.visit('/'));
@@ -11,6 +11,6 @@ describe('ide-ui', () => {
     getToolbar();
     getToolbarTitle().contains('Non-Development Environment');
     getSidePanel();
-    getMainEditor();
+    getWelcome();
   });
 });
