@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  webSocketUrl: 'ws://localhost:8080/ide'
+  webSocketUrl: 'ws://localhost:8080/ide',
+  previewUrl: 'http://localhost:4201'
 };
 
 /*

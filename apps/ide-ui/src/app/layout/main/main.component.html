@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="(context$ | async) as ctx">
   <mat-toolbar id="mainToolbar" color="primary">
   <button
     type="button"
@@ -9,9 +9,26 @@
     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
   </button>
   <img src="assets/images/logo64.png">
-  <span>Non-Development Environment</span>
+  <span>Non-Development Environment</span>{{ctx.status}}
     <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
+    <button
+      type="button"
+      aria-label="Connected"
+      mat-icon-button
+      id="connected">
+      <mat-icon *ngIf="ctx.status === 'connected'" aria-label="Connected">sync</mat-icon>
+      <mat-icon *ngIf="ctx.status !== 'connected'" aria-label="Connection error" color="warn">sync_problem</mat-icon>
+    </button>
+    <button
+      type="button"
+      aria-label="Open Preview"
+      mat-icon-button
+      id="preview"
+      [disabled]="ctx.status !== 'connected'"
+      (click)="openPreview()">
+      <mat-icon aria-label="Preview">screen_share</mat-icon>
+    </button>
     <button
       type="button"
       aria-label="Load Schema"
@@ -37,7 +54,8 @@
     fixedTopGap="64">
     <mat-toolbar id="sideNavToolbar">Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item id="editorMenu" [routerLink]="['/']">Editor</a>
+      <a mat-list-item id="welcomeMenu" [routerLink]="['/welcome']">Welcome</a>
+      <a mat-list-item id="editorMenu" [routerLink]="['/editor']">Editor</a>
       <a mat-list-item id="devMenu" [routerLink]="['/dev']">Dev</a>
       <a mat-list-item href="#">Link 3</a>
     </mat-nav-list>

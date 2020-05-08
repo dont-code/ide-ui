@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { TextService } from '../../shared/text/services/text.service';
-import { HttpClient } from '@angular/common/http';
-import { Change, ChangeType } from '../../shared/change/change';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {combineLatest, Observable} from 'rxjs';
+import {map, shareReplay} from 'rxjs/operators';
+import {TextService} from '../../shared/text/services/text.service';
+import {ChangeUpdateService} from "../../shared/change/services/change-update.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'ide-ui-main',
@@ -12,6 +12,10 @@ import { Change, ChangeType } from '../../shared/change/change';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit{
+  context$: Observable<
+    {
+      status:string
+    }>;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -20,12 +24,20 @@ export class MainComponent implements OnInit{
     );
 
   constructor(private breakpointObserver: BreakpointObserver
-              , protected service:TextService,
-              protected ref: ChangeDetectorRef
-              ) {}
+              , protected service:TextService
+              , protected updateService:ChangeUpdateService
+              , protected ref: ChangeDetectorRef
+              ) {
+
+  }
 
   ngOnInit(): void {
-        this.loadSchema();
+    this.context$ = combineLatest([this.updateService.getConnectionStatus()])
+      .pipe(map ((status) => {
+        return {status:status[0]};
+      }));
+
+    this.loadSchema();
     }
 
   loadSchema () {
@@ -39,4 +51,7 @@ export class MainComponent implements OnInit{
     window.open('newTabDev', '_blank');
   }
 
+  openPreview() {
+    window.open(environment.previewUrl, '_blank');
+  }
 }

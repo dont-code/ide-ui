@@ -4,6 +4,7 @@ import { BroadcastChannel } from 'broadcast-channel';
 import { webSocket, WebSocketSubject, WebSocketSubjectConfig } from 'rxjs/webSocket';
 
 import {environment} from '../../../../environments/environment';
+import {Observable, ReplaySubject, Subject} from "rxjs";
 /**
  * Updates all changes to the edited elements (what the user entered in the IDE)
  * to a broadcastchannel (for dev tab) and the websocket to the services.
@@ -17,7 +18,8 @@ export class ChangeUpdateService {
   protected listOfChanges: Change[]=[];
   protected channel: BroadcastChannel<Change>;
 
-  myWebSocket: WebSocketSubject<Change>;
+  protected ideServicesWebSocket: WebSocketSubject<Change>;
+  protected connectionStatus: ReplaySubject<string>=new ReplaySubject<string>(1);
 
   constructor() {
     console.log('Creating channel');
@@ -25,33 +27,36 @@ export class ChangeUpdateService {
   }
 
   protected openWebSocket () :WebSocketSubject<Change> {
-    if (this.myWebSocket) {
-      if ((!this.myWebSocket.isStopped) && (!this.myWebSocket.closed)) {
-        return this.myWebSocket;
+    if (this.ideServicesWebSocket) {
+      if ((!this.ideServicesWebSocket.isStopped) && (!this.ideServicesWebSocket.closed)) {
+        return this.ideServicesWebSocket;
       }
     }
     const config:WebSocketSubjectConfig<any> = {
       url: environment.webSocketUrl
     }
 
-    this.myWebSocket = webSocket(config);
-    this.myWebSocket.subscribe(
+    this.ideServicesWebSocket = webSocket(config);
+    this.connectionStatus.next("connected");
+    this.ideServicesWebSocket.subscribe(
       msg => console.log('message received: ' + msg),
       // Called whenever there is a message from the server
       err => {
         console.log(err);
-        this.myWebSocket.unsubscribe();
-        this.myWebSocket=null;
+        this.ideServicesWebSocket.unsubscribe();
+        this.ideServicesWebSocket=null;
+        this.connectionStatus.next("ERROR:"+err);
       },
       // Called if WebSocket API signals some kind of error
       () => {
         console.log('complete');
-        this.myWebSocket.unsubscribe();
-        this.myWebSocket = null;
+        this.ideServicesWebSocket.unsubscribe();
+        this.ideServicesWebSocket = null;
+        this.connectionStatus.next("closed");
       }
       // Called when connection is closed (for whatever reason)
     );
-    return this.myWebSocket;
+    return this.ideServicesWebSocket;
   }
 
   pushChange (newChange:Change) {
@@ -67,5 +72,9 @@ export class ChangeUpdateService {
 
   getListOfChanges (): Change[] {
     return this.listOfChanges;
+  }
+
+  getConnectionStatus (): Observable<string> {
+    return this.connectionStatus;
   }
 }
