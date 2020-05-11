@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Change, ChangeType } from '../change';
+import { Change, ChangeType } from '@dontcode/core';
 import { BroadcastChannel } from 'broadcast-channel';
 import { webSocket, WebSocketSubject, WebSocketSubjectConfig } from 'rxjs/webSocket';
 

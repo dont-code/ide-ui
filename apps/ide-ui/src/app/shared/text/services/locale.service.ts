@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DontCodeModel } from '../../model/dont-code-model';
+import { DontCodeModel } from '@dontcode/core';
 
 @Injectable({
   providedIn: 'root'

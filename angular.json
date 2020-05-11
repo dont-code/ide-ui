@@ -21,7 +21,8 @@
             "polyfills": "apps/ide-ui/src/polyfills.ts",
             "tsConfig": "apps/ide-ui/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/ide-ui/src/favicon.ico", "apps/ide-ui/src/assets"],
+            "assets": ["apps/ide-ui/src/favicon.ico", "apps/ide-ui/src/assets",
+              { "glob": "**/*", "input": "./node_modules/@dontcode/core/assets", "output": "/assets/core/" }],
             "styles": ["apps/ide-ui/src/styles.scss"],
             "scripts": []
           },

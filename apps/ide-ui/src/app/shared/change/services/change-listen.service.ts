@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ChangeUpdateService } from './change-update.service';
 import { BroadcastChannel } from 'broadcast-channel';
-import { Change, ChangeType } from '../change';
+import { Change, ChangeType } from '@dontcode/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
 /**

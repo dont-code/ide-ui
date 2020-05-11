@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { TextModelElement } from '../text-model-element';
-import { DontCodeModel } from '../../model/dont-code-model';
-import { DontCodeSchema } from '../../model/dont-code-schema';
+import { DontCodeModel,DontCodeSchema,Change, ChangeType  } from '@dontcode/core';
 import { SubTextModelElement } from '../sub-text-model-element';
 import { EditorElement } from '../../../routes/editor/editor-element';
 import { HttpClient } from '@angular/common/http';
 import { ChangeUpdateService } from '../../change/services/change-update.service';
-import { Change, ChangeType } from '../../change/change';
 
 /**
   Manages the model to be edited and as well the list of elements that informs the UI about what to display.

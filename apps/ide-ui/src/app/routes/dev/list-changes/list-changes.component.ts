@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { Change, ChangeType } from '../../../shared/change/change';
+import { Change, ChangeType } from '../../../../../../../../core/node/libs/core/src/lib/change/change';
 import { ChangeListenService } from '../../../shared/change/services/change-listen.service';
 
 @Component({

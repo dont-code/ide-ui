@@ -5,6 +5,7 @@ import {map, shareReplay} from 'rxjs/operators';
 import {TextService} from '../../shared/text/services/text.service';
 import {ChangeUpdateService} from "../../shared/change/services/change-update.service";
 import {environment} from "../../../environments/environment";
+import {DontCode} from '@dontcode/core';
 
 @Component({
   selector: 'ide-ui-main',
@@ -42,7 +43,7 @@ export class MainComponent implements OnInit{
 
   loadSchema () {
     this.service.resetSchema();
-    this.service.readSchemaFormUrl('assets/schemas/dont-code-schema.json');
+    this.service.readSchemaFormUrl('assets/core/'+DontCode.dtcde.getSchemaUri());
 
     this.ref.detectChanges();
   }

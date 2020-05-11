@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EditorElement } from '../editor-element';
 import { ChangeUpdateService } from '../../../shared/change/services/change-update.service';
-import { Change, ChangeType } from '../../../shared/change/change';
+import { Change, ChangeType } from '@dontcode/core';
 
 @Component({
   selector: 'ide-ui-input-element',
