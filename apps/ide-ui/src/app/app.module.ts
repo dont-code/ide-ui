@@ -13,6 +13,7 @@ import {ListChangesComponent} from './routes/dev/list-changes/list-changes.compo
 import {DevModule} from './routes/dev/dev.module';
 import {WelcomeModule} from './routes/welcome/welcome.module';
 import {WelcomeComponent} from "./routes/welcome/main/welcome.component";
+import {ScreenModule} from "@dontcode/plugin-screen";
 
 const appRoutes:Routes = [
   { path: '', component: WelcomeComponent },
@@ -30,7 +31,8 @@ const appRoutes:Routes = [
       { enableTracing: false } // <-- debugging purposes only
     ),
   HttpClientModule,
-  WelcomeModule],
+  WelcomeModule,
+  ScreenModule],
   providers: [],
   bootstrap: [AppComponent]
 })

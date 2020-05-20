@@ -46,7 +46,8 @@
     "core-js": "^2.5.4",
     "rxjs": "~6.5.4",
     "zone.js": "^0.10.2",
-    "@dontcode/core": "^0.0.3"
+    "@dontcode/core": "^0.0.3",
+    "@dontcode/plugin-screen": "^0.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.901.0",

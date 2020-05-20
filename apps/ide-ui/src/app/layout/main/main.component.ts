@@ -43,7 +43,8 @@ export class MainComponent implements OnInit{
 
   loadSchema () {
     this.service.resetSchema();
-    this.service.readSchemaFormUrl('assets/core/'+DontCode.dtcde.getSchemaUri());
+    this.service.readSchema(DontCode.dtcde.getSchemaManager().getSchema());
+//    this.service.readSchemaFormUrl('assets/core/'+DontCode.dtcde.getSchemaUri());
 
     this.ref.detectChanges();
   }

@@ -6,6 +6,7 @@ import { SubTextModelElement } from '../sub-text-model-element';
 import { EditorElement } from '../../../routes/editor/editor-element';
 import { HttpClient } from '@angular/common/http';
 import { ChangeUpdateService } from '../../change/services/change-update.service';
+import { DontCodeSchemaItem, DontCodeSchemaRef, DontCodeSchemaValue, DontCodeSchemaEnum } from '@dontcode/core/lib/model/dont-code-schema-item';
 
 /**
   Manages the model to be edited and as well the list of elements that informs the UI about what to display.
@@ -15,7 +16,7 @@ import { ChangeUpdateService } from '../../change/services/change-update.service
 })
 export class TextService {
 
-  protected jsonSchema:any;
+  protected jsonSchema:DontCodeSchemaItem;
 
   event = new ReplaySubject<TextModelElement> ();
 
@@ -25,7 +26,7 @@ export class TextService {
 
   rootListOfElements:EditorElement[] = [];
   mapOfElements = new Map<string, EditorElement[]>();
-  mapOfJson = new Map<string, any>();
+  mapOfJson = new Map<string, DontCodeSchemaItem>();
 
 
   constructor(protected http:HttpClient, protected updateService:ChangeUpdateService) {
@@ -88,71 +89,66 @@ export class TextService {
    * Read the schema to integrate it in the list
    * @param schemaAsJson
    */
-  readSchema (schemaAsJson:any) {
+  readSchema (schemaAsJson:DontCodeSchemaItem) {
     this.jsonSchema = schemaAsJson;
-    const root= this.goto(schemaAsJson, DontCodeSchema.ROOT);
+    const root= this.goto(schemaAsJson, DontCodeModel.ROOT);
     if( root) {
       this.event.next(new TextModelElement(DontCodeModel.ROOT, DontCodeModel.ROOT));
-      this.readSubSchema (root['properties'], DontCodeModel.ROOT);
+      this.readSubSchema (root, DontCodeModel.ROOT);
     }
   }
 
-  readSubSchema (parent: any, position:string) {
+  readSubSchema (parent: DontCodeSchemaItem, position:string) {
     this.mapOfJson.set (position, parent);
     parent = this.resolveRefs (parent);
-    Object.entries(parent).forEach (([key,value]) => {
-      switch (this.schemaTypeOf(value)) {
-        case 'string':
-          this.event.next(new TextModelElement(position+'/'+key));
-          break;
-        case 'enum':
-          this.event.next(new TextModelElement(position+'/'+key, ...value['enum']));
-          break;
-        case 'array':
-          this.event.next(new SubTextModelElement(position+'/'+key
-            ,SubTextModelElement.MULTIPLE, SubTextModelElement.START));
-          this.readSubSchema(value['items'], position+'/'+key);
-          this.event.next(new SubTextModelElement(position+'/'+key
-            ,SubTextModelElement.MULTIPLE, SubTextModelElement.END));
-          break;
-        case 'object':
-          this.event.next(new SubTextModelElement(position+'/'+key
-            ,SubTextModelElement.SINGLE, SubTextModelElement.START));
-          this.readSubSchema(value['properties'], position+'/'+key);
-          this.event.next(new SubTextModelElement(position+'/'+key
-            ,SubTextModelElement.SINGLE,SubTextModelElement.END));
-          break;
+    for (const [key, value] of parent.getChildren()) {
+      const childPosition = position + '/' + key;
+      if( value.isArray()) {
+        this.event.next(new SubTextModelElement(childPosition
+          ,SubTextModelElement.MULTIPLE, SubTextModelElement.START));
       }
-    });
+      if (value.isValue())
+          this.event.next(new TextModelElement(childPosition));
+      else if (value.isEnum()) {
+        const asEnum = value as DontCodeSchemaEnum;
+        this.event.next(new TextModelElement(childPosition, ...asEnum.getValues()));
+      } else if( value.isObject()) {
+          this.event.next(new SubTextModelElement(childPosition
+            ,SubTextModelElement.SINGLE, SubTextModelElement.START));
+          this.readSubSchema(value, childPosition);
+          this.event.next(new SubTextModelElement(childPosition
+            ,SubTextModelElement.SINGLE,SubTextModelElement.END));
+      } else if (value.isReference()) {
+        this.readSubSchema(value, childPosition);
+      }
+      else {
+        console.error ('Unknown item read from schema at position '+position+':', value);
+      }
+      if( value.isArray()) {
+        this.event.next(new SubTextModelElement(childPosition
+          ,SubTextModelElement.MULTIPLE, SubTextModelElement.END));
+      }
+    }
   }
 
-  goto (entity: any, to:string): any {
+  goto (entity: DontCodeSchemaItem, to:string): DontCodeSchemaItem {
     let ret = entity;
     to.split('/').forEach(value => {
       if( value!=='#' && (value!='')) {
-        ret=ret[value];
+        ret=ret.getChild(value);
+      }
+      if( !ret) {
+        console.error('Cannot find '+value+' of '+to+' in the following item ', entity);
       }
     });
     return ret;
   }
 
-  resolveRefs (entity: any): any {
+  resolveRefs (entity: DontCodeSchemaItem): DontCodeSchemaItem {
     let ret = entity;
-    if( entity['$ref']) {
-      let toFind:string = entity['$ref'];
+    if( entity.isReference()) {
+      let toFind = (entity as DontCodeSchemaRef).getReference();
       ret = this.goto(this.jsonSchema,toFind);
-      if( ret['properties']) {
-        ret = ret['properties'];
-      }
-    }
-    return ret;
-  }
-
-  schemaTypeOf (entity: any): string {
-    let ret =entity['type'];
-    if(!ret) {
-      if (entity['enum'])
-        ret = 'enum'
     }
     return ret;
   }
@@ -202,10 +198,10 @@ export class TextService {
 
   }
 
-  readSchemaFormUrl(url: string) {
+  /*readSchemaFormUrl(url: string) {
     this.http.get(url, {responseType:'json'}).subscribe(value => {
       this.readSchema(value);
     });
 
-  }
+  }*/
 }
