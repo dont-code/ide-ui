@@ -186,6 +186,9 @@ export class TextService {
 
     list.push (new EditorElement(element.position+'/'+nextId, element.position+'/'+nextId, element.schemaPosition, 'arrayItem' ));
 
+    /**
+     * Now re-read the schema to duplicate the new element
+    */
     this.listOfElementsStack.length=0;
     this.positionStack.length=0;
     const newList:EditorElement[]=[];
@@ -194,14 +197,10 @@ export class TextService {
     this.mapOfElements.set(this.currentPosition(), newList);
 
     this.readSubSchema(subSchema, element.schemaPosition);
-
-
   }
 
-  /*readSchemaFormUrl(url: string) {
-    this.http.get(url, {responseType:'json'}).subscribe(value => {
-      this.readSchema(value);
-    });
-
-  }*/
+  removeElement(parent: EditorElement, item:EditorElement) {
+    let parentList = this.getList(parent.position);
+    parentList.splice(parentList.indexOf(item),1);
+  }
 }

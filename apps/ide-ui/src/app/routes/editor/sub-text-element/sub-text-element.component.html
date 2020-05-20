@@ -11,7 +11,7 @@
     <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="item.id+'-add-button'" (click)="addElement()">
       <mat-icon aria-label="Add item">add</mat-icon>
     </button>
-    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="item.id+'-remove-button'" (click)="addElement()">
+    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="item.id+'-remove-button'" (click)="removeElement(item)">
       <mat-icon aria-label="Remove item">remove</mat-icon>
     </button>
     <button *ngIf="element.type==='array-start'" type="button" mat-icon-button (click)="addElement()">
@@ -21,6 +21,11 @@
       <mat-icon aria-label="Down">keyboard_arrow_down</mat-icon>
     </button>
       <br />
+    </ng-container>
+    <ng-container *ngIf="items.length==0">
+      <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="element.id+'-new-button'" (click)="addElement()">
+        <mat-icon aria-label="Add item">add</mat-icon>
+      </button>
     </ng-container>
   </div>
 </mat-expansion-panel>

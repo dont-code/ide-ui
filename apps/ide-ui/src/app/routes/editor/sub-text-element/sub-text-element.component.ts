@@ -21,4 +21,8 @@ export class SubTextElementComponent implements OnInit {
   addElement() {
     this.service.addSubElement(this.element);
   }
+  removeElement(item:EditorElement) {
+    this.service.removeElement(this.element, item);
+  }
+
 }

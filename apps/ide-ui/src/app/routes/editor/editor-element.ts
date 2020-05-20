@@ -20,6 +20,14 @@ export class EditorElement {
     this.type=type;
   }
 
+  /**
+   * Returns the element's position as parent position and child id
+   */
+  splitPosition (): [string,string] {
+    const last=this.position.lastIndexOf('/');
+    return [this.position.substring(0, last), this.position.substring(last+1)];
+  }
+
   static fromTextAction(action: TextModelElement, position: string) {
     let ret = new EditorElement(position);
     ret.position = position;
