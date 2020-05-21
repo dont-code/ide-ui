@@ -6,21 +6,23 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
   <div style="margin-left: 20px">
-    <ng-container *ngFor="let item of items">
+    <ng-container *ngFor="let item of items; index as i">
       <ide-ui-text-handler [position]="item.position"></ide-ui-text-handler>
-    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="item.id+'-add-button'" (click)="addElement()">
-      <mat-icon aria-label="Add item">add</mat-icon>
-    </button>
-    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="item.id+'-remove-button'" (click)="removeElement(item)">
-      <mat-icon aria-label="Remove item">remove</mat-icon>
-    </button>
-    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button (click)="addElement()">
-      <mat-icon aria-label="Up">keyboard_arrow_up</mat-icon>
-    </button>
-    <button *ngIf="element.type==='array-start'" type="button" mat-icon-button (click)="addElement()">
-      <mat-icon aria-label="Down">keyboard_arrow_down</mat-icon>
-    </button>
-      <br />
+      <ng-container *ngIf="element.type==='array-start'">
+        <button  type="button" mat-icon-button [id]="item.id+'-add-button'" (click)="addElement()">
+          <mat-icon aria-label="Add item">add</mat-icon>
+        </button>
+        <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="item.id+'-remove-button'" (click)="removeElement(item, i)">
+          <mat-icon aria-label="Remove item">remove</mat-icon>
+        </button>
+        <button *ngIf="i>0" type="button" mat-icon-button [id]="item.id+'-up-button'" (click)="upElement(item, i)">
+          <mat-icon aria-label="Up">keyboard_arrow_up</mat-icon>
+        </button>
+        <button *ngIf="i<items.length-1" type="button" mat-icon-button [id]="item.id+'-down-button'" (click)="downElement(item, i)">
+          <mat-icon aria-label="Down">keyboard_arrow_down</mat-icon>
+        </button>
+        <br />
+      </ng-container>
     </ng-container>
     <ng-container *ngIf="items.length==0">
       <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="element.id+'-new-button'" (click)="addElement()">

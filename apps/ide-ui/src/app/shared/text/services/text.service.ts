@@ -199,8 +199,35 @@ export class TextService {
     this.readSubSchema(subSchema, element.schemaPosition);
   }
 
-  removeElement(parent: EditorElement, item:EditorElement) {
+  removeElement(parent: EditorElement, item:EditorElement, index?:number) {
     let parentList = this.getList(parent.position);
-    parentList.splice(parentList.indexOf(item),1);
+    if( !index){
+      index = parentList.indexOf(item);
+    }
+    parentList.splice(index,1);
+  }
+
+  upElement(parent: EditorElement, item: EditorElement, index: number) {
+    let parentList = this.getList(parent.position);
+    if( !index){
+      index = parentList.indexOf(item);
+    }
+
+    if (index>0) {
+      parentList.splice(index, 1);
+      parentList.splice(index-1,0,item);
+    }
+  }
+
+  downElement(parent: EditorElement, item: EditorElement, index: number) {
+    let parentList = this.getList(parent.position);
+    if( !index){
+      index = parentList.indexOf(item);
+    }
+    if (index<parentList.length-1) {
+      parentList.splice(index, 1);
+      parentList.splice(index+1,0,item);
+    }
+
   }
 }

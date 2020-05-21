@@ -1,17 +1,18 @@
 import {
-  get2ndEntityFieldName,
-  get2ndEntityFieldNameValue,
-  getAppMainEntityName,
   getAppNameInput,
   getDevMenu,
   getEditorMenu,
-  getEntityAddButton,
-  getEntityFieldName,
-  getEntityFieldNameValue,
-  getEntityFieldType,
-  getEntityFieldTypeString,
+  getEntityFieldTypeValue, getEntityNewButton,
+  getIndexEntityAddButton,
+  getIndexEntityDownButton,
+  getIndexEntityFieldName,
+  getIndexEntityFieldNameValue,
+  getIndexEntityFieldType,
+  getIndexEntityName,
+  getIndexEntityRemoveButton,
+  getIndexEntityUpButton,
   getListOfChanges
-} from '../support/main-editor.po';
+} from "../support/main-editor.po";
 
 
 describe('main-editor', () => {
@@ -23,20 +24,53 @@ describe('main-editor', () => {
 
     getEditorMenu().click();
     getAppNameInput().type('To Do App');
-    getAppMainEntityName().type('ToDo');
-    getEntityFieldName().type('name');
-    getEntityFieldType().click();
-    getEntityFieldTypeString().contains('string');
-    getEntityFieldTypeString().click();
-    getEntityAddButton().click();
-    get2ndEntityFieldName().type('description');
+    getIndexEntityName('a').type('ToDo');
+    getIndexEntityFieldName('a','a').type('name');
+    getIndexEntityFieldType('a','a').click();
+    getEntityFieldTypeValue('string').contains('string');
+    getEntityFieldTypeValue('string').click();
+    getIndexEntityAddButton('a').click();
+    getIndexEntityName('b').type('2nd');
+    getIndexEntityFieldName('b','a').type('description');
     getDevMenu ().click();
     getListOfChanges().should('have.length.greaterThan', 0);
     getEditorMenu().click();
-    getEntityFieldNameValue().should('equal','name');
-    getEntityFieldTypeString().contains('string');
-    get2ndEntityFieldNameValue().should('equal','description');
+    getIndexEntityFieldNameValue('a','a').should('equal','name');
+    getEntityFieldTypeValue('string').contains('string');
+    getIndexEntityFieldNameValue('b','a').should('equal','description');
 
+  });
+
+  it('should support add/remove/up/down', () => {
+
+    getEditorMenu().click();
+    getAppNameInput().type('To Do App');
+    getIndexEntityName('a').type('ToDo');
+    getIndexEntityFieldName('a','a').type('name');
+    getIndexEntityFieldType('a','a').click();
+    getEntityFieldTypeValue('string').contains('string');
+    getEntityFieldTypeValue('string').click();
+    getIndexEntityAddButton('a').click();
+    getIndexEntityName('b').type('2nd');
+    getIndexEntityFieldName('b','a').type('done');
+    getIndexEntityFieldType('b','a').click();
+    getEntityFieldTypeValue('boolean').contains('boolean');
+    getEntityFieldTypeValue('boolean').click();
+    getIndexEntityAddButton('b').click();
+    getIndexEntityName('c').type('3rd');
+    getIndexEntityFieldName('c','a').type('index');
+    getIndexEntityFieldType('c','a').click();
+    getEntityFieldTypeValue('number').contains('number');
+    getEntityFieldTypeValue('number').click();
+
+    getIndexEntityUpButton('c').click();
+    getIndexEntityUpButton('c').click();
+    getIndexEntityDownButton('a').click();
+    getIndexEntityRemoveButton('b').click();
+    getIndexEntityRemoveButton('c').click();
+    getIndexEntityRemoveButton('a').click();
+
+    getEntityNewButton().click();
   });
 
 });
