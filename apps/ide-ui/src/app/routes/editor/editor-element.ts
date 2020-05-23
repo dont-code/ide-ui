@@ -1,5 +1,3 @@
-import { TextModelElement } from "../../shared/text/text-model-element";
-import { SubTextModelElement } from "../../shared/text/sub-text-model-element";
 import { DontCodeSchemaItem } from "@dontcode/core";
 
 export class EditorElement {
