@@ -1,4 +1,5 @@
 import { TextModelElement } from './text-model-element';
+import { DontCodeSchemaItem } from '@dontcode/core';
 
 export class SubTextModelElement extends TextModelElement {
   static readonly MULTIPLE: 'multiple';
@@ -10,8 +11,8 @@ export class SubTextModelElement extends TextModelElement {
   multiple: boolean;
   startOrEnd: boolean;
 
-  constructor(id: string, type:string, startOrEnd:boolean) {
-    super(id);
+  constructor(id: string, schemaItem:DontCodeSchemaItem, type:string, startOrEnd:boolean) {
+    super(id, schemaItem);
 
     this.type = 'object';
     this.multiple = (type===SubTextModelElement.MULTIPLE);

@@ -3,9 +3,9 @@
     <ng-container [ngSwitch]="element.type">
       <br *ngSwitchCase="'newLine'"/>
       <ide-ui-text-element *ngSwitchCase="'string'" [element]="element"></ide-ui-text-element>
-      <ide-ui-sub-text-element *ngSwitchCase="'object-start'" [element]="element">
+      <ide-ui-sub-text-element *ngSwitchCase="'object'" [element]="element">
       </ide-ui-sub-text-element>
-      <ide-ui-sub-text-element *ngSwitchCase="'array-start'" [element]="element">
+      <ide-ui-sub-text-element *ngSwitchCase="'array'" [element]="element">
       </ide-ui-sub-text-element>
       <ide-ui-select-element *ngSwitchCase="'list'" [element]="element"></ide-ui-select-element>
       <ide-ui-input-element *ngSwitchCase="'input'" [element]="element"></ide-ui-input-element>

@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { TextModelElement } from '../text-model-element';
-import { DontCodeModel,DontCodeSchema,Change, ChangeType  } from '@dontcode/core';
-import { SubTextModelElement } from '../sub-text-model-element';
-import { EditorElement } from '../../../routes/editor/editor-element';
-import { HttpClient } from '@angular/common/http';
-import { ChangeUpdateService } from '../../change/services/change-update.service';
-import { DontCodeSchemaItem, DontCodeSchemaRef, DontCodeSchemaValue, DontCodeSchemaEnum } from '@dontcode/core/lib/model/dont-code-schema-item';
+import { Injectable } from "@angular/core";
+import {
+  Change,
+  ChangeType,
+  DontCodeModel,
+  DontCodeSchemaEnum,
+  DontCodeSchemaItem,
+  DontCodeSchemaRef
+} from "@dontcode/core";
+import { EditorElement, EditorElementType } from "../../../routes/editor/editor-element";
+import { HttpClient } from "@angular/common/http";
+import { ChangeUpdateService } from "../../change/services/change-update.service";
 
 /**
   Manages the model to be edited and as well the list of elements that informs the UI about what to display.
@@ -18,33 +21,49 @@ export class TextService {
 
   protected jsonSchema:DontCodeSchemaItem;
 
-  event = new ReplaySubject<TextModelElement> ();
+//  event = new ReplaySubject<TextModelElement> ();
 
   // Temporary variables when recursively reading elements
-  listOfElementsStack:EditorElement[][]=[];
-  positionStack:string[]=[];
+  /*listOfElementsStack:EditorElement[][]=[];
+  positionStack:string[]=[];*/
+
+  protected rootElement:EditorElement;
+  /**
+   * Stores the array of EditorElement one can find at a specific position in the edited data
+   * For example:
+   *  'creation/entities/a/' => The list of editor elements for the first entity
+   *  'creation/entities/b/' => The list of editor elements for the second entity
+   */
+  //mapOfElements = new Map<string, EditorElement[]>();
 
   rootListOfElements:EditorElement[] = [];
-  mapOfElements = new Map<string, EditorElement[]>();
+
+  /**
+   * Stores the SchemaItem corresponding to a position in the schema
+   * For example:
+   *  'creation/entities' => The SchemaItem describing an entity
+   *  'creation/entities/fields/' => The SchemaItem describing a field in an entity
+   *  'creation/screens[type=list]/columns' => The SchemaItem describing a column of a screen when the screen type is list
+   */
   mapOfJson = new Map<string, DontCodeSchemaItem>();
 
-
   constructor(protected http:HttpClient, protected updateService:ChangeUpdateService) {
-    this.listOfElementsStack.push(this.rootListOfElements);
-    this.mapOfElements.set('', this.rootListOfElements);
+
+  /*  this.mapOfElements.set('', this.rootListOfElements);
+  this.listOfElementsStack.push(this.rootListOfElements);
     this.positionStack.push('');
     this.event
-      .subscribe(textAction => {
-        let position = this.currentPosition()+'/'+textAction.relativeId;
-        if (textAction.id===DontCodeModel.ROOT) {
-          this.positionStack.push(textAction.id);
-          position = textAction.id;
+      .subscribe(textModel => {
+        let position = this.currentPosition()+'/'+textModel.relativeId;
+        if (textModel.id===DontCodeModel.ROOT) {
+          this.positionStack.push(textModel.id);
+          position = textModel.id;
         }
-        if( textAction instanceof SubTextModelElement) {
-          const subAction = textAction as SubTextModelElement;
+        if( textModel instanceof SubTextModelElement) {
+          const subAction = textModel as SubTextModelElement;
           if (subAction.isStart()) {
-            this.currentList().push(EditorElement.fromTextAction (textAction, position));
-            this.mapOfElements.set(position, [new EditorElement(position+'/a', position+'/a', textAction.id, 'arrayItem' )]);
+            this.currentList().push(EditorElement.fromTextAction (textModel, position));
+            this.mapOfElements.set(position, [new EditorElement(position+'/a', textModel.schemaItem, position+'/a', textModel.id, 'arrayItem' )]);
 
             const newList:EditorElement[]=[];
             this.listOfElementsStack.push(newList );
@@ -53,16 +72,16 @@ export class TextService {
           } else {
             this.listOfElementsStack.pop();
             this.positionStack.pop();
-            this.currentList().push(EditorElement.fromTextAction (textAction, this.currentPosition()));
+            this.currentList().push(EditorElement.fromTextAction (textModel, this.currentPosition()));
           }
         }
         else {
-          this.currentList().push(EditorElement.fromTextAction (textAction, position));
+          this.currentList().push(EditorElement.fromTextAction (textModel, position));
         }
-      });
+      });*/
   }
 
-  protected currentList (): EditorElement[] {
+/*  protected currentList (): EditorElement[] {
     if( this.listOfElementsStack.length==0)
       return null;
     return this.listOfElementsStack[this.listOfElementsStack.length-1];
@@ -71,17 +90,16 @@ export class TextService {
     if( this.positionStack.length==0)
       return null;
     return this.positionStack[this.positionStack.length-1];
-  }
+  }*/
 
   resetSchema () {
-    this.rootListOfElements.length=0;
-    this.mapOfElements.clear();
-    this.positionStack.length=0;
-    this.mapOfElements.clear();
+    this.rootElement=null;
     this.mapOfJson.clear();
-    this.listOfElementsStack.push(this.rootListOfElements);
+/*    this.mapOfElements.clear();
     this.mapOfElements.set('', this.rootListOfElements);
-    this.positionStack.push('');
+    this.positionStack.length=0;
+    this.listOfElementsStack.push(this.rootListOfElements);
+    this.positionStack.push('');*/
     this.updateService.pushChange(new Change(ChangeType.RESET, null,null));
   }
 
@@ -91,42 +109,57 @@ export class TextService {
    */
   readSchema (schemaAsJson:DontCodeSchemaItem) {
     this.jsonSchema = schemaAsJson;
-    const root= this.goto(schemaAsJson, DontCodeModel.ROOT);
-    if( root) {
-      this.event.next(new TextModelElement(DontCodeModel.ROOT, DontCodeModel.ROOT));
-      this.readSubSchema (root, DontCodeModel.ROOT);
+    const rootSchema= this.goto(schemaAsJson, DontCodeModel.ROOT);
+    if( rootSchema) {
+      this.rootElement = EditorElement.createNew(
+        DontCodeModel.ROOT, DontCodeModel.ROOT,
+        EditorElementType.label, rootSchema);
+      this.readSubSchema (rootSchema, this.rootElement, DontCodeModel.ROOT, DontCodeModel.ROOT);
     }
   }
 
-  readSubSchema (parent: DontCodeSchemaItem, position:string) {
-    this.mapOfJson.set (position, parent);
-    parent = this.resolveRefs (parent);
+  readSubSchema (parent: DontCodeSchemaItem, parentElement:EditorElement, position:string, schemaPosition:string) {
+    this.mapOfJson.set (schemaPosition, parent);
+    //this.mapOfElements.set(position, parentElement.getChildrenToDisplay());
+      // Transparently resolves references
+    if( parent instanceof DontCodeSchemaRef) {
+      (parent as DontCodeSchemaRef).resolveReference(this.resolveRefs(parent));
+    }
     for (const [key, value] of parent.getChildren()) {
-      const childPosition = position + '/' + key;
-      if( value.isArray()) {
-        this.event.next(new SubTextModelElement(childPosition
-          ,SubTextModelElement.MULTIPLE, SubTextModelElement.START));
+      let childPosition = position;
+      let schemaChildPosition = schemaPosition;
+      if (key && key.length>0) {
+        childPosition = childPosition + '/' + key;
+        schemaChildPosition = schemaChildPosition + '/'+ key;
       }
-      if (value.isValue())
-          this.event.next(new TextModelElement(childPosition));
-      else if (value.isEnum()) {
+      let newElement:EditorElement;
+      if( value.isArray()) {
+        newElement = EditorElement.createNew(
+          childPosition, schemaChildPosition, EditorElementType.array, value)
+        parentElement.addToDisplayChildren (newElement);
+          // We create the first element of the array
+        childPosition=childPosition+'/a';
+        this.readSubSchema(value, newElement, childPosition, schemaChildPosition);
+      } else if (value.isValue()) {
+        parentElement.addToDisplayChildren(EditorElement.createNew(
+          childPosition, schemaChildPosition, EditorElementType.input, value)
+        );
+      } else if (value.isEnum()) {
         const asEnum = value as DontCodeSchemaEnum;
-        this.event.next(new TextModelElement(childPosition, ...asEnum.getValues()));
+        parentElement.addToDisplayChildren(EditorElement.createNew(
+          childPosition, schemaChildPosition, EditorElementType.list, value, asEnum.getValues())
+        );
       } else if( value.isObject()) {
-          this.event.next(new SubTextModelElement(childPosition
-            ,SubTextModelElement.SINGLE, SubTextModelElement.START));
-          this.readSubSchema(value, childPosition);
-          this.event.next(new SubTextModelElement(childPosition
-            ,SubTextModelElement.SINGLE,SubTextModelElement.END));
+        newElement = EditorElement.createNew(
+          childPosition, schemaChildPosition, EditorElementType.object, value);
+        parentElement.addToDisplayChildren(newElement);
+
+        this.readSubSchema(value,newElement, childPosition, schemaChildPosition);
       } else if (value.isReference()) {
-        this.readSubSchema(value, childPosition);
+        this.readSubSchema(value, parentElement,childPosition,schemaChildPosition);
       }
       else {
         console.error ('Unknown item read from schema at position '+position+':', value);
-      }
-      if( value.isArray()) {
-        this.event.next(new SubTextModelElement(childPosition
-          ,SubTextModelElement.MULTIPLE, SubTextModelElement.END));
       }
     }
   }
@@ -153,14 +186,15 @@ export class TextService {
     return ret;
   }
 
-  getList(fromId?:string) : EditorElement[] {
+  /*getList(fromId?:string) : EditorElement[] {
     if (!fromId)
       fromId='';
     return this.mapOfElements.get(fromId);
-  }
+  }*/
 
-  getNextId(position: string) {
-    const list = this.getList(position);
+  getNextId(element:EditorElement) {
+    const list = element.getChildrenToDisplay();
+    const position = element.position;
     let tentative = 97+list.length;
     let found = false;
     let id : string;
@@ -179,28 +213,38 @@ export class TextService {
     return id;
   }
 
+  /**
+   * Creates a new sub element of an array. Usually called when the user clicks Add
+   * @param element
+   */
   addSubElement(element: EditorElement) {
-    const list = this.getList(element.position);
+    /**
+     * Creates the new element and adds it to the list
+     */
+    //const list = this.getList(element.position);
     const subSchema = this.mapOfJson.get(element.schemaPosition);
-    const nextId = this.getNextId (element.position);
+    const nextId = this.getNextId (element);
+    const duplicateElement = EditorElement.createNew(
+      element.position+'/'+nextId, element.schemaPosition, element.type, subSchema );
 
-    list.push (new EditorElement(element.position+'/'+nextId, element.position+'/'+nextId, element.schemaPosition, 'arrayItem' ));
+  //  list.push (duplicateElement);
+    element.addToDisplayChildren(duplicateElement);
 
     /**
      * Now re-read the schema to duplicate the new element
     */
+/*    const newList:EditorElement[]=[];
     this.listOfElementsStack.length=0;
     this.positionStack.length=0;
-    const newList:EditorElement[]=[];
     this.listOfElementsStack.push(newList );
-    this.positionStack.push(element.position+'/'+nextId);
-    this.mapOfElements.set(this.currentPosition(), newList);
+    this.positionStack.push(element.position+'/'+nextId);*/
+//    this.mapOfElements.set(duplicateElement.position, duplicateElement.getChildrenToDisplay());
 
-    this.readSubSchema(subSchema, element.schemaPosition);
+    this.readSubSchema(subSchema, duplicateElement, element.position+'/'+nextId,element.schemaPosition);
   }
 
   removeElement(parent: EditorElement, item:EditorElement, index?:number) {
-    let parentList = this.getList(parent.position);
+    let parentList = parent.getChildrenToDisplay();
     if( !index){
       index = parentList.indexOf(item);
     }
@@ -208,7 +252,7 @@ export class TextService {
   }
 
   upElement(parent: EditorElement, item: EditorElement, index: number) {
-    let parentList = this.getList(parent.position);
+    let parentList = parent.getChildrenToDisplay();
     if( !index){
       index = parentList.indexOf(item);
     }
@@ -220,7 +264,7 @@ export class TextService {
   }
 
   downElement(parent: EditorElement, item: EditorElement, index: number) {
-    let parentList = this.getList(parent.position);
+    let parentList = parent.getChildrenToDisplay();
     if( !index){
       index = parentList.indexOf(item);
     }
@@ -229,5 +273,25 @@ export class TextService {
       parentList.splice(index+1,0,item);
     }
 
+  }
+
+  /**
+   * A value has changed in the element, that may triggers change in the editor
+   * like for example, when selecting a item in a list change the items below
+   * @param parent
+   * @param item
+   * @param index
+   */
+  refreshElement (parent: EditorElement, item:EditorElement, index:number, value:any) {
+    const schema:DontCodeSchemaItem = this.mapOfJson.get(item.schemaPosition);
+    const props = schema.getProperties(value);
+    if (props) {
+  //  *  'creation/screens[type=list]/columns' => The SchemaItem describing a column of a screen when the screen type is list
+
+    }
+  }
+
+  getRootElement (): EditorElement {
+    return this.rootElement;
   }
 }

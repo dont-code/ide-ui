@@ -10,14 +10,14 @@ import { EditorElement } from '../editor-element';
 export class TextHandlerComponent implements OnInit {
 
   @Input()
-  position:string;
+  element:EditorElement;
 
   listOfElements:EditorElement[] = [];
 
   constructor(protected model: TextService) { }
 
   ngOnInit(): void {
-    this.listOfElements = this.model.getList(this.position);
+    this.listOfElements = this.element.getChildrenToDisplay();
   }
 
 }

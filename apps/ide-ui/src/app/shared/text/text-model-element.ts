@@ -1,11 +1,15 @@
+import { DontCodeSchemaItem } from '@dontcode/core';
+
 export class TextModelElement {
   type: string;
   id: string;
   relativeId:string;
-  values: string[]
+  values: string[];
+  schemaItem:DontCodeSchemaItem;
 
-  constructor (id: string, ...text:string[]) {
+  constructor (id: string, schemaItem:DontCodeSchemaItem, ...text:string[]) {
     this.id=id;
+    this.schemaItem = schemaItem;
     if( id.lastIndexOf('/')==-1) {
       this.relativeId = id;
     }else {

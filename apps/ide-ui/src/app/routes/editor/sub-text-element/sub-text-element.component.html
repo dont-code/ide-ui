@@ -7,12 +7,12 @@
   </mat-expansion-panel-header>
   <div style="margin-left: 20px">
     <ng-container *ngFor="let item of items; index as i">
-      <ide-ui-text-handler [position]="item.position"></ide-ui-text-handler>
-      <ng-container *ngIf="element.type==='array-start'">
+      <ide-ui-text-handler [element]="item"></ide-ui-text-handler>
+      <ng-container *ngIf="element.type==='array'">
         <button  type="button" mat-icon-button [id]="item.id+'-add-button'" (click)="addElement()">
           <mat-icon aria-label="Add item">add</mat-icon>
         </button>
-        <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="item.id+'-remove-button'" (click)="removeElement(item, i)">
+        <button type="button" mat-icon-button [id]="item.id+'-remove-button'" (click)="removeElement(item, i)">
           <mat-icon aria-label="Remove item">remove</mat-icon>
         </button>
         <button *ngIf="i>0" type="button" mat-icon-button [id]="item.id+'-up-button'" (click)="upElement(item, i)">
@@ -25,7 +25,7 @@
       </ng-container>
     </ng-container>
     <ng-container *ngIf="items.length==0">
-      <button *ngIf="element.type==='array-start'" type="button" mat-icon-button [id]="element.id+'-new-button'" (click)="addElement()">
+      <button *ngIf="element.type==='array'" type="button" mat-icon-button [id]="element.id+'-new-button'" (click)="addElement()">
         <mat-icon aria-label="Add item">add</mat-icon>
       </button>
     </ng-container>

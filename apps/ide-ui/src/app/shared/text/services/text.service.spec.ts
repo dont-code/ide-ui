@@ -4,6 +4,7 @@ import { TextService } from './text.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ChangeUpdateService } from '../../change/services/change-update.service';
 import {DontCode} from '@dontcode/core/';
+import { EditorElement } from "../../../routes/editor/editor-element";
 
 describe('TextService', () => {
   let service: TextService;
@@ -27,43 +28,46 @@ describe('TextService', () => {
     service.readSchema(DontCode.dtcde.getSchemaManager().getSchema());
     const list:string[] = [];
     const expectedIds=[
-      'creation(text)',
-      'creation/type(text)',
+      'creation(label)',
+      'creation/type(list)',
       'creation/name(input)',
-      'creation/entities(object)',
-      'creation/entities/name(input)',
-      'creation/entities/fields(object)',
-      'creation/entities/fields/name(input)',
-      'creation/entities/fields/type(array)',
-      'creation/entities/fields(object)',
-      'creation/entities(object)',
-      'creation/screens(object)',
-      'creation/screens/name(input)',
-      'creation/screens/layout(array)',
-      'creation/screens/components(object)',
-      'creation/screens/components/type(array)',
-      'creation/screens/components/entity/name(input)',
-      'creation/screens/components/entity/fields(object)',
-      'creation/screens/components/entity/fields/name(input)',
-      'creation/screens/components/entity/fields/type(array)',
-      'creation/screens/components/entity/fields(object)',
-      'creation/screens/components(object)',
-      'creation/screens(object)'
+      'creation/entities(array)',
+      'creation/entities/a(object)',
+      'creation/entities/a/name(input)',
+      'creation/entities/a/fields(array)',
+      'creation/entities/a/fields/a(object)',
+      'creation/entities/a/fields/a/name(input)',
+      'creation/entities/a/fields/a/type(list)',
+      'creation/screens(array)',
+      'creation/screens/a(object)',
+      'creation/screens/a/name(input)',
+      'creation/screens/a/layout(list)',
+      'creation/screens/a/components(array)',
+      'creation/screens/a/components/a(object)',
+      'creation/screens/a/components/a/type(list)',
+      'creation/screens/a/components/a/entity(object)',
+      'creation/screens/a/components/a/entity/name(input)',
+      'creation/screens/a/components/a/entity/fields(array)',
+      'creation/screens/a/components/a/entity/fields/a(object)',
+      'creation/screens/a/components/a/entity/fields/a/name(input)',
+      'creation/screens/a/components/a/entity/fields/a/type(list)'
     ];
 
-    service.event.subscribe(value => {
-//      console.log(value.id+'('+value.type+')');
-      list.push(value.id+'('+value.type+')');
-      expect(list[list.length-1]).toBe(expectedIds[list.length-1]);
-    }, null, ()=> {
-      try {
-        expect(list).toEqual(expectedIds);
-        done();
-      } catch (error) {
-        done(error);
-      }
-
+    recurse (service.getRootElement(), list);
+    list.forEach((value, index) => {
+      expect(value).toBe(expectedIds[index]);
     });
-    service.event.complete();
+    done();
   });
+
 });
+
+function recurse(element:EditorElement, list:Array<string>) {
+  //console.log(element.position+'('+element.type+')');
+  list.push(element.position+'('+element.type+')');
+  element.getChildrenToDisplay().forEach(value => {
+    recurse(value, list);
+  })
+}
+
+

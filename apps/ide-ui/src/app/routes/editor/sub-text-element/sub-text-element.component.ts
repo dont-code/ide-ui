@@ -15,7 +15,7 @@ export class SubTextElementComponent implements OnInit {
   constructor(protected service:TextService) { }
 
   ngOnInit(): void {
-    this.items = this.service.getList(this.element.position);
+    this.items = this.element.getChildrenToDisplay();
   }
 
   addElement() {
