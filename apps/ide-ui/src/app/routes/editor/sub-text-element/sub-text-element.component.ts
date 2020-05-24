@@ -19,16 +19,16 @@ export class SubTextElementComponent implements OnInit {
   }
 
   addElement() {
-    this.service.addSubElement(this.element);
+    this.element.addSubElement();
   }
   removeElement(item:EditorElement, index:number) {
-    this.service.removeElement(this.element, item, index);
+    this.element.removeElement( item, index);
   }
 
   upElement(item:EditorElement, index:number) {
-    this.service.upElement(this.element, item, index);
+    this.element.upElement( item, index);
   }
   downElement(item:EditorElement, index:number) {
-    this.service.downElement(this.element, item, index);
+    this.element.downElement( item, index);
   }
 }

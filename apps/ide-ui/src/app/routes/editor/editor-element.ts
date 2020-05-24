@@ -1,4 +1,4 @@
-import { DontCodeSchemaItem } from "@dontcode/core";
+import { DontCodeSchemaEnum, DontCodeSchemaItem, DontCodeSchemaRef, AbstractSchemaItem } from "@dontcode/core";
 
 export class EditorElement {
   id: string;
@@ -23,6 +23,7 @@ export class EditorElement {
   editedValue: any;
 
   protected childrenToDisplay = new Array<EditorElement>();
+  protected forceRead = true;
 
   constructor(id:string, schemaItem:DontCodeSchemaItem, position?:string, schemaPosition?:string, type?:EditorElementType) {
     this.id = id;
@@ -53,42 +54,160 @@ export class EditorElement {
     }
     return ret;
   }
-  /*static fromTextAction(textModel: TextModelElement, position: string) {
-    let ret = new EditorElement(position, textModel.schemaItem);
-    ret.position = position;
-    ret.schemaPosition=textModel.id;
-    if (textModel.isText()) {
-      ret.type='string';
-    }else if (textModel.isArray()){
-      ret.type='list';
-      ret.values=textModel.values;
-    } else if (textModel.isInput()) {
-      ret.type='input';
-    } else if (textModel.isNewline()) {
-      ret.type='newLine';
-    } else if(textModel instanceof SubTextModelElement) {
-        const subAction = textModel as SubTextModelElement;
-        if (subAction.isMultiple()) {
-          ret.type='array';
-        }else
-        {
-          ret.type = 'object';
-        }
-        if( subAction.isStart())
-          ret.type=ret.type+'-start';
-        else
-          ret.type=ret.type+'-end';
-    }
-    return ret;
-  }*/
 
   getChildrenToDisplay (): Array<EditorElement> {
+    if (this.forceRead) {
+      let toAdd:Array<EditorElement>;
+      if( this.type===EditorElementType.array) {
+        toAdd = this.readSubSchema(this.position+'/a', this.schemaPosition, this.schemaModel);
+      } else {
+        toAdd = this.readSubSchema(this.position, this.schemaPosition, this.schemaModel);
+      }
+      this.addToDisplayChildren(toAdd);
+      this.forceRead = false;
+    }
     return this.childrenToDisplay;
   }
 
-  addToDisplayChildren(editorElement: EditorElement) {
-    this.childrenToDisplay.push(editorElement);
+  addToDisplayChildren(editorElement: EditorElement[]) {
+    editorElement.forEach(value => {
+      this.childrenToDisplay.push(value);
+    })
   }
+
+  readSubSchema ( position:string, schemaPosition:string, model:DontCodeSchemaItem): Array<EditorElement> {
+    let ret = new Array<EditorElement>();
+    const parent = model;
+    // Transparently resolves references
+    if( parent instanceof DontCodeSchemaRef) {
+      (parent as DontCodeSchemaRef).resolveReference(this.resolveRefs(parent));
+    }
+    for (const [key, value] of parent.getChildren()) {
+      let childPosition = position;
+      let schemaChildPosition = schemaPosition;
+      if (key && key.length>0) {
+        childPosition = childPosition + '/' + key;
+        schemaChildPosition = schemaChildPosition + '/'+ key;
+      }
+      let newElement:EditorElement;
+      if( value.isArray()) {
+        newElement = EditorElement.createNew(
+          childPosition, schemaChildPosition, EditorElementType.array, value);
+//        this.addToDisplayChildren (newElement);
+      } else if (value.isValue()) {
+        newElement = EditorElement.createNew(
+          childPosition, schemaChildPosition, EditorElementType.input, value);
+//        this.addToDisplayChildren(newElement);
+      } else if (value.isEnum()) {
+        const asEnum = value as DontCodeSchemaEnum;
+        newElement = EditorElement.createNew(
+          childPosition, schemaChildPosition, EditorElementType.list, value, asEnum.getValues());
+//        this.addToDisplayChildren(newElement);
+      } else if( value.isObject()) {
+        newElement = EditorElement.createNew(
+          childPosition, schemaChildPosition, EditorElementType.object, value);
+//        this.addToDisplayChildren(newElement);
+      } else if (value.isReference()) {
+        ret = this.readSubSchema(childPosition,schemaChildPosition, value);
+      }
+      else {
+        console.error ('Unknown item read from schema at position '+position+':', value);
+      }
+      if( newElement)
+        ret.push(newElement);
+    }
+    return ret;
+  }
+
+  resolveRefs (entity: DontCodeSchemaItem): DontCodeSchemaItem {
+    let ret = entity;
+    if( entity.isReference()) {
+      let toFind = (entity as DontCodeSchemaRef).getReference();
+      ret = AbstractSchemaItem.goto(this.calculateRootSchema(),toFind);
+    }
+    return ret;
+  }
+
+  calculateRootSchema () {
+    let ret:DontCodeSchemaItem = this.schemaModel;
+    while (ret.getParent()) {
+      ret=ret.getParent();
+    }
+    return ret;
+  }
+
+  getNextId() {
+    const list = this.getChildrenToDisplay();
+    const position = this.position;
+    let tentative = 97+list.length;
+    let found = false;
+    let id : string;
+    do {
+      id = String.fromCharCode(tentative);
+      const toTest = position+'/'+id;
+      found = false;
+      list.forEach(value => {
+          if (value.position===toTest) {
+            found=true;
+          }
+        }
+      );
+      tentative++;
+    } while(found);
+    return id;
+  }
+
+  /**
+   * Creates a new sub element of an array. Usually called when the user clicks Add
+   * @param element
+   */
+  addSubElement() {
+    /**
+     * Creates the new element and adds it to the list
+     */
+      //const list = this.getList(element.position);
+    const subSchema = this.schemaModel;
+    const nextId = this.getNextId ();
+    const duplicateElement = this.readSubSchema(
+      this.position+'/'+nextId, this.schemaPosition, subSchema );
+
+    //  list.push (duplicateElement);
+    this.addToDisplayChildren(duplicateElement);
+
+  }
+
+  removeElement( item:EditorElement, index?:number) {
+    let parentList = this.getChildrenToDisplay();
+    if( !index){
+      index = parentList.indexOf(item);
+    }
+    parentList.splice(index,1);
+  }
+
+  upElement( item: EditorElement, index: number) {
+    let parentList = this.getChildrenToDisplay();
+    if( !index){
+      index = parentList.indexOf(item);
+    }
+
+    if (index>0) {
+      parentList.splice(index, 1);
+      parentList.splice(index-1,0,item);
+    }
+  }
+
+  downElement(item: EditorElement, index: number) {
+    let parentList = this.getChildrenToDisplay();
+    if( !index){
+      index = parentList.indexOf(item);
+    }
+    if (index<parentList.length-1) {
+      parentList.splice(index, 1);
+      parentList.splice(index+1,0,item);
+    }
+
+  }
+
 }
 export enum EditorElementType {
   array='array',
