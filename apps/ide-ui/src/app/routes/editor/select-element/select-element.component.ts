@@ -25,7 +25,7 @@ export class SelectElementComponent implements OnInit {
   }
 
   onChange(change:MatSelectChange) {
-    this.element.editedValue=change.value;
+    this.element.setEditedValue(change.value);
     this.changeService.pushChange(
       new Change(ChangeType.UPDATE,
         this.element.position,

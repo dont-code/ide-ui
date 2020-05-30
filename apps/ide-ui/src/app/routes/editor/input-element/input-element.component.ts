@@ -20,7 +20,7 @@ export class InputElementComponent implements OnInit {
   onChange(event: Event) {
     const target = event.target as HTMLInputElement;
 
-    this.element.editedValue=target.value;
+    this.element.setEditedValue(target.value);
     this.changeService.pushChange(
       new Change(ChangeType.UPDATE,
         this.element.position,
@@ -28,8 +28,8 @@ export class InputElementComponent implements OnInit {
   }
 
   editedValue() {
-    if (this.element.editedValue)
-      return this.element.editedValue;
+    if (this.element.getEditedValue())
+      return this.element.getEditedValue();
     else
       return '';
   }
