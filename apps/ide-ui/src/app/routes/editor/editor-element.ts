@@ -1,4 +1,6 @@
 import { DontCodeSchemaEnum, DontCodeSchemaItem, DontCodeSchemaRef, AbstractSchemaItem, DontCodeSchemaProperty } from "@dontcode/core";
+import { observableToBeFn } from "rxjs/internal/testing/TestScheduler";
+import { from } from "rxjs";
 
 export class EditorElement {
   id: string;
@@ -23,6 +25,7 @@ export class EditorElement {
   protected editedValue: any;
 
   protected childrenToDisplay = new Array<EditorElement>();
+  protected allChildren = new Map<string, EditorElement> ();
   protected forceRead = true;
 
   protected parent: EditorElement;
@@ -67,14 +70,8 @@ export class EditorElement {
 
   getChildrenToDisplay (): Array<EditorElement> {
     if (this.forceRead) {
-      let toAdd:Array<EditorElement>;
-      if( this.type===EditorElementType.array) {
-        toAdd = [EditorElement.createNew(this.position+'/a', this.schemaPosition, EditorElementType.object, this.schemaModel)];
-        //toAdd = this.readSubSchema(this.position+'/a', this.schemaPosition, this.schemaModel);
-      } else {
-        toAdd = this.readSubSchema(this.position, this.schemaPosition, this.schemaModel);
-      }
-      this.addToDisplayChildren(toAdd);
+      const nextId = (this.type===EditorElementType.array)?'a':null;
+        this.readSubSchema(this.position, this.schemaPosition, this.schemaModel, nextId );
       this.forceRead = false;
     }
     return this.childrenToDisplay;
@@ -96,7 +93,7 @@ export class EditorElement {
   mergeDisplayChildren (afterElement:EditorElement, update:DontCodeSchemaProperty) {
 
     const newProps = this.readSubSchema(this.position+'/'+update.getRelativeId(), this.schemaPosition+'/'+update.getRelativeId(),
-      update);
+      update, null);
     for (let i = 0; i< this.childrenToDisplay.length;i++) {
       if (this.childrenToDisplay[i]===afterElement) {
         if (update.isReplace()) {
@@ -126,10 +123,21 @@ export class EditorElement {
     return targetIndex++;
   }*/
 
+  /**
+   * Reads a DontCodeSchemaItem schema. Either is merges with current EditorElement, or it uses the provided toMerge and elementCache without touching the current EditorElement
+   * @param position
+   * @param schemaPosition
+   * @param model
+   * @param toMerge
+   * @param elementCache
+   */
+  readSubSchema ( position:string, schemaPosition:string, model:DontCodeSchemaItem, nextArrayId:string, toMerge?:Array<EditorElement>, mergeStartPosition?:number, elementCache?:Map<string, EditorElement>): Array<EditorElement> {
+    let ret = toMerge ? toMerge : this.childrenToDisplay;
+    let mergePosition = mergeStartPosition ? mergeStartPosition : 0;
+    let cache = elementCache ? elementCache : this.allChildren;
 
-  readSubSchema ( position:string, schemaPosition:string, model:DontCodeSchemaItem): Array<EditorElement> {
-    let ret = new Array<EditorElement>();
     let parent = model;
+
     // Transparently resolves references
     if( parent instanceof DontCodeSchemaRef) {
       //(parent as DontCodeSchemaRef).resolveReference(this.resolveRefs(parent));
@@ -137,39 +145,63 @@ export class EditorElement {
       parent = this.resolveRefs(oldParent);
       (oldParent as DontCodeSchemaRef).resolveReference(parent);
     }
-    for (const [key, value] of parent.getChildren()) {
+
+    let children = parent.getChildren();
+
+    if (nextArrayId)  {
+      // We are managing subelements of an array
+      children = new Map([['', parent]]).entries();
+      position = position + '/'+ nextArrayId;
+    }
+
+    for (const [key, value] of children) {
       let childPosition = position;
       let schemaChildPosition = schemaPosition;
       if (key && key.length>0) {
         childPosition = childPosition + '/' + key;
         schemaChildPosition = schemaChildPosition + '/'+ key;
       }
-      let newElement:EditorElement;
-      if( value.isArray()) {
-        newElement = EditorElement.createNew(
-          childPosition, schemaChildPosition, EditorElementType.array, value);
-//        this.addToDisplayChildren (newElement);
-      } else if (value.isValue()) {
-        newElement = EditorElement.createNew(
-          childPosition, schemaChildPosition, EditorElementType.input, value);
-//        this.addToDisplayChildren(newElement);
-      } else if (value.isEnum()) {
-        const asEnum = value as DontCodeSchemaEnum;
-        newElement = EditorElement.createNew(
-          childPosition, schemaChildPosition, EditorElementType.list, value, asEnum.getValues());
-//        this.addToDisplayChildren(newElement);
-      } else if( value.isObject()) {
-        newElement = EditorElement.createNew(
-          childPosition, schemaChildPosition, EditorElementType.object, value);
-//        this.addToDisplayChildren(newElement);
-      } else if (value.isReference()) {
-        ret = ret.concat(... this.readSubSchema(childPosition,schemaChildPosition, value));
+
+      let newElement:EditorElement = cache.get(key);
+      if (!newElement) {
+        if (value.isArray() ) {
+          if(!nextArrayId) {
+          // An model can be an array and an object or value at the same time.
+            newElement = EditorElement.createNew(
+              childPosition, schemaChildPosition, EditorElementType.array, value);
+          }
+        }
+        if( !newElement) {
+          if (value.isValue()) {
+            newElement = EditorElement.createNew(
+              childPosition, schemaChildPosition, EditorElementType.input, value);
+          } else if (value.isEnum()) {
+            const asEnum = value as DontCodeSchemaEnum;
+            newElement = EditorElement.createNew(
+              childPosition, schemaChildPosition, EditorElementType.list, value, asEnum.getValues());
+          } else if (value.isObject()) {
+            newElement = EditorElement.createNew(
+              childPosition, schemaChildPosition, EditorElementType.object, value);
+          } else if (value.isReference()) {
+            this.readSubSchema(childPosition, schemaChildPosition, value, null, ret, mergePosition, cache);
+          } else {
+            console.error('Unknown item read from schema at position ' + position + ':', value);
+          }
+        }
       }
-      else {
-        console.error ('Unknown item read from schema at position '+position+':', value);
+
+      if (newElement) {
+        mergePosition = this.mergeElement(newElement, value, mergePosition, ret, cache);
+        if (newElement.hasActiveProperties()) {
+          const toAddProps = newElement.getActiveProperties();
+          this.readSubSchema(childPosition + '/' + toAddProps.getRelativeId(), schemaChildPosition + '/' + toAddProps.getRelativeId(),
+            toAddProps, null,ret, mergePosition, cache);
+          // if the active properties are replacing the remaining elements, then remove the remaining elements and  just stop the loop here
+          if (newElement.isReplacementActive()) {
+            break;
+          }
+        }
       }
-      if( newElement)
-        ret.push(newElement);
     }
     return ret;
   }
@@ -223,12 +255,7 @@ export class EditorElement {
       //const list = this.getList(element.position);
     const subSchema = this.schemaModel;
     const nextId = this.getNextId ();
-    const duplicateElement = [EditorElement.createNew(
-      this.position+'/'+nextId, this.schemaPosition
-      ,EditorElementType.object, subSchema )];
-
-    //  list.push (duplicateElement);
-    this.addToDisplayChildren(duplicateElement);
+    this.readSubSchema(this.position, this.schemaPosition, subSchema, nextId);
 
   }
 
@@ -277,8 +304,62 @@ export class EditorElement {
     }
   }
 
+  protected hasActiveProperties(): boolean {
+    let props = this.schemaModel.getProperties(this.editedValue);
+    if (props)
+      return true;
+    else
+      return false;
+  }
 
+  protected getActiveProperties(): DontCodeSchemaProperty {
+    return this.schemaModel.getProperties(this.editedValue);
+  }
+
+  protected isReplacementActive(): boolean {
+    let props = this.schemaModel.getProperties(this.editedValue);
+    if (props && props.isReplace())
+      return true;
+    else
+      return false;
+  }
+
+  protected mergeElement(newElement: EditorElement, after:DontCodeSchemaItem, mergeStartPosition: number, toMerge?: Array<EditorElement>, elementCache?: Map<string, EditorElement>): number {
+    let list= toMerge?toMerge:this.childrenToDisplay;
+    let cache = elementCache?elementCache:this.allChildren;
+    const key = newElement.schemaModel.getRelativeId();
+    cache.set(key, newElement);
+    if (mergeStartPosition>=list.length){
+      list.push(newElement);
+      return ++mergeStartPosition;
+    }
+
+    let foundAt=-1;
+    let alreadyThere=false;
+    for (let i=mergeStartPosition;i<list.length;i++) {
+      if (list[i].schemaModel===after) {
+        foundAt=i;
+      } else {
+        if (foundAt!=-1) {
+          // We found the insertion point, should we delete older elements or is the element already present in the list ?
+          if (list[i]===newElement) {
+            // It was already in the list !
+            alreadyThere = true;
+          }
+          break;
+        }
+      }
+    }
+
+    if (foundAt!=-1)
+      mergeStartPosition=foundAt+1;
+
+    if(!alreadyThere)
+      list.splice(mergeStartPosition, 0, newElement);
+    return mergeStartPosition;
+  }
 }
+
 export enum EditorElementType {
   array='array',
   object='object',
