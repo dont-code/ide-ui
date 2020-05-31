@@ -29,7 +29,7 @@ export class TextService {
    */
   //mapOfElements = new Map<string, EditorElement[]>();
 
-  rootListOfElements:EditorElement[] = [];
+//  rootListOfElements:EditorElement[] = [];
 
   /**
    * Stores the SchemaItem corresponding to a position in the schema
@@ -107,6 +107,7 @@ export class TextService {
       this.rootElement = EditorElement.createNew(
         DontCodeModel.ROOT, DontCodeModel.ROOT,
         EditorElementType.label, rootSchema);
+      this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,this.rootElement));
     }
   }
 

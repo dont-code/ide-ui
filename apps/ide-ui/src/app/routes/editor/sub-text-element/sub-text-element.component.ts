@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import { EditorElement } from '../editor-element';
 import { TextService } from '../../../shared/text/services/text.service';
 
@@ -7,7 +7,7 @@ import { TextService } from '../../../shared/text/services/text.service';
   templateUrl: './sub-text-element.component.html',
   styleUrls: ['./sub-text-element.component.css']
 })
-export class SubTextElementComponent implements OnInit {
+export class SubTextElementComponent implements OnInit, OnChanges {
   @Input()
   element: EditorElement;
 
@@ -15,7 +15,7 @@ export class SubTextElementComponent implements OnInit {
   constructor(protected service:TextService) { }
 
   ngOnInit(): void {
-    this.items = this.element.getChildrenToDisplay();
+//    this.items = this.element.getChildrenToDisplay();
   }
 
   addElement() {
@@ -30,5 +30,9 @@ export class SubTextElementComponent implements OnInit {
   }
   downElement(item:EditorElement, index:number) {
     this.element.downElement( item, index);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.items = this.element.getChildrenToDisplay();
   }
 }

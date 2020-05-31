@@ -24,6 +24,7 @@ export class ChangeUpdateService {
   constructor() {
     console.log('Creating channel');
     this.channel = new BroadcastChannel(ChangeUpdateService.CHANNEL_CHANGE_NAME);
+
   }
 
   protected openWebSocket () :WebSocketSubject<Change> {
@@ -67,6 +68,10 @@ export class ChangeUpdateService {
       this.listOfChanges.push(newChange);
     }
     this.channel.postMessage(newChange);
+    this.updateSocket(newChange);
+  }
+
+  async updateSocket (newChange:Change) {
     this.openWebSocket().next(newChange);
   }
 
