@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { EditorElement } from '../editor-element';
 import { MatSelectChange } from '@angular/material/select';
 import { ChangeUpdateService } from '../../../shared/change/services/change-update.service';
@@ -14,6 +14,9 @@ export class SelectElementComponent implements OnInit {
   @Input()
   element: EditorElement;
 
+  @Output()
+  refresh = new EventEmitter<string>();
+
   constructor(protected changeService:ChangeUpdateService) {
   }
 
@@ -25,10 +28,15 @@ export class SelectElementComponent implements OnInit {
   }
 
   onChange(change:MatSelectChange) {
-    this.element.setEditedValue(change.value);
+    const changed:boolean = this.element.setEditedValue(change.value);
+
     this.changeService.pushChange(
       new Change(ChangeType.UPDATE,
         this.element.position,
         change.value));
+
+    if(changed) {
+      this.refresh.emit('refresh');
+    }
   }
 }

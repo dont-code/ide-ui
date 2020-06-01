@@ -292,7 +292,7 @@ export class EditorElement {
     return this.editedValue;
   }
 
-  setEditedValue (newVal:any) {
+  setEditedValue (newVal:any): boolean {
     const oldValue = this.editedValue;
     this.editedValue = newVal;
     let props = this.schemaModel.getProperties(this.editedValue);
@@ -300,7 +300,9 @@ export class EditorElement {
       // The children properties have changed
       //this.parent.mergeDisplayChildren(this, props);
       this.parent.forceRead=true;
+      return true;
     }
+    return false;
   }
 
   protected hasActiveProperties(): boolean {

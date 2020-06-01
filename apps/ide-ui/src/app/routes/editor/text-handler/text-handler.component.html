@@ -7,7 +7,7 @@
       </ide-ui-sub-text-element>
       <ide-ui-sub-text-element *ngSwitchCase="'array'" [element]="element">
       </ide-ui-sub-text-element>
-      <ide-ui-select-element *ngSwitchCase="'list'" [element]="element"></ide-ui-select-element>
+      <ide-ui-select-element *ngSwitchCase="'list'" [element]="element" (refresh)="refresh()"></ide-ui-select-element>
       <ide-ui-input-element *ngSwitchCase="'input'" [element]="element"></ide-ui-input-element>
     </ng-container>
   </ng-container>

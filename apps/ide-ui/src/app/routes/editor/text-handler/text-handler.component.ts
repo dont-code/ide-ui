@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import { TextService } from '../../../shared/text/services/text.service';
 import { EditorElement } from '../editor-element';
 
@@ -14,7 +14,7 @@ export class TextHandlerComponent implements OnInit, OnChanges {
 
   listOfElements:EditorElement[] = [];
 
-  constructor(protected model: TextService) { }
+  constructor(protected model: TextService, protected ref:ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -24,4 +24,8 @@ export class TextHandlerComponent implements OnInit, OnChanges {
     this.listOfElements = this.element.getChildrenToDisplay();
   }
 
+  refresh() {
+    this.listOfElements = this.element.getChildrenToDisplay();
+    this.ref.detectChanges();
+  }
 }
