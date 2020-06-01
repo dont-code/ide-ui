@@ -21,7 +21,10 @@ export class MainEditorComponent implements OnInit, OnDestroy {
   constructor(protected ref:ChangeDetectorRef, protected changeListener: ChangeListenService, public textService:TextService) {
     // Make sure the dev change listener is already started and listening
 
-    changeListener.getChangeEvents().pipe( takeUntil(this.unsubscriber))
+  }
+
+  ngOnInit(): void {
+    this.changeListener.getChangeEvents().pipe( takeUntil(this.unsubscriber))
       .subscribe(value => {
         if (value.type===ChangeType.RESET) {
           if( value.position===DontCodeModel.ROOT) {
@@ -31,9 +34,6 @@ export class MainEditorComponent implements OnInit, OnDestroy {
           }
         }
       });
-  }
-
-  ngOnInit(): void {
     this.rootElement = this.textService.getRootElement();
   }
 

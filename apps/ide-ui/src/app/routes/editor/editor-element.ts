@@ -48,14 +48,6 @@ export class EditorElement {
     this.type=type;
   }
 
-  /**
-   * Returns the element's position as parent position and child id
-   */
-  splitPosition (): [string,string] {
-    const last=this.position.lastIndexOf('/');
-    return [this.position.substring(0, last), this.position.substring(last+1)];
-  }
-
   getParent (): EditorElement {
     return this.parent;
   }
@@ -74,8 +66,12 @@ export class EditorElement {
 
   getChildrenToDisplay (): Array<EditorElement> {
     if (this.forceRead) {
+      this.childrenToDisplay.length=0;
       const nextId = (this.type===EditorElementType.array)?'a':null;
         this.readSubSchema(this.position, this.schemaPosition, this.schemaModel, nextId );
+        for (let child of this.allChildren.values()) {
+          child.setParent(this);
+        }
       this.forceRead = false;
     }
     return this.childrenToDisplay;
@@ -196,8 +192,7 @@ export class EditorElement {
         mergePosition = this.mergeElement(newElement, value, mergePosition, ret, cache);
         if (newElement.hasActiveProperties()) {
           const toAddProps = newElement.getActiveProperties();
-          this.readSubSchema(childPosition + '/' + toAddProps.getRelativeId(), schemaChildPosition + '/' + toAddProps.getRelativeId(),
-            toAddProps, null,ret, mergePosition, cache);
+          this.readSubSchema(position, schemaPosition, toAddProps, null,ret, mergePosition, cache);
           // if the active properties are replacing the remaining elements, then remove the remaining elements and  just stop the loop here
           if (newElement.isReplacementActive()) {
             break;
@@ -298,11 +293,13 @@ export class EditorElement {
   }
 
   setEditedValue (newVal:any) {
+    const oldValue = this.editedValue;
     this.editedValue = newVal;
     let props = this.schemaModel.getProperties(this.editedValue);
-    if (props) {
+    if (props || (oldValue && (this.schemaModel.getProperties(oldValue)))) {
       // The children properties have changed
-      this.parent.mergeDisplayChildren(this, props);
+      //this.parent.mergeDisplayChildren(this, props);
+      this.parent.forceRead=true;
     }
   }
 

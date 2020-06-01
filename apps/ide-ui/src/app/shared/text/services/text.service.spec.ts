@@ -74,7 +74,7 @@ describe('TextService', () => {
 
 });
 
-function recurse(element:EditorElement, list:Array<string>) {
+export function recurse(element:EditorElement, list:Array<string>) {
   //console.log(element.position+'('+element.type+')');
   list.push(element.position+'('+element.type+')');
   element.getChildrenToDisplay().forEach(value => {
@@ -82,7 +82,7 @@ function recurse(element:EditorElement, list:Array<string>) {
   })
 }
 
-function checkElementTree (root:EditorElement, expectedIds:string[]) {
+export function checkElementTree (root:EditorElement, expectedIds:string[]) {
   const list:string[] = [];
   recurse (root, list);
   list.forEach((value, index) => {
