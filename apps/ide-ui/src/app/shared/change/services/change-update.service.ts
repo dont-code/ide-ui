@@ -60,7 +60,7 @@ export class ChangeUpdateService {
     return this.ideServicesWebSocket;
   }
 
-  pushChange (newChange:Change) {
+  pushChange (newChange:Change): void {
     console.log('Change pushed');
     if( newChange.type===ChangeType.RESET) {
       this.listOfChanges.length=0;

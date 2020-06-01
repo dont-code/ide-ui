@@ -2,15 +2,19 @@ import { TestBed } from '@angular/core/testing';
 
 import { TextService } from './text.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ChangeUpdateService } from '../../change/services/change-update.service';
-import {DontCode} from '@dontcode/core/';
+import {DontCode, DontCodeSchemaRoot} from '@dontcode/core/';
 import { EditorElement } from "../../../routes/editor/editor-element";
+
+jest.mock('../../change/services/change-update.service');
+import { ChangeUpdateService } from '../../change/services/change-update.service';
 
 describe('TextService', () => {
   let service: TextService;
 
   beforeEach(() => {
     const fakeUpdateService:ChangeUpdateService= jest.genMockFromModule('../../change/services/change-update.service');
+    fakeUpdateService.pushChange =  jest.fn(change => {
+    });
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ {
@@ -24,9 +28,20 @@ describe('TextService', () => {
     expect(service).toBeTruthy();
   });
 
+  it ('can read sub-objects', (done) => {
+    service.readSchema(new DontCodeSchemaRoot (subObjectSchema));
+    const expectedIds=[
+      'creation(label)',
+      'creation/entity(object)',
+      'creation/entity/name(input)'
+      ];
+
+    checkElementTree (service.getRootElement(), expectedIds);
+    done();
+  });
+
   it('can read model', (done) => {
     service.readSchema(DontCode.dtcde.getSchemaManager().getSchema());
-    const list:string[] = [];
     const expectedIds=[
       'creation(label)',
       'creation/type(list)',
@@ -53,10 +68,7 @@ describe('TextService', () => {
       'creation/screens/a/components/a/entity/fields/a/type(list)'
     ];
 
-    recurse (service.getRootElement(), list);
-    list.forEach((value, index) => {
-      expect(value).toBe(expectedIds[index]);
-    });
+    checkElementTree(service.getRootElement(), expectedIds);
     done();
   });
 
@@ -69,5 +81,47 @@ function recurse(element:EditorElement, list:Array<string>) {
     recurse(value, list);
   })
 }
+
+function checkElementTree (root:EditorElement, expectedIds:string[]) {
+  const list:string[] = [];
+  recurse (root, list);
+  list.forEach((value, index) => {
+    expect(value).toBe(expectedIds[index]);
+  });
+
+}
+
+ let subObjectSchema={
+  "$id": "http://dont-code.net/dont-code-schema/v1",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "JSON Schema v1 for dont-code",
+  "type": "object",
+  "required": [
+    "creation"
+  ],
+  "properties": {
+    "creation": {
+      "type": "object",
+      "properties": {
+        "entity": {
+            "$ref": "#/definitions/entity"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "entity": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+};
+
 
 

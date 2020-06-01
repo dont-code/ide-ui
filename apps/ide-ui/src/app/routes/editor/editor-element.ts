@@ -1,6 +1,10 @@
-import { DontCodeSchemaEnum, DontCodeSchemaItem, DontCodeSchemaRef, AbstractSchemaItem, DontCodeSchemaProperty } from "@dontcode/core";
-import { observableToBeFn } from "rxjs/internal/testing/TestScheduler";
-import { from } from "rxjs";
+import {
+  AbstractSchemaItem,
+  DontCodeSchemaEnum,
+  DontCodeSchemaItem,
+  DontCodeSchemaProperty,
+  DontCodeSchemaRef
+} from "@dontcode/core";
 
 export class EditorElement {
   id: string;
@@ -77,12 +81,13 @@ export class EditorElement {
     return this.childrenToDisplay;
   }
 
-  addToDisplayChildren(editorElement: EditorElement[]) {
+/*  addToDisplayChildren(editorElement: EditorElement[]) {
     editorElement.forEach(value => {
       value.setParent(this);
       this.childrenToDisplay.push(value);
     })
   }
+*/
 
   /**
    * Inserts or replace the properties right after the position of the given element
@@ -138,20 +143,17 @@ export class EditorElement {
 
     let parent = model;
 
-    // Transparently resolves references
-    if( parent instanceof DontCodeSchemaRef) {
-      //(parent as DontCodeSchemaRef).resolveReference(this.resolveRefs(parent));
-      const oldParent=parent;
-      parent = this.resolveRefs(oldParent);
-      (oldParent as DontCodeSchemaRef).resolveReference(parent);
-    }
-
     let children = parent.getChildren();
 
     if (nextArrayId)  {
       // We are managing subelements of an array
       children = new Map([['', parent]]).entries();
       position = position + '/'+ nextArrayId;
+    }
+    // Transparently resolves references
+    if( parent instanceof DontCodeSchemaRef) {
+      // We are emulating referenced elements as children of the ref
+      children = new Map([['', this.resolveRefs(parent)]]).entries();
     }
 
     for (const [key, value] of children) {
