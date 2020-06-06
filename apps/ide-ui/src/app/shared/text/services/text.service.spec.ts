@@ -60,12 +60,7 @@ describe('TextService', () => {
       'creation/screens/a/components(array)',
       'creation/screens/a/components/a(object)',
       'creation/screens/a/components/a/type(list)',
-      'creation/screens/a/components/a/entity(object)',
-      'creation/screens/a/components/a/entity/name(input)',
-      'creation/screens/a/components/a/entity/fields(array)',
-      'creation/screens/a/components/a/entity/fields/a(object)',
-      'creation/screens/a/components/a/entity/fields/a/name(input)',
-      'creation/screens/a/components/a/entity/fields/a/type(list)'
+      'creation/screens/a/components/a/entity(input)'
     ];
 
     checkElementTree(service.getRootElement(), expectedIds);
