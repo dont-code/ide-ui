@@ -17,5 +17,13 @@ export const getIndexEntityFieldNameValue = (entity:string, field:string) => cy.
 export const getIndexEntityFieldType = (entity:string, field:string) => cy.get('#creation-entities-'+entity+'-fields-'+field+'-type');
 export const getEntityFieldTypeValue = (val:string) => cy.get('[ng-reflect-value='+val+']');
 
+export const getIndexScreenComponentType = (screen:string, component:string) => cy.get('#creation-screens-'+screen+'-components-'+component+'-type');
+export const getScreenComponentTypeValue = (val:string) => cy.get('[ng-reflect-value='+val+']');
+export const getIndexScreenComponentEntity = (screen:string, component:string) => cy.get('#creation-screens-'+screen+'-components-'+component+'-entity');
+export const getIndexScreenComponentEntityValue = (screen:string, component:string) => cy.get('#creation-screens-'+screen+'-components-'+component+'-entity').invoke('val');
+export const getIndexScreenType = (screen:string) => cy.get('#creation-screens-'+screen+'-type');
+export const getScreenTypeValue = (val:string) => cy.get('[ng-reflect-value='+val+']');
+export const getIndexScreenEntity = (screen:string) => cy.get('#creation-screens-'+screen+'-entity');
+
 export const getListOfChanges = () => cy.get('.mat-list .mat-list-item');
 

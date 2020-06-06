@@ -2,7 +2,8 @@ import {
   getAppNameInput,
   getDevMenu,
   getEditorMenu,
-  getEntityFieldTypeValue, getEntityNewButton,
+  getEntityFieldTypeValue,
+  getEntityNewButton,
   getIndexEntityAddButton,
   getIndexEntityDownButton,
   getIndexEntityFieldName,
@@ -11,7 +12,14 @@ import {
   getIndexEntityName,
   getIndexEntityRemoveButton,
   getIndexEntityUpButton,
-  getListOfChanges
+  getIndexScreenComponentEntity,
+  getIndexScreenComponentEntityValue,
+  getIndexScreenComponentType,
+  getIndexScreenEntity,
+  getIndexScreenType,
+  getListOfChanges,
+  getScreenComponentTypeValue,
+  getScreenTypeValue
 } from "../support/main-editor.po";
 
 

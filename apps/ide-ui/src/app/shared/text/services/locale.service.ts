@@ -29,10 +29,19 @@ export class LocaleService {
     [DontCodeModel.APP_COMPONENTS, 'displaying parts:'],
     [DontCodeModel.APP_COMPONENTS+'-desc', 'List of parts'],
     [DontCodeModel.APP_COMPONENTS_TYPE, 'A part with the type'],
-    [DontCodeModel.APP_COMPONENTS_TYPE+'-desc', 'Type of part']
+    [DontCodeModel.APP_COMPONENTS_TYPE+'-desc', 'Type of part'],
+    [DontCodeModel.APP_COMPONENTS_ENTITY, 'handling the entity'],
+    [DontCodeModel.APP_COMPONENTS_ENTITY+'-desc', 'Entity\'s name'],
+    // Find a way for plugins to dynamically inserts label texts
+    [DontCodeModel.APP_SCREENS+'/type', 'of type'],
+    [DontCodeModel.APP_SCREENS+'/type-desc', 'Type of screen'],
+    [DontCodeModel.APP_SCREENS+'/entity', 'handling the entity'],
+    [DontCodeModel.APP_SCREENS+'/entity-desc', 'Entity\'s name']
   ]);
 
-  constructor() { }
+  constructor() {
+    //
+  }
 
   toText (context:string, element?:string): string {
     let ret:string;
