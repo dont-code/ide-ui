@@ -27,6 +27,14 @@
             "scripts": []
           },
           "configurations": {
+            "online": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ide-ui/src/environments/environment.ts",
+                  "with": "apps/ide-ui/src/environments/environment.prod.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -63,6 +71,9 @@
             "browserTarget": "ide-ui:build"
           },
           "configurations": {
+            "online": {
+              "browserTarget": "ide-ui:build:online"
+            },
             "production": {
               "browserTarget": "ide-ui:build:production"
             }
