@@ -7,6 +7,20 @@ import {
 } from "@dontcode/core";
 
 export class EditorElement {
+
+  constructor(id:string, schemaItem:DontCodeSchemaItem, position?:string, schemaPosition?:string, type?:EditorElementType) {
+    this.id = id;
+    this.schemaModel = schemaItem;
+    this.position=position;
+    this.schemaPosition=schemaPosition;
+
+    /**
+     * The id may not contains / as it is forbidden by html
+     */
+    if( this.id)
+      this.id=this.id.split('/').join('-');
+    this.type=type;
+  }
   id: string;
   type: EditorElementType;
   /**
@@ -34,18 +48,12 @@ export class EditorElement {
 
   protected parent: EditorElement;
 
-  constructor(id:string, schemaItem:DontCodeSchemaItem, position?:string, schemaPosition?:string, type?:EditorElementType) {
-    this.id = id;
-    this.schemaModel = schemaItem;
-    this.position=position;
-    this.schemaPosition=schemaPosition;
-
-    /**
-     * The id may not contains / as it is forbidden by html
-     */
-    if( this.id)
-      this.id=this.id.split('/').join('-');
-    this.type=type;
+  static createNew (position:string, schemaPosition:string, type:EditorElementType, schemaItem:DontCodeSchemaItem, values?:string[]) {
+    const ret = new EditorElement(position, schemaItem, position, schemaPosition, type);
+    if (values) {
+      ret.values=values;
+    }
+    return ret;
   }
 
   getParent (): EditorElement {
@@ -56,20 +64,12 @@ export class EditorElement {
     this.parent = newParent;
   }
 
-  static createNew (position:string, schemaPosition:string, type:EditorElementType, schemaItem:DontCodeSchemaItem, values?:string[]) {
-    let ret = new EditorElement(position, schemaItem, position, schemaPosition, type);
-    if (values) {
-      ret.values=values;
-    }
-    return ret;
-  }
-
   getChildrenToDisplay (): Array<EditorElement> {
     if (this.forceRead) {
       this.childrenToDisplay.length=0;
       const nextId = (this.type===EditorElementType.array)?'a':null;
         this.readSubSchema(this.position, this.schemaPosition, this.schemaModel, nextId );
-        for (let child of this.allChildren.values()) {
+        for (const child of this.allChildren.values()) {
           child.setParent(this);
         }
       this.forceRead = false;
@@ -133,11 +133,11 @@ export class EditorElement {
    * @param elementCache
    */
   readSubSchema ( position:string, schemaPosition:string, model:DontCodeSchemaItem, nextArrayId:string, toMerge?:Array<EditorElement>, mergeStartPosition?:number, elementCache?:Map<string, EditorElement>): Array<EditorElement> {
-    let ret = toMerge ? toMerge : this.childrenToDisplay;
+    const ret = toMerge ? toMerge : this.childrenToDisplay;
     let mergePosition = mergeStartPosition ? mergeStartPosition : 0;
-    let cache = elementCache ? elementCache : this.allChildren;
+    const cache = elementCache ? elementCache : this.allChildren;
 
-    let parent = model;
+    const parent = model;
 
     let children = parent.getChildren();
 
@@ -206,7 +206,7 @@ export class EditorElement {
   resolveRefs (entity: DontCodeSchemaItem): DontCodeSchemaItem {
     let ret = entity;
     if( entity.isReference()) {
-      let toFind = (entity as DontCodeSchemaRef).getReference();
+      const toFind = (entity as DontCodeSchemaRef).getReference();
       ret = AbstractSchemaItem.goto(this.calculateRootSchema(),toFind);
     }
     return ret;
@@ -257,7 +257,7 @@ export class EditorElement {
   }
 
   removeElement( item:EditorElement, index?:number) {
-    let parentList = this.getChildrenToDisplay();
+    const parentList = this.getChildrenToDisplay();
     if( !index){
       index = parentList.indexOf(item);
     }
@@ -265,7 +265,7 @@ export class EditorElement {
   }
 
   upElement( item: EditorElement, index: number) {
-    let parentList = this.getChildrenToDisplay();
+    const parentList = this.getChildrenToDisplay();
     if( !index){
       index = parentList.indexOf(item);
     }
@@ -277,7 +277,7 @@ export class EditorElement {
   }
 
   downElement(item: EditorElement, index: number) {
-    let parentList = this.getChildrenToDisplay();
+    const parentList = this.getChildrenToDisplay();
     if( !index){
       index = parentList.indexOf(item);
     }
@@ -295,7 +295,7 @@ export class EditorElement {
   setEditedValue (newVal:any): boolean {
     const oldValue = this.editedValue;
     this.editedValue = newVal;
-    let props = this.schemaModel.getProperties(this.editedValue);
+    const props = this.schemaModel.getProperties(this.editedValue);
     if (props || (oldValue && (this.schemaModel.getProperties(oldValue)))) {
       // The children properties have changed
       //this.parent.mergeDisplayChildren(this, props);
@@ -306,7 +306,7 @@ export class EditorElement {
   }
 
   protected hasActiveProperties(): boolean {
-    let props = this.schemaModel.getProperties(this.editedValue);
+    const props = this.schemaModel.getProperties(this.editedValue);
     if (props)
       return true;
     else
@@ -318,7 +318,7 @@ export class EditorElement {
   }
 
   protected isReplacementActive(): boolean {
-    let props = this.schemaModel.getProperties(this.editedValue);
+    const props = this.schemaModel.getProperties(this.editedValue);
     if (props && props.isReplace())
       return true;
     else
@@ -326,8 +326,8 @@ export class EditorElement {
   }
 
   protected mergeElement(newElement: EditorElement, after:DontCodeSchemaItem, mergeStartPosition: number, toMerge?: Array<EditorElement>, elementCache?: Map<string, EditorElement>): number {
-    let list= toMerge?toMerge:this.childrenToDisplay;
-    let cache = elementCache?elementCache:this.allChildren;
+    const list= toMerge?toMerge:this.childrenToDisplay;
+    const cache = elementCache?elementCache:this.allChildren;
     const key = newElement.schemaModel.getRelativeId();
     cache.set(key, newElement);
     if (mergeStartPosition>=list.length){
@@ -341,7 +341,7 @@ export class EditorElement {
       if (list[i].schemaModel===after) {
         foundAt=i;
       } else {
-        if (foundAt!=-1) {
+        if (foundAt !== -1) {
           // We found the insertion point, should we delete older elements or is the element already present in the list ?
           if (list[i]===newElement) {
             // It was already in the list !
@@ -352,7 +352,7 @@ export class EditorElement {
       }
     }
 
-    if (foundAt!=-1)
+    if (foundAt !== -1)
       mergeStartPosition=foundAt+1;
 
     if(!alreadyThere)
