@@ -21,8 +21,15 @@
             "polyfills": "apps/ide-ui/src/polyfills.ts",
             "tsConfig": "apps/ide-ui/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/ide-ui/src/favicon.ico", "apps/ide-ui/src/assets",
-              { "glob": "**/*", "input": "./node_modules/@dontcode/core/assets", "output": "/assets/core/" }],
+            "assets": [
+              "apps/ide-ui/src/favicon.ico",
+              "apps/ide-ui/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@dontcode/core/assets",
+                "output": "/assets/core/"
+              }
+            ],
             "styles": ["apps/ide-ui/src/styles.scss"],
             "scripts": []
           },
@@ -92,16 +99,14 @@
               "apps/ide-ui/tsconfig.app.json",
               "apps/ide-ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/ide-ui/**"]
+            "exclude": ["**/node_modules/**", "!apps/ide-ui/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/ide-ui/jest.config.js",
-            "tsConfig": "apps/ide-ui/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/ide-ui/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       }
@@ -128,7 +133,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/ide-ui-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/ide-ui-e2e/**"]
+            "exclude": ["**/node_modules/**", "!apps/ide-ui-e2e/**/*"]
           }
         }
       }
