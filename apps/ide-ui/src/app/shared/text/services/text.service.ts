@@ -93,7 +93,7 @@ export class TextService {
     this.positionStack.length=0;
     this.listOfElementsStack.push(this.rootListOfElements);
     this.positionStack.push('');*/
-    this.updateService.pushChange(new Change(ChangeType.RESET, null,null));
+    this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
   }
 
   /**
