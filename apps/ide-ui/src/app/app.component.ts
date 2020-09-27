@@ -9,7 +9,7 @@ export class AppComponent {
   title = 'ide-ui';
 
   mainTab(): boolean {
-    return window.location.pathname.indexOf('/newTabDev')==-1;
+    return window.location.hash.indexOf('/newTabDev')==-1;
   }
 
 }
