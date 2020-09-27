@@ -29,7 +29,7 @@ const appRoutes:Routes = [
     , EditorModule, LayoutModule, DevModule,
     FlexLayoutModule, RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false } // <-- debugging purposes only
+      { enableTracing: false,useHash:true } // <-- debugging purposes only
     ),
   HttpClientModule,
   WelcomeModule
