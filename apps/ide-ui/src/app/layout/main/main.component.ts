@@ -50,7 +50,7 @@ export class MainComponent implements OnInit{
   }
 
   openDevUrl() {
-    window.open('newTabDev', '_blank');
+    window.open('#/newTabDev', '_blank');
   }
 
   openPreview() {
