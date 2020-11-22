@@ -1,13 +1,13 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: IDE-UI
+name: Build Development
 
 on:
   push:
-    branches: [ master ]
+    branches: [ Development ]
   pull_request:
-    branches: [ master ]
+    branches: [ Development ]
 
 jobs:
   build:
@@ -20,26 +20,27 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: Development
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - name: Cache Node.js modules
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-            ${{ runner.OS }}-
-      - name: building
-        run: npm ci
-      - name: building
+      - name: Install
+        run: |
+          npm install @dontcode/core@latest @dontcode/plugin-screen@latest
+          npm ci
+      - name: Build
         run: npm run build --if-present
-      - name: Unit tests
-        run: npm run ng test
-      - name: End to End Tests
-        run: npm run ng e2e
+      - name: Tests
+        run: |
+          npm run ng test
+          npm run ng e2e
       - uses: actions/upload-artifact@v1
         # Test run screenshots only on failure
         if: failure()
