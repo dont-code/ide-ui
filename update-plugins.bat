@@ -1,5 +1,5 @@
 cd ..\plugins
-call nx run screen:build --prod
+call nx run screen:build
 call npm pack dist/libs/screen
 cd ..\ide-ui
 move ..\plugins\dontcode-plugin-screen-*.tgz .
