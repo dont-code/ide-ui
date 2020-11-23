@@ -31,11 +31,11 @@ jobs:
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
       - name: Install
         run: |
-          npm install @dontcode/core@latest @dontcode/plugin-screen@latest
-          npm ci
           git config user.name "GitHub Actions"
           git config user.email noreply@github.com
           git merge origin/Development
+          npm install @dontcode/core@latest @dontcode/plugin-screen@latest
+          npm ci
       - name: Build
         run: npm run build --if-present
       - name: Tests
