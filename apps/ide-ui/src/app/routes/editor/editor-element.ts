@@ -309,14 +309,15 @@ export class EditorElement {
     if (index<parentList.length-1) {
       parentList.splice(index, 1);
       parentList.splice(index+1,0,item);
-    } else if (index == parentList.length-1) {
-        // Item becomes the last element, so no-one is after him
-      return undefined;
     } else {
       return null;
     }
 
-    return parentList[index+2];
+    if ((index+1) == parentList.length-1) {
+      // Item becomes the last element, so no-one is after him
+      return undefined;
+    } else
+      return parentList[index+2];
   }
 
   getEditedValue (): any {
