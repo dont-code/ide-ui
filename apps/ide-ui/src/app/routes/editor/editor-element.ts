@@ -64,14 +64,21 @@ export class EditorElement {
     this.parent = newParent;
   }
 
+  /**
+   * Returns the item id of the DontCodeSchemaItem managed by this editor element if it's part of an array
+   */
+  getItemIdIfExists (): string {
+    if( (this.parent) && (this.parent.type===EditorElementType.array)) {
+      return this.position.substring(this.position.lastIndexOf('/') + 1);
+    }
+    return null;
+  }
+
   getChildrenToDisplay (): Array<EditorElement> {
     if (this.forceRead) {
       this.childrenToDisplay.length=0;
       const nextId = (this.type===EditorElementType.array)?'a':null;
-        this.readSubSchema(this.position, this.schemaPosition, this.schemaModel, nextId );
-        for (const child of this.allChildren.values()) {
-          child.setParent(this);
-        }
+      this.readSubSchema(this.position, this.schemaPosition, this.schemaModel, nextId );
       this.forceRead = false;
     }
     return this.childrenToDisplay;
@@ -91,7 +98,7 @@ export class EditorElement {
    * @param childId
    * @param update
    */
-  mergeDisplayChildren (afterElement:EditorElement, update:DontCodeSchemaProperty) {
+/*  mergeDisplayChildren (afterElement:EditorElement, update:DontCodeSchemaProperty) {
 
     const newProps = this.readSubSchema(this.position+'/'+update.getRelativeId(), this.schemaPosition+'/'+update.getRelativeId(),
       update, null);
@@ -106,7 +113,7 @@ export class EditorElement {
       }
     }
   }
-
+*/
   /**
    * Finds where in the children to display list we should insert an element of the given propertyName or schemaItem
    * @param childId
@@ -133,9 +140,9 @@ export class EditorElement {
    * @param elementCache
    */
   readSubSchema ( position:string, schemaPosition:string, model:DontCodeSchemaItem, nextArrayId:string, toMerge?:Array<EditorElement>, mergeStartPosition?:number, elementCache?:Map<string, EditorElement>): Array<EditorElement> {
-    const ret = toMerge ? toMerge : this.childrenToDisplay;
+    const ret = /*toMerge ? toMerge :*/ this.childrenToDisplay;
     let mergePosition = mergeStartPosition ? mergeStartPosition : 0;
-    const cache = elementCache ? elementCache : this.allChildren;
+    const cache = /*elementCache ? elementCache :*/ this.allChildren;
 
     const parent = model;
 
@@ -189,10 +196,11 @@ export class EditorElement {
       }
 
       if (newElement) {
-        mergePosition = this.mergeElement(newElement, value, mergePosition, ret, cache);
+        newElement.parent=this;
+        mergePosition = this.mergeElement(newElement, value, mergePosition, null, null);
         if (newElement.hasActiveProperties()) {
           const toAddProps = newElement.getActiveProperties();
-          this.readSubSchema(position, schemaPosition, toAddProps, null,ret, mergePosition, cache);
+          this.readSubSchema(position, schemaPosition, toAddProps, null,null, mergePosition, null);
           // if the active properties are replacing the remaining elements, then remove the remaining elements and  just stop the loop here
           if (newElement.isReplacementActive()) {
             break;
@@ -253,18 +261,24 @@ export class EditorElement {
     const subSchema = this.schemaModel;
     const nextId = this.getNextId ();
     this.readSubSchema(this.position, this.schemaPosition, subSchema, nextId);
-
   }
 
-  removeElement( item:EditorElement, index?:number) {
+  removeElement( item:EditorElement, index?:number): EditorElement {
     const parentList = this.getChildrenToDisplay();
     if( !index){
       index = parentList.indexOf(item);
     }
-    parentList.splice(index,1);
+    let ret = parentList.splice(index,1)[0];
+    return ret;
   }
 
-  upElement( item: EditorElement, index: number) {
+  /**
+   * Moves the item up one place and returns the immediate following item.
+   * or returns null if nothing have been moved
+   * @param item
+   * @param index
+   */
+  upElement( item: EditorElement, index: number): EditorElement {
     const parentList = this.getChildrenToDisplay();
     if( !index){
       index = parentList.indexOf(item);
@@ -273,10 +287,21 @@ export class EditorElement {
     if (index>0) {
       parentList.splice(index, 1);
       parentList.splice(index-1,0,item);
+    } else {
+      return null;
     }
+
+    return parentList[index];
   }
 
-  downElement(item: EditorElement, index: number) {
+  /**
+   * Moves the item down and returns the next item if possible.
+   * Returns null if the item was already the last element (no move possible)
+   * or undefined if the moved item becomes the last element
+   * @param item
+   * @param index
+   */
+  downElement(item: EditorElement, index: number): EditorElement {
     const parentList = this.getChildrenToDisplay();
     if( !index){
       index = parentList.indexOf(item);
@@ -284,8 +309,15 @@ export class EditorElement {
     if (index<parentList.length-1) {
       parentList.splice(index, 1);
       parentList.splice(index+1,0,item);
+    } else {
+      return null;
     }
 
+    if ((index+1) == parentList.length-1) {
+      // Item becomes the last element, so no-one is after him
+      return undefined;
+    } else
+      return parentList[index+2];
   }
 
   getEditedValue (): any {
@@ -326,8 +358,8 @@ export class EditorElement {
   }
 
   protected mergeElement(newElement: EditorElement, after:DontCodeSchemaItem, mergeStartPosition: number, toMerge?: Array<EditorElement>, elementCache?: Map<string, EditorElement>): number {
-    const list= toMerge?toMerge:this.childrenToDisplay;
-    const cache = elementCache?elementCache:this.allChildren;
+    const list= /*toMerge?toMerge:*/this.childrenToDisplay;
+    const cache = /*elementCache?elementCache:*/this.allChildren;
     const key = newElement.schemaModel.getRelativeId();
     cache.set(key, newElement);
     if (mergeStartPosition>=list.length){
