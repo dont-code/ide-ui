@@ -33,7 +33,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email noreply@github.com
-          git merge origin/Development
+          git merge origin/Development --strategy=recursive --strategy-option=theirs
           npm install @dontcode/core@latest @dontcode/plugin-screen@latest
           npm ci
       - name: Build
