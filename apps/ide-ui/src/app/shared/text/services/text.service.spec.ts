@@ -2,11 +2,12 @@ import { TestBed } from '@angular/core/testing';
 
 import { TextService } from './text.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import {DontCode, DontCodeSchemaRoot} from '@dontcode/core/';
+import { DontCodeSchemaRoot} from '@dontcode/core/';
 import { EditorElement } from "../../../routes/editor/editor-element";
 
 jest.mock('../../change/services/change-update.service');
 import { ChangeUpdateService } from '../../change/services/change-update.service';
+import {dtcde} from "@dontcode/core";
 
 describe('TextService', () => {
   let service: TextService;
@@ -41,7 +42,7 @@ describe('TextService', () => {
   });
 
   it('can read model', (done) => {
-    service.readSchema(DontCode.dtcde.getSchemaManager().getSchema());
+    service.readSchema(dtcde.getSchemaManager().getSchema());
     const expectedIds=[
       'creation(label)',
       'creation/type(list)',
@@ -86,7 +87,7 @@ export function checkElementTree (root:EditorElement, expectedIds:string[]) {
 
 }
 
- let subObjectSchema={
+ const subObjectSchema={
   "$id": "http://dont-code.net/dont-code-schema/v1",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "JSON Schema v1 for dont-code",
