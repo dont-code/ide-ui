@@ -2,11 +2,10 @@ import { TestBed } from "@angular/core/testing";
 import { EditorElement, EditorElementType } from "./editor-element";
 import {
   AbstractSchemaItem,
-  DontCode,
   DontCodeModel,
   DontCodeSchemaItem,
   DontCodeSchemaObject,
-  DontCodeSchemaRoot
+  DontCodeSchemaRoot, dtcde
 } from "@dontcode/core";
 import { checkElementTree } from "../../shared/text/services/text.service.spec";
 
@@ -17,20 +16,20 @@ describe('ChangeUpdateService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     if (!rootSchema)
-      rootSchema= AbstractSchemaItem.goto(DontCode.dtcde.getSchemaManager().getSchema(), DontCodeModel.ROOT);
+      rootSchema= AbstractSchemaItem.goto(dtcde.getSchemaManager().getSchema(), DontCodeModel.ROOT);
   });
 
   it('should read the core model', () => {
-    let rootElement = EditorElement.createNew(
+    const rootElement = EditorElement.createNew(
         DontCodeModel.ROOT, DontCodeModel.ROOT,
         EditorElementType.label, rootSchema);
     expect(rootElement).toBeTruthy();
   });
 
   it ('should dynamically support list updates replacing values', () => {
-    const rootSchema = new DontCodeSchemaRoot (subObjectSchema);
+    const rootSubSchema = new DontCodeSchemaRoot (subObjectSchema);
 
-    const creationSchema = AbstractSchemaItem.goto(rootSchema,DontCodeModel.ROOT) as DontCodeSchemaObject;
+    const creationSchema = AbstractSchemaItem.goto(rootSubSchema,DontCodeModel.ROOT) as DontCodeSchemaObject;
     creationSchema.upsertWith({
       "location": {
         "parent": "/creation",
@@ -94,7 +93,7 @@ describe('ChangeUpdateService', () => {
   });
 });
 
-let subObjectSchema={
+const subObjectSchema={
   "$id": "http://dont-code.net/dont-code-schema/v1",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "JSON Schema v1 for dont-code",
