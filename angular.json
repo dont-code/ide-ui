@@ -5,7 +5,7 @@
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
-          "style": "scss"
+          "style": "<scss"
         }
       },
       "root": "apps/ide-ui",
@@ -38,7 +38,7 @@
               "fileReplacements": [
                 {
                   "replace": "apps/ide-ui/src/environments/environment.ts",
-                  "with": "apps/ide-ui/src/environments/environment.prod.ts"
+                  "with": "apps/ide-ui/src/environments/environment.online.ts"
                 }
               ]
             },

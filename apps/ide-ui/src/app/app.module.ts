@@ -15,6 +15,7 @@ import {WelcomeModule} from './routes/welcome/welcome.module';
 import {WelcomeComponent} from "./routes/welcome/main/welcome.component";
 import {ScreenModule} from "@dontcode/plugin-screen";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {FieldsModule} from "@dontcode/plugin-fields";
 
 const appRoutes:Routes = [
   { path: '', component: WelcomeComponent },
@@ -33,7 +34,9 @@ const appRoutes:Routes = [
     ),
   HttpClientModule,
   WelcomeModule
-    ,ScreenModule, FontAwesomeModule
+    ,ScreenModule
+    ,FieldsModule
+    ,FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,8 +1,7 @@
 cd ..\core\node
-call nx run core:build --prod
+call nx run core:build
 call npm pack dist/libs/core
 cd ..\..\ide-ui
+del dontcode-core-*.tgz
 move ..\core\node\dontcode-core-*.tgz .
-del dontcode-core-dev.tgz
-ren dontcode-core-*.tgz dontcode-core-dev.tgz
-call npm install dontcode-core-dev.tgz
+forfiles /M dontcode-core-*.tgz /C "cmd /c npm install @file"
