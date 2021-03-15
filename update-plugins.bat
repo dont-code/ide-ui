@@ -1,8 +1,7 @@
 cd ..\plugins
-call nx run screen:build
-call npm pack dist/libs/screen
+call nx run common:build --prod
+call nx run screen:build --prod
+call nx run fields:build --prod
 cd ..\ide-ui
-move ..\plugins\dontcode-plugin-screen-*.tgz .
-del dontcode-plugin-screen-dev.tgz
-ren dontcode-plugin-screen-*.tgz dontcode-plugin-screen-dev.tgz
-call npm install dontcode-plugin-screen-dev.tgz
+call npm uninstall @dontcode/plugin-common @dontcode/plugin-screen @dontcode/plugin-fields
+call npm install "..\plugins\dist\libs\common" "..\plugins\dist\libs\screen" "..\plugins\dist\libs\fields"
