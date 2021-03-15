@@ -33,7 +33,7 @@ jobs:
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
       - name: Install
         run: |
-          npm install @dontcode/core@latest @dontcode/plugin-screen@latest @dontcode/plugin-fields@latest
+          npm install @dontcode/core@latest @dontcode/plugin-common@latest @dontcode/plugin-screen@latest @dontcode/plugin-fields@latest
           npm ci
       - name: Build
         run: npm run build --if-present
