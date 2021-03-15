@@ -118,6 +118,10 @@ MIT
 
 @dontcode/core
 
+@dontcode/plugin-common
+
+@dontcode/plugin-fields
+
 @dontcode/plugin-screen
 
 @fortawesome/angular-fontawesome
