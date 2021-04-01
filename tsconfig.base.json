@@ -15,7 +15,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@dontcode/core": ["node_modules/@dontcode/core"],
+      "rxjs": ["node_modules/rxjs"],
+      "rxjs/*": ["node_modules/rxjs/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
