@@ -41,7 +41,6 @@
     "@angular/platform-browser-dynamic": "^11.2.3",
     "@angular/router": "^11.2.3",
     "@dontcode/core": "file:..\\core\\node\\dist\\libs\\core",
-    "@dontcode/plugin-basic": "file:..\\plugins\\dist\\libs\\basic",
     "@dontcode/plugin-common": "file:..\\plugins\\dist\\libs\\common",
     "@dontcode/plugin-fields": "file:..\\plugins\\dist\\libs\\fields",
     "@dontcode/plugin-screen": "file:..\\plugins\\dist\\libs\\screen",
