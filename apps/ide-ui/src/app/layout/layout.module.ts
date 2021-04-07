@@ -1,23 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MainComponent } from './main/main.component';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { RouterModule } from '@angular/router';
-import { MatMenuModule } from '@angular/material/menu';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MainComponent} from './main/main.component';
+import {RouterModule} from '@angular/router';
+import {MenuModule} from "primeng/menu";
+import {ButtonModule} from "primeng/button";
+import {ToolbarModule} from "primeng/toolbar";
+import {SidebarModule} from "primeng/sidebar";
+import {MenuComponent} from "./menu/menu.component";
 
 
 @NgModule({
-  declarations: [MainComponent],
+  declarations: [MainComponent, MenuComponent],
   exports: [
     MainComponent
   ],
     imports: [
-        CommonModule, MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatListModule
-        , RouterModule, MatMenuModule
+        CommonModule, RouterModule, SidebarModule, ToolbarModule, ButtonModule, MenuModule
     ]
 })
 export class LayoutModule { }

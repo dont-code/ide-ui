@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {combineLatest, Observable} from 'rxjs';
-import {map, shareReplay} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {TextService} from '../../shared/text/services/text.service';
 import {ChangeUpdateService} from "../../shared/change/services/change-update.service";
 import {environment} from "../../../environments/environment";
@@ -19,14 +18,9 @@ export class MainComponent implements OnInit{
       status:string
     }>;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  sidePanelVisible: boolean;
 
-  constructor(private breakpointObserver: BreakpointObserver
-              , protected service:TextService
+  constructor( protected service:TextService
               , protected updateService:ChangeUpdateService
               , protected ref: ChangeDetectorRef
               ) {
@@ -34,6 +28,8 @@ export class MainComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.sidePanelVisible = true;
+
     this.context$ = combineLatest([this.updateService.getConnectionStatus()])
       .pipe(map ((status) => {
         return {status:status[0]};
@@ -41,6 +37,15 @@ export class MainComponent implements OnInit{
 
     this.loadSchema();
     }
+
+  logoClicked() {
+    this.sidePanelVisible=true;
+  }
+
+  sidePanelVisibleChanged($event: any) {
+    //console.log($event);
+    this.sidePanelVisible=$event.target.visible;
+  }
 
   loadSchema () {
     this.service.resetSchema();
@@ -57,4 +62,11 @@ export class MainComponent implements OnInit{
   openPreview() {
     window.open(environment.previewUrl, '_blank');
   }
+
+  connectedClass(ctx: { status: string }): string {
+    if( ctx.status!=="connected") {
+      return "p-button-danger";
+    }
+  }
+
 }
