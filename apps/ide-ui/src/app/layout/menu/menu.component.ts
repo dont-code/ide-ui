@@ -12,7 +12,7 @@ export class MenuComponent {
   menuItems =new Array<MenuItem> (
     {label:'Main Menu', items:[
         {label:'Welcome', icon:'pi pi-home', routerLink:['/welcome']},
-        {label:'Editor', icon:'pi pi-home', routerLink:['/editor']},
+        {label:'Editor', icon:'pi pi-pencil', routerLink:['/editor']},
       ]},
     {label:'Debug Menu', items:[
         {label:'Dev', icon:'pi pi-book', routerLink: ['/dev']}
