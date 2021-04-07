@@ -12,6 +12,10 @@ import { SubTextElementComponent } from './sub-text-element/sub-text-element.com
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {AccordionModule} from "primeng/accordion";
+import {ButtonModule} from "primeng/button";
+import {DropdownModule} from "primeng/dropdown";
+import {InputTextModule} from "primeng/inputtext";
 
 
 
@@ -22,12 +26,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
   ],
   imports: [
     CommonModule,
-    MatSelectModule,
     SharedModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatExpansionModule
+    AccordionModule,
+    ButtonModule,
+    DropdownModule,
+    InputTextModule
   ]
 })
 export class EditorModule { }

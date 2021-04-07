@@ -1,33 +1,27 @@
 <span class="displayable" >{{(element.schemaPosition | locale)}}</span>
-<mat-expansion-panel [expanded]="true">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      <span class="displayable" [id]="element.id">{{(element.schemaPosition | localeDesc)}}</span>
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <div style="margin-left: 20px">
-    <ng-container *ngFor="let item of items; index as i">
-      <ide-ui-text-handler [element]="item"></ide-ui-text-handler>
-      <ng-container *ngIf="element.type==='array'">
-        <button  type="button" mat-icon-button [id]="item.id+'-add-button'" (click)="addElement()">
-          <mat-icon aria-label="Add item">add</mat-icon>
-        </button>
-        <button type="button" mat-icon-button [id]="item.id+'-remove-button'" (click)="removeElement(item, i)">
-          <mat-icon aria-label="Remove item">remove</mat-icon>
-        </button>
-        <button *ngIf="i>0" type="button" mat-icon-button [id]="item.id+'-up-button'" (click)="upElement(item, i)">
-          <mat-icon aria-label="Up">keyboard_arrow_up</mat-icon>
-        </button>
-        <button *ngIf="i<items.length-1" type="button" mat-icon-button [id]="item.id+'-down-button'" (click)="downElement(item, i)">
-          <mat-icon aria-label="Down">keyboard_arrow_down</mat-icon>
-        </button>
-        <br />
+<p-accordion>
+  <p-accordionTab [selected]="true">
+    <ng-template pTemplate="header"><span class="displayable" [id]="element.id">{{(element.schemaPosition | localeDesc)}}</span></ng-template>
+    <ng-template pTemplate="content">  <div style="padding-left: 10px">
+      <ng-container *ngFor="let item of items; index as i">
+        <ide-ui-text-handler [element]="item"></ide-ui-text-handler>
+        <ng-container *ngIf="element.type==='array'">
+          <button pButton type="button" class="p-button-secondary p-button-rounded p-button-outlined" [id]="item.id+'-add-button'" icon="pi pi-plus" aria-label="Add item" (click)="addElement()">
+          </button>
+          <button pButton type="button" class="p-button-secondary p-button-rounded p-button-outlined" [id]="item.id+'-remove-button'" icon="pi pi-minus" aria-label="Remove item" (click)="removeElement(item, i)">
+          </button>
+          <button *ngIf="i>0" pButton type="button" class="p-button-secondary p-button-rounded p-button-outlined" [id]="item.id+'-up-button'" icon="pi pi-caret-up" aria-label="Up" (click)="upElement(item, i)">
+          </button>
+          <button *ngIf="i<items.length-1" pButton type="button" [id]="item.id+'-down-button'" class="p-button-secondary p-button-rounded p-button-outlined"  icon="pi pi-caret-down" aria-label="Down" (click)="downElement(item, i)">
+          </button>
+          <br />
+        </ng-container>
       </ng-container>
-    </ng-container>
-    <ng-container *ngIf="items.length==0">
-      <button *ngIf="element.type==='array'" type="button" mat-icon-button [id]="element.id+'-new-button'" (click)="addElement()">
-        <mat-icon aria-label="Add item">add</mat-icon>
-      </button>
-    </ng-container>
-  </div>
-</mat-expansion-panel>
+      <ng-container *ngIf="items.length==0">
+        <button *ngIf="element.type==='array'" pButton type="button" class="p-button-secondary p-button-rounded p-button-outlined" [id]="element.id+'-new-button'" icon="pi pi-plus" aria-label="Add item" (click)="addElement()">
+        </button>
+      </ng-container>
+    </div>
+    </ng-template>
+  </p-accordionTab>
+</p-accordion>
