@@ -8,7 +8,7 @@
         <ng-container *ngIf="element.type==='array'">
           <button pButton type="button" class="p-button-secondary p-button-rounded p-button-outlined" [id]="item.id+'-add-button'" icon="pi pi-plus" aria-label="Add item" (click)="addElement()">
           </button>
-          <button pButton type="button" class="p-button-secondary p-button-rounded p-button-outlined" [id]="item.id+'-remove-button'" icon="pi pi-minus" aria-label="Remove item" (click)="removeElement(item, i)">
+          <button pButton type="button" class="p-button-danger p-button-rounded p-button-outlined" [id]="item.id+'-remove-button'" icon="pi pi-minus" aria-label="Remove item" (click)="removeElement(item, i)">
           </button>
           <button *ngIf="i>0" pButton type="button" class="p-button-secondary p-button-rounded p-button-outlined" [id]="item.id+'-up-button'" icon="pi pi-caret-up" aria-label="Up" (click)="upElement(item, i)">
           </button>
