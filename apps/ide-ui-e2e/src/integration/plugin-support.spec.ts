@@ -26,10 +26,9 @@ describe('plugin-support', () => {
 
     getIndexScreenType('a').click();
     selectPopupChoiceWithText('freeform');
-    selectPopupChoiceWithText('freeform'); // We have to click twice to close the popup
+    getAppNameInput().click();
     getIndexScreenType('a').click();
     selectPopupChoiceWithText('list');
-    selectPopupChoiceWithText('list');  // We have to click twice to close the popup
     getIndexScreenEntity ('a').type('newTestEntity');
 
     getIndexScreenType('a').click();
