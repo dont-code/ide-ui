@@ -12,14 +12,7 @@ import {
   getIndexEntityName,
   getIndexEntityRemoveButton,
   getIndexEntityUpButton,
-  getIndexScreenComponentEntity,
-  getIndexScreenComponentEntityValue,
-  getIndexScreenComponentType,
-  getIndexScreenEntity,
-  getIndexScreenType,
-  getListOfChanges,
-  getScreenComponentTypeValue,
-  getScreenTypeValue
+  getListOfChanges, selectPopupChoiceWithText
 } from "../support/main-editor.po";
 
 
@@ -35,8 +28,7 @@ describe('main-editor', () => {
     getIndexEntityName('a').type('ToDo');
     getIndexEntityFieldName('a','a').type('name');
     getIndexEntityFieldType('a','a').click();
-    getEntityFieldTypeValue('string').contains('string');
-    getEntityFieldTypeValue('string').click();
+    selectPopupChoiceWithText('string');
     getIndexEntityAddButton('a').click();
     getIndexEntityName('b').type('2nd');
     getIndexEntityFieldName('b','a').type('description');
@@ -56,20 +48,17 @@ describe('main-editor', () => {
     getIndexEntityName('a').type('ToDo');
     getIndexEntityFieldName('a','a').type('name');
     getIndexEntityFieldType('a','a').click();
-    getEntityFieldTypeValue('string').contains('string');
-    getEntityFieldTypeValue('string').click();
+    selectPopupChoiceWithText('string');
     getIndexEntityAddButton('a').click();
     getIndexEntityName('b').type('2nd');
     getIndexEntityFieldName('b','a').type('done');
     getIndexEntityFieldType('b','a').click();
-    getEntityFieldTypeValue('boolean').contains('boolean');
-    getEntityFieldTypeValue('boolean').click();
+    selectPopupChoiceWithText('boolean');
     getIndexEntityAddButton('b').click();
     getIndexEntityName('c').type('3rd');
     getIndexEntityFieldName('c','a').type('index');
     getIndexEntityFieldType('c','a').click();
-    getEntityFieldTypeValue('number').contains('number');
-    getEntityFieldTypeValue('number').click();
+    selectPopupChoiceWithText('number');
 
     getIndexEntityUpButton('c').click();
     getIndexEntityUpButton('c').click();

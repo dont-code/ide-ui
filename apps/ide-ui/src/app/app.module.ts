@@ -7,7 +7,6 @@ import {LayoutModule} from './layout/layout.module';
 import {EditorModule} from './routes/editor/editor.module';
 import {RouterModule, Routes} from '@angular/router';
 import {MainEditorComponent} from './routes/editor/main-editor/main-editor.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {HttpClientModule} from '@angular/common/http';
 import {ListChangesComponent} from './routes/dev/list-changes/list-changes.component';
 import {DevModule} from './routes/dev/dev.module';
@@ -28,7 +27,7 @@ const appRoutes:Routes = [
   declarations: [AppComponent],
   imports: [BrowserModule, BrowserAnimationsModule
     , EditorModule, LayoutModule, DevModule,
-    FlexLayoutModule, RouterModule.forRoot(
+    RouterModule.forRoot(
       appRoutes,
       { enableTracing: false,useHash:true } // <-- debugging purposes only
     ),

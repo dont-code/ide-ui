@@ -1,25 +1,12 @@
 import {
   getAppNameInput,
-  getDevMenu,
   getEditorMenu,
-  getEntityFieldTypeValue,
-  getEntityNewButton,
-  getIndexEntityAddButton,
-  getIndexEntityDownButton,
-  getIndexEntityFieldName,
-  getIndexEntityFieldNameValue,
-  getIndexEntityFieldType,
-  getIndexEntityName,
-  getIndexEntityRemoveButton,
-  getIndexEntityUpButton,
   getIndexScreenComponentEntity,
   getIndexScreenComponentEntityValue,
   getIndexScreenComponentType,
   getIndexScreenEntity,
   getIndexScreenType,
-  getListOfChanges,
-  getScreenComponentTypeValue,
-  getScreenTypeValue
+  selectPopupChoiceWithText
 } from "../support/main-editor.po";
 
 
@@ -33,15 +20,18 @@ describe('plugin-support', () => {
     getEditorMenu().click();
     getAppNameInput().type('To Do App');
     getIndexScreenComponentType('a','a').click();
-    getScreenComponentTypeValue('edit').click();
+    selectPopupChoiceWithText('edit');
     getIndexScreenComponentEntity('a','a').type('testEntity');
 
     getIndexScreenType('a').click();
-    getScreenTypeValue('list').click();
+    selectPopupChoiceWithText('freeform');
+    getAppNameInput().click();
+    getIndexScreenType('a').click();
+    selectPopupChoiceWithText('list');
     getIndexScreenEntity ('a').type('newTestEntity');
 
     getIndexScreenType('a').click();
-    getScreenTypeValue('freeform').click();
+    selectPopupChoiceWithText('freeform');
 
     getIndexScreenComponentEntityValue('a','a').should('equal','testEntity');
 

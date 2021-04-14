@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { EditorElement } from '../editor-element';
-import { MatSelectChange } from '@angular/material/select';
-import { ChangeUpdateService } from '../../../shared/change/services/change-update.service';
-import { Change, ChangeType } from '@dontcode/core';
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {EditorElement} from '../editor-element';
+import {ChangeUpdateService} from '../../../shared/change/services/change-update.service';
+import {Change, ChangeType} from '@dontcode/core';
 
 @Component({
   selector: 'ide-ui-select-element',
@@ -27,7 +26,8 @@ export class SelectElementComponent implements OnInit {
     return option;
   }
 
-  onChange(change:MatSelectChange) {
+  onChange(change:any) {
+    console.log('Selection change', change);
     const changed:boolean = this.element.setEditedValue(change.value);
 
     this.changeService.pushChange(
