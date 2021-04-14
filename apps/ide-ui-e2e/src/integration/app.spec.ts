@@ -9,7 +9,7 @@ describe('ide-ui', () => {
 
     // Function helper example, see `../support/app.po.ts` file
     getToolbar();
-    getToolbarTitle().contains('Non-Development Environment');
+    getToolbarTitle().contains('Dont-Code Builder');
     getSidePanel();
     getWelcome();
   });
