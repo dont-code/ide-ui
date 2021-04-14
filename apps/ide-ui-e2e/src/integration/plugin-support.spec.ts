@@ -6,8 +6,7 @@ import {
   getIndexScreenComponentType,
   getIndexScreenEntity,
   getIndexScreenType,
-  getScreenComponentTypeValue,
-  getScreenTypeValue, selectPopupChoiceWithText
+  selectPopupChoiceWithText
 } from "../support/main-editor.po";
 
 
