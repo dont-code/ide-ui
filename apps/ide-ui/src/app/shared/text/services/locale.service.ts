@@ -7,7 +7,7 @@ import { DontCodeModel } from '@dontcode/core';
 export class LocaleService {
   texts = new Map<string, string> ([
     [DontCodeModel.ROOT, 'I want to create'],
-    [DontCodeModel.APP_TYPE, 'an application'],
+    [DontCodeModel.APP_TYPE, 'I want to create an application'],
     [DontCodeModel.APP_NAME, 'with the name'],
     [DontCodeModel.APP_NAME+'-desc', 'Enter the name'],
     [DontCodeModel.APP_ENTITIES, 'handing the following items:'],
