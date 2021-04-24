@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { DontCodeProject } from '@dontcode/core';
+import {Component, OnInit} from '@angular/core';
 import {ProjectService} from "../../shared/project/services/project.service";
 import {IdeComponent} from "../../shared/ui/IdeComponent";
 import {IdeProject} from "../../shared/project/IdeProject";
