@@ -14,22 +14,7 @@ export class TextService {
 
   protected jsonSchema:DontCodeSchemaItem;
 
-//  event = new ReplaySubject<TextModelElement> ();
-
-  // Temporary variables when recursively reading elements
-  /*listOfElementsStack:EditorElement[][]=[];
-  positionStack:string[]=[];*/
-
   protected rootElement:EditorElement;
-  /**
-   * Stores the array of EditorElement one can find at a specific position in the edited data
-   * For example:
-   *  'creation/entities/a/' => The list of editor elements for the first entity
-   *  'creation/entities/b/' => The list of editor elements for the second entity
-   */
-  //mapOfElements = new Map<string, EditorElement[]>();
-
-//  rootListOfElements:EditorElement[] = [];
 
   /**
    * Stores the SchemaItem corresponding to a position in the schema
@@ -42,57 +27,12 @@ export class TextService {
 
   constructor(protected http:HttpClient, protected updateService:ChangeUpdateService) {
 
-  /*  this.mapOfElements.set('', this.rootListOfElements);
-  this.listOfElementsStack.push(this.rootListOfElements);
-    this.positionStack.push('');
-    this.event
-      .subscribe(textModel => {
-        let position = this.currentPosition()+'/'+textModel.relativeId;
-        if (textModel.id===DontCodeModel.ROOT) {
-          this.positionStack.push(textModel.id);
-          position = textModel.id;
-        }
-        if( textModel instanceof SubTextModelElement) {
-          const subAction = textModel as SubTextModelElement;
-          if (subAction.isStart()) {
-            this.currentList().push(EditorElement.fromTextAction (textModel, position));
-            this.mapOfElements.set(position, [new EditorElement(position+'/a', textModel.schemaItem, position+'/a', textModel.id, 'arrayItem' )]);
-
-            const newList:EditorElement[]=[];
-            this.listOfElementsStack.push(newList );
-            this.positionStack.push(position+'/a');
-            this.mapOfElements.set(this.currentPosition(), newList);
-          } else {
-            this.listOfElementsStack.pop();
-            this.positionStack.pop();
-            this.currentList().push(EditorElement.fromTextAction (textModel, this.currentPosition()));
-          }
-        }
-        else {
-          this.currentList().push(EditorElement.fromTextAction (textModel, position));
-        }
-      });*/
   }
 
-/*  protected currentList (): EditorElement[] {
-    if( this.listOfElementsStack.length==0)
-      return null;
-    return this.listOfElementsStack[this.listOfElementsStack.length-1];
-  }
-  protected currentPosition (): string {
-    if( this.positionStack.length==0)
-      return null;
-    return this.positionStack[this.positionStack.length-1];
-  }*/
 
   resetSchema () {
     this.rootElement=null;
     this.mapOfJson.clear();
-/*    this.mapOfElements.clear();
-    this.mapOfElements.set('', this.rootListOfElements);
-    this.positionStack.length=0;
-    this.listOfElementsStack.push(this.rootListOfElements);
-    this.positionStack.push('');*/
     this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
   }
 
