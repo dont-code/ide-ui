@@ -48,6 +48,14 @@
                 }
               ]
             },
+            "offline": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ide-ui/src/environments/environment.ts",
+                  "with": "apps/ide-ui/src/environments/environment.offline.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -86,6 +94,9 @@
           "configurations": {
             "online": {
               "browserTarget": "ide-ui:build:online"
+            },
+            "offline": {
+              "browserTarget": "ide-ui:build:offline"
             },
             "production": {
               "browserTarget": "ide-ui:build:production"

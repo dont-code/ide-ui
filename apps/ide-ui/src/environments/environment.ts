@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  webSocketUrl: 'ws://localhost:8080/ide',
+  webSocketUrl: 'ws://localhost:8082/ide',
   previewUrl: 'http://localhost:4201',
-  projectUrl: '/api/project'
+  projectUrl: 'http://localhost:8083/project'
 };
 
 /*
