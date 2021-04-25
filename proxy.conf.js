@@ -3,10 +3,10 @@ const PROXY_CONFIG = {
     "target": "http://localhost:3000",
     "secure": false,
     "bypass": function (req, res, proxyOptions) {
-        console.log('Request=', req);
+        //console.log('Request=', req);
         return "/assets/proxy"+req.url+'.json';
-    },
-    logLevel:"debug"
+    }/*,
+    logLevel:"debug"*/
   }
 }
 

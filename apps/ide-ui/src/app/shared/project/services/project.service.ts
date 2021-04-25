@@ -3,22 +3,29 @@ import {Observable, of} from "rxjs";
 import {IdeProject} from "../IdeProject";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
 
-  projects: Array<IdeProject> = [{name: "Test", description:"This is a test project with testing stuff", lastUpdated:new Date(2021,4,22), template:false, current:true},
-    {name: "Test2", description:"The famous task manager", lastUpdated:new Date(2021,4,2), template:true},
-    {name: "Old Project", description:"The old one", lastUpdated:new Date(2021,1,2), template:false}];
+  projects: Array<IdeProject> = [];
 
   protected currentProject: IdeProject = this.projects[0];
   constructor(protected http: HttpClient) { }
 
   loadListOfProjects () :Observable<Array<IdeProject>> {
-    //this.http.get(environment.projectUrl).
-    return of(this.projects);
+    if (this.projects.length===0) {
+      return this.http.get<Array<IdeProject>>(environment.projectUrl).pipe(
+        map(value => {
+          this.projects=value;
+          this.currentProject=null;
+          return value;
+        }));
+    } else {
+      return of(this.projects);
+    }
   }
 
   saveCurrentProject (): Promise<IdeProject> {
