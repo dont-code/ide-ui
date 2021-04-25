@@ -5,9 +5,9 @@ import {Subscription} from "rxjs";
  * Classical Angular component class
  */
 @Component({
-  templateUrl: ''
+  template: ''
 })
-export class IdeComponent implements OnDestroy {
+export abstract class IdeComponent implements OnDestroy {
   subscriptions = new Subscription();
 
 

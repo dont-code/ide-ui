@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { DontCodeProject } from '@dontcode/core';
+import {Injectable} from '@angular/core';
 import {Observable, of} from "rxjs";
 import {IdeProject} from "../IdeProject";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,10 @@ export class ProjectService {
     {name: "Old Project", description:"The old one", lastUpdated:new Date(2021,1,2), template:false}];
 
   protected currentProject: IdeProject = this.projects[0];
-  constructor() { }
+  constructor(protected http: HttpClient) { }
 
   loadListOfProjects () :Observable<Array<IdeProject>> {
+    //this.http.get(environment.projectUrl).
     return of(this.projects);
   }
 
