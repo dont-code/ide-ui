@@ -5,6 +5,7 @@ import {ProjectComponent} from './project.component';
 import {DataViewModule} from "primeng/dataview";
 import {ButtonModule} from "primeng/button";
 import {SharedModule} from "../../shared/shared.module";
+import {HttpClientModule} from "@angular/common/http";
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    HttpClientModule,
     DataViewModule,
     ButtonModule,
     SharedModule
