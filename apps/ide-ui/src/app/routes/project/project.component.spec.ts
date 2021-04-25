@@ -4,6 +4,7 @@ import { ProjectComponent } from './project.component';
 import {DataViewModule} from "primeng/dataview";
 import {ButtonModule} from "primeng/button";
 import {SharedModule} from "../../shared/shared.module";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('ProjectComponent', () => {
   let component: ProjectComponent;
@@ -13,7 +14,8 @@ describe('ProjectComponent', () => {
     await TestBed.configureTestingModule({
       imports:[ DataViewModule,
         ButtonModule,
-        SharedModule],
+        SharedModule,
+      HttpClientTestingModule],
       declarations: [ ProjectComponent ]
     })
     .compileComponents();
