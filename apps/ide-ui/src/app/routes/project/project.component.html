@@ -1,0 +1,26 @@
+<p-dataView [value]="projects" layout="list">
+  <ng-template let-project pTemplate="listItem">
+    <div class="p-col-12">
+     <div class="project-list-item" [ngClass]="currentProjectClass(project)">
+       <div class="project-list-detail">
+         <div class="project-name">{{project.name}}</div>
+         <div class="project-description">{{project.description}}</div>
+         <ng-container *ngIf="isCurrentProject(project)">
+           <i class="pi pi-inbox project-category-icon"></i><span class="project-category">Current Project</span>
+         </ng-container>
+         <ng-container *ngIf="!isCurrentProject(project) && project.template">
+          <i class="pi pi-bookmark project-category-icon"></i><span class="project-category">Template</span>
+         </ng-container>
+         <ng-container *ngIf="!isCurrentProject(project) && !project.template">
+          <i class="pi pi-briefcase project-category-icon"></i><span class="project-category">Project</span>
+         </ng-container>
+       </div>
+       <div class="project-list-action">
+         <span class="project-date">{{project.lastUpdated | date}}</span>
+         <p-button *ngIf="isCurrentProject(project)" icon="pi pi-save" label="Save" ></p-button>
+         <p-button icon="pi pi-play" label="{{playButtonLabel(project)}}" ></p-button>
+       </div>
+       </div>
+    </div>
+  </ng-template>
+</p-dataView>

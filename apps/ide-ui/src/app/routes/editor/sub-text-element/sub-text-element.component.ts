@@ -23,7 +23,7 @@ export class SubTextElementComponent implements OnInit, OnChanges {
   }
 
   removeElement(item:EditorElement, index:number) {
-    let removed = this.element.removeElement( item, index);
+    const removed = this.element.removeElement( item, index);
     this.changeService.pushChange(
       new Change(ChangeType.DELETE,
         removed.position, null));
@@ -36,10 +36,10 @@ export class SubTextElementComponent implements OnInit, OnChanges {
    * @param index
    */
   upElement(item:EditorElement, index:number) {
-    let oldPos = item.position; // The old position is the same as the new one in this case (only the beforeId changes)
-    let nextElement = this.element.upElement( item, index);
+    const oldPos = item.position; // The old position is the same as the new one in this case (only the beforeId changes)
+    const nextElement = this.element.upElement( item, index);
     if( nextElement !== null) {
-      let nextKey= nextElement.getItemIdIfExists();
+      const nextKey= nextElement.getItemIdIfExists();
 
       this.changeService.pushChange(
         new Change(ChangeType.MOVE, item.position, item.getEditedValue(),null, nextKey, oldPos)
@@ -47,8 +47,8 @@ export class SubTextElementComponent implements OnInit, OnChanges {
     }
   }
   downElement(item:EditorElement, index:number) {
-    let oldPos = item.position; // The old position is the same as the new one in this case (only the beforeId changes)
-    let nextElement = this.element.downElement( item, index);
+    const oldPos = item.position; // The old position is the same as the new one in this case (only the beforeId changes)
+    const nextElement = this.element.downElement( item, index);
     if( nextElement!==null) {
       let nextKey;
       if( nextElement===undefined) {  // It is the last element
