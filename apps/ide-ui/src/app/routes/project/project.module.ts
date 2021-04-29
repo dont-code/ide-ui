@@ -6,6 +6,8 @@ import {DataViewModule} from "primeng/dataview";
 import {ButtonModule} from "primeng/button";
 import {SharedModule} from "../../shared/shared.module";
 import {HttpClientModule} from "@angular/common/http";
+import {InplaceModule} from "primeng/inplace";
+import {FormsModule} from "@angular/forms";
 
 
 const routes: Routes = [
@@ -20,7 +22,9 @@ const routes: Routes = [
     HttpClientModule,
     DataViewModule,
     ButtonModule,
-    SharedModule
+    SharedModule,
+    InplaceModule,
+    FormsModule
   ]
 })
 export class ProjectModule { }
