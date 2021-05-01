@@ -3,7 +3,6 @@ import {ProjectService} from "../../shared/project/services/project.service";
 import {IdeComponent} from "../../shared/ui/IdeComponent";
 import {IdeProject} from "../../shared/project/IdeProject";
 import {ConfirmationService} from "primeng/api";
-import {Button} from "primeng/button";
 import {Inplace} from "primeng/inplace";
 
 @Component({
@@ -15,7 +14,7 @@ export class ProjectComponent extends IdeComponent implements OnInit {
 
   projects = new Array<IdeProject>();
 
-  @ViewChild('editName') editName: ElementRef;
+  @ViewChild('inPlaceName') inPlaceName: Inplace;
 
   constructor(protected projectService: ProjectService, protected confirmationService: ConfirmationService) {
     super();
@@ -55,7 +54,9 @@ export class ProjectComponent extends IdeComponent implements OnInit {
         icon: 'pi pi-exclamation-triangle',
         rejectVisible: false,
         accept: () => {
-          this.editName.nativeElement.click();
+          this.inPlaceName.activate();
+          //this.textName.nativeElement.click();
+          //this.editName.nativeElement.focus();
         }
       });
     } else {
@@ -65,5 +66,9 @@ export class ProjectComponent extends IdeComponent implements OnInit {
 
   loadProject(event:any): void {
 
+  }
+
+  focusLost($event: FocusEvent) {
+    this.inPlaceName.deactivate($event);
   }
 }

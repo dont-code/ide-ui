@@ -6,20 +6,20 @@
      <div class="project-list-item" [ngClass]="currentProjectClass(project)">
        <div class="project-list-detail" *ngIf="isCurrentProject(project)">
          <div class="in-place-edit">
-           <p-inplace closable="true">
+           <p-inplace closable="true" closeIcon="pi pi-check" #inPlaceName>
              <ng-template pTemplate="display">
-               <span class="project-name" #editName>{{project.name?project.name:'Please enter a name'}}<i class="pi pi-pencil edit-icon"></i></span>
+               <span class="project-name">{{project.name?project.name:'Please enter a name'}}<i class="pi pi-pencil edit-icon"></i></span>
              </ng-template>
              <ng-template pTemplate="content">
-               <input type="text" [(ngModel)]="project.name" pInputText>
+               <input type="text" [(ngModel)]="project.name" pInputText (focusout)="inPlaceName.deactivate(); inPlaceDescription.activate()" #editName>{{ editName.focus() }}
              </ng-template>
            </p-inplace>
-           <p-inplace closable="true">
+           <p-inplace closable="true" closeIcon="pi pi-check" #inPlaceDescription>
              <ng-template pTemplate="display">
                <span class="project-description">{{project.description?project.description:'Please enter a description'}}<i class="pi pi-pencil edit-icon"></i></span>
              </ng-template>
              <ng-template pTemplate="content">
-               <input type="text" [(ngModel)]="project.description" pInputText >
+               <input type="text" size="50" [(ngModel)]="project.description" pInputText (focusout)="inPlaceDescription.deactivate()" #editDescription>{{ editDescription.focus() }}
              </ng-template>
            </p-inplace>
          </div>
