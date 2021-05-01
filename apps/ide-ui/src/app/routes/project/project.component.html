@@ -1,24 +1,44 @@
+
+<p-confirmPopup></p-confirmPopup>
 <p-dataView [value]="projects" layout="list">
   <ng-template let-project pTemplate="listItem">
     <div class="p-col-12">
      <div class="project-list-item" [ngClass]="currentProjectClass(project)">
-       <div class="project-list-detail">
+       <div class="project-list-detail" *ngIf="isCurrentProject(project)">
+         <div class="in-place-edit">
+           <p-inplace closable="true">
+             <ng-template pTemplate="display">
+               <span class="project-name" #editName>{{project.name?project.name:'Please enter a name'}}<i class="pi pi-pencil edit-icon"></i></span>
+             </ng-template>
+             <ng-template pTemplate="content">
+               <input type="text" [(ngModel)]="project.name" pInputText>
+             </ng-template>
+           </p-inplace>
+           <p-inplace closable="true">
+             <ng-template pTemplate="display">
+               <span class="project-description">{{project.description?project.description:'Please enter a description'}}<i class="pi pi-pencil edit-icon"></i></span>
+             </ng-template>
+             <ng-template pTemplate="content">
+               <input type="text" [(ngModel)]="project.description" pInputText >
+             </ng-template>
+           </p-inplace>
+         </div>
+         <i class="pi pi-inbox project-category-icon"></i><span class="project-category">Current Project</span>
+       </div>
+       <div class="project-list-detail" *ngIf="!isCurrentProject(project)">
          <div class="project-name">{{project.name}}</div>
          <div class="project-description">{{project.description}}</div>
-         <ng-container *ngIf="isCurrentProject(project)">
-           <i class="pi pi-inbox project-category-icon"></i><span class="project-category">Current Project</span>
+         <ng-container *ngIf="project.template">
+           <i class="pi pi-bookmark project-category-icon"></i><span class="project-category">Template</span>
          </ng-container>
-         <ng-container *ngIf="!isCurrentProject(project) && project.template">
-          <i class="pi pi-bookmark project-category-icon"></i><span class="project-category">Template</span>
-         </ng-container>
-         <ng-container *ngIf="!isCurrentProject(project) && !project.template">
-          <i class="pi pi-briefcase project-category-icon"></i><span class="project-category">Project</span>
+         <ng-container *ngIf="!project.template">
+           <i class="pi pi-briefcase project-category-icon"></i><span class="project-category">Project</span>
          </ng-container>
        </div>
        <div class="project-list-action">
          <span class="project-date">{{project.lastUpdated | date}}</span>
-         <p-button *ngIf="isCurrentProject(project)" icon="pi pi-save" label="Save" ></p-button>
-         <p-button icon="pi pi-play" label="{{playButtonLabel(project)}}" ></p-button>
+         <p-button *ngIf="isCurrentProject(project)" icon="pi pi-save" label="Save" (onClick)="saveProject($event)" ></p-button>
+         <p-button icon="pi pi-play" label="{{playButtonLabel(project)}}" (onClick)="loadProject($event)"></p-button>
        </div>
        </div>
     </div>
