@@ -13,9 +13,8 @@ import {DevModule} from './routes/dev/dev.module';
 import {WelcomeModule} from './routes/welcome/welcome.module';
 import {WelcomeComponent} from "./routes/welcome/main/welcome.component";
 import {ScreenModule} from "@dontcode/plugin-screen";
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FieldsModule} from "@dontcode/plugin-fields";
-import {ProjectModule} from "./routes/project/project.module";
 import {ConfirmationService} from "primeng/api";
 
 const appRoutes:Routes = [

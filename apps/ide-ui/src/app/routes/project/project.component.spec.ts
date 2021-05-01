@@ -5,6 +5,10 @@ import {DataViewModule} from "primeng/dataview";
 import {ButtonModule} from "primeng/button";
 import {SharedModule} from "../../shared/shared.module";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {InplaceModule} from "primeng/inplace";
+import {ConfirmPopupModule} from "primeng/confirmpopup";
+import {FormsModule} from "@angular/forms";
+import {ConfirmationService} from "primeng/api";
 
 describe('ProjectComponent', () => {
   let component: ProjectComponent;
@@ -14,9 +18,10 @@ describe('ProjectComponent', () => {
     await TestBed.configureTestingModule({
       imports:[ DataViewModule,
         ButtonModule,
-        SharedModule,
+        SharedModule, InplaceModule, ConfirmPopupModule, FormsModule,
       HttpClientTestingModule],
-      declarations: [ ProjectComponent ]
+      declarations: [ ProjectComponent ],
+      providers:[ConfirmationService]
     })
     .compileComponents();
   });
