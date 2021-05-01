@@ -8,6 +8,7 @@ import {SharedModule} from "../../shared/shared.module";
 import {HttpClientModule} from "@angular/common/http";
 import {InplaceModule} from "primeng/inplace";
 import {FormsModule} from "@angular/forms";
+import {ConfirmPopupModule} from "primeng/confirmpopup";
 
 
 const routes: Routes = [
@@ -16,15 +17,16 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ProjectComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    HttpClientModule,
-    DataViewModule,
-    ButtonModule,
-    SharedModule,
-    InplaceModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        HttpClientModule,
+        DataViewModule,
+        ButtonModule,
+        SharedModule,
+        InplaceModule,
+        FormsModule,
+        ConfirmPopupModule
+    ]
 })
 export class ProjectModule { }

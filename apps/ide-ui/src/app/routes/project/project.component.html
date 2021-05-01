@@ -1,3 +1,5 @@
+
+<p-confirmPopup></p-confirmPopup>
 <p-dataView [value]="projects" layout="list">
   <ng-template let-project pTemplate="listItem">
     <div class="p-col-12">
@@ -6,7 +8,7 @@
          <div class="in-place-edit">
            <p-inplace closable="true">
              <ng-template pTemplate="display">
-               <span class="project-name">{{project.name}}<i class="pi pi-pencil edit-icon"></i></span>
+               <span class="project-name" #editName>{{project.name?project.name:'Please enter a name'}}<i class="pi pi-pencil edit-icon"></i></span>
              </ng-template>
              <ng-template pTemplate="content">
                <input type="text" [(ngModel)]="project.name" pInputText>
@@ -14,7 +16,7 @@
            </p-inplace>
            <p-inplace closable="true">
              <ng-template pTemplate="display">
-               <span class="project-description">{{project.description}}<i class="pi pi-pencil edit-icon"></i></span>
+               <span class="project-description">{{project.description?project.description:'Please enter a description'}}<i class="pi pi-pencil edit-icon"></i></span>
              </ng-template>
              <ng-template pTemplate="content">
                <input type="text" [(ngModel)]="project.description" pInputText >
@@ -35,8 +37,8 @@
        </div>
        <div class="project-list-action">
          <span class="project-date">{{project.lastUpdated | date}}</span>
-         <p-button *ngIf="isCurrentProject(project)" icon="pi pi-save" label="Save" ></p-button>
-         <p-button icon="pi pi-play" label="{{playButtonLabel(project)}}" ></p-button>
+         <p-button *ngIf="isCurrentProject(project)" icon="pi pi-save" label="Save" (onClick)="saveProject($event)" ></p-button>
+         <p-button icon="pi pi-play" label="{{playButtonLabel(project)}}" (onClick)="loadProject($event)"></p-button>
        </div>
        </div>
     </div>

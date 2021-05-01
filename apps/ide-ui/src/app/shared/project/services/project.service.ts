@@ -24,9 +24,6 @@ export class ProjectService {
             this.currentProject=new IdeProject();
             this.currentProject.template=false;
             this.currentProject.current = true;
-            this.currentProject.name = 'Enter name';
-            this.currentProject.description = 'Enter project description';
-
           }
           // Keep the currentProject at first place in the list
           found = newProjects.findIndex(value => {
@@ -45,7 +42,17 @@ export class ProjectService {
   }
 
   saveCurrentProject (): Promise<IdeProject> {
-    return Promise.resolve (this.currentProject);
+    const toSave = {...this.currentProject};
+    delete toSave.current;  // We don't want to save the fact it's the current project
+    if( toSave._id) {
+      return this.http.put<IdeProject>(environment.projectUrl+'/'+this.currentProject.name, toSave, {responseType:"json"} ).toPromise();
+    } else {
+      return this.http.post<IdeProject>(environment.projectUrl, toSave, {responseType:"json"} ).toPromise().then(value => {
+        this.currentProject._id=value._id;
+        return this.currentProject;
+      });
+    }
+
   }
 
   setCurrentProject (prj:IdeProject): void {
