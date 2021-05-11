@@ -37,8 +37,8 @@
        </div>
        <div class="project-list-action">
          <span class="project-date">{{project.lastUpdated | date}}</span>
-         <p-button *ngIf="isCurrentProject(project)" icon="pi pi-save" label="Save" (onClick)="saveProject($event)" ></p-button>
-         <p-button icon="pi pi-play" label="{{playButtonLabel(project)}}" (onClick)="loadProject($event)"></p-button>
+         <p-button *ngIf="isCurrentProject(project)" icon="pi pi-save" label="Save" (onClick)="saveCurrentProject()" ></p-button>
+         <p-button icon="pi pi-play" label="{{playButtonLabel(project)}}" (onClick)="loadProject(project)"></p-button>
        </div>
        </div>
     </div>
