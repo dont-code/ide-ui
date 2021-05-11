@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
-import { Change, ChangeType } from "@dontcode/core";
+import {Change, ChangeType, dtcde} from "@dontcode/core";
 import { BroadcastChannel } from "broadcast-channel";
 import { webSocket, WebSocketSubject, WebSocketSubjectConfig } from "rxjs/webSocket";
 
 import { environment } from "../../../../environments/environment";
-import { Observable, ReplaySubject } from "rxjs";
+import {Observable, ReplaySubject, Subject} from "rxjs";
+import {DontCodeModelManager} from "@dontcode/core/lib/model/dont-code-model-manager";
 
 /**
  * Updates all changes to the edited elements (what the user entered in the IDE)
@@ -78,7 +79,7 @@ export class ChangeUpdateService {
   }
 
   pushChange (newChange:Change): void {
-    console.log('Change pushed');
+    //console.log('Change pushed');
     if( newChange.type===ChangeType.RESET) {
       this.listOfChanges.length=0;
     } else {
@@ -89,7 +90,7 @@ export class ChangeUpdateService {
   }
 
   async updateSocket (newChange:Change) {
-    this.openWebSocket().then (webSocket => webSocket.next(newChange));
+    this.openWebSocket().then (socket => socket.next(newChange));
   }
 
   getListOfChanges (): Change[] {

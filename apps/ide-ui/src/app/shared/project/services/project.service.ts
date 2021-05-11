@@ -4,6 +4,7 @@ import {IdeProject} from "../IdeProject";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {map} from "rxjs/operators";
+import {dtcde} from "@dontcode/core";
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +45,14 @@ export class ProjectService {
   saveCurrentProject (): Promise<IdeProject> {
     const toSave = {...this.currentProject};
     delete toSave.current;  // We don't want to save the fact it's the current project
+
+    const model = dtcde.getModelManager().getContent();
+    toSave.content = model;
     if( toSave._id) {
-      return this.http.put<IdeProject>(environment.projectUrl+'/'+this.currentProject.name, toSave, {responseType:"json"} ).toPromise();
+      return this.http.put<IdeProject>(environment.projectUrl+'/'+this.currentProject.name, toSave, {responseType:"json"} ).toPromise().then (value => {
+        delete value.content;
+        return value;
+      });
     } else {
       return this.http.post<IdeProject>(environment.projectUrl, toSave, {responseType:"json"} ).toPromise().then(value => {
         this.currentProject._id=value._id;

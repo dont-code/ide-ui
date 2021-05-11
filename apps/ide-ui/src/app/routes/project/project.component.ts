@@ -1,9 +1,11 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ProjectService} from "../../shared/project/services/project.service";
 import {IdeComponent} from "../../shared/ui/IdeComponent";
 import {IdeProject} from "../../shared/project/IdeProject";
 import {ConfirmationService} from "primeng/api";
 import {Inplace} from "primeng/inplace";
+import {ChangeUpdateService} from "../../shared/change/services/change-update.service";
+import {Change, ChangeType} from "@dontcode/core";
 
 @Component({
   selector: 'ide-ui-project',
@@ -16,7 +18,7 @@ export class ProjectComponent extends IdeComponent implements OnInit {
 
   @ViewChild('inPlaceName') inPlaceName: Inplace;
 
-  constructor(protected projectService: ProjectService, protected confirmationService: ConfirmationService) {
+  constructor(protected projectService: ProjectService, protected changeUpdateService: ChangeUpdateService, protected confirmationService: ConfirmationService) {
     super();
   }
 
@@ -45,7 +47,7 @@ export class ProjectComponent extends IdeComponent implements OnInit {
     else return 'Load';
   }
 
-  saveProject(event:any): void {
+  saveCurrentProject(): void {
     const curProject = this.projectService.getCurrentProject();
     if( !curProject.name || curProject.name.length===0) {
       this.confirmationService.confirm({
@@ -55,8 +57,6 @@ export class ProjectComponent extends IdeComponent implements OnInit {
         rejectVisible: false,
         accept: () => {
           this.inPlaceName.activate();
-          //this.textName.nativeElement.click();
-          //this.editName.nativeElement.focus();
         }
       });
     } else {
@@ -64,11 +64,9 @@ export class ProjectComponent extends IdeComponent implements OnInit {
     }
   }
 
-  loadProject(event:any): void {
-
+  loadProject(project:IdeProject): void {
+    this.projectService.setCurrentProject(project);
+    this.changeUpdateService.pushChange(new Change(ChangeType.RESET, '/', project.content));
   }
 
-  focusLost($event: FocusEvent) {
-    this.inPlaceName.deactivate($event);
-  }
 }
