@@ -3,7 +3,7 @@ import { ChangeUpdateService } from './change-update.service';
 import { BroadcastChannel } from 'broadcast-channel';
 import {Change, ChangeType, dtcde} from '@dontcode/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import {DontCodeModelManager} from "@dontcode/core/lib/model/dont-code-model-manager";
+import {DontCodeModelManager} from "@dontcode/core";
 
 /**
  * List to all the changes on the edited elements from the BroadCastChannel and updates

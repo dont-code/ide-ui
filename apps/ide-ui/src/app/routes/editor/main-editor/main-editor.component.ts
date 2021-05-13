@@ -27,7 +27,7 @@ export class MainEditorComponent implements OnInit, OnDestroy {
     this.changeListener.getChangeEvents().pipe( takeUntil(this.unsubscriber))
       .subscribe(value => {
         if (value.type===ChangeType.RESET) {
-          if( value.position===DontCodeModel.ROOT) {
+          if( value.position===DontCodeModel.ROOT || value.position==="/") {
             this.rootElement = this.textService.getRootElement();
 //            console.log('Reset received');
             this.ref.detectChanges();

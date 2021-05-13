@@ -44,7 +44,10 @@ export class ProjectComponent extends IdeComponent implements OnInit {
       return 'Reload';
     else if (project.template)
       return 'Duplicate';
-    else return 'Load';
+    else if (project.name)
+      return 'Load';
+    else
+      return 'Select';
   }
 
   saveCurrentProject(): void {
@@ -65,8 +68,11 @@ export class ProjectComponent extends IdeComponent implements OnInit {
   }
 
   loadProject(project:IdeProject): void {
-    this.projectService.setCurrentProject(project);
-    this.changeUpdateService.pushChange(new Change(ChangeType.RESET, '/', project.content));
+    this.projectService.loadProject(project).then(value => {
+      this.projectService.setCurrentProject(value);
+      this.projects=this.projectService.projects;
+      this.changeUpdateService.pushChange(new Change(ChangeType.RESET, '/', value.content));
+    });
   }
 
 }

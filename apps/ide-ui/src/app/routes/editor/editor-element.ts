@@ -84,52 +84,6 @@ export class EditorElement {
     return this.childrenToDisplay;
   }
 
-/*  addToDisplayChildren(editorElement: EditorElement[]) {
-    editorElement.forEach(value => {
-      value.setParent(this);
-      this.childrenToDisplay.push(value);
-    })
-  }
-*/
-
-  /**
-   * Inserts or replace the properties right after the position of the given element
-   * @param afterElement
-   * @param childId
-   * @param update
-   */
-/*  mergeDisplayChildren (afterElement:EditorElement, update:DontCodeSchemaProperty) {
-
-    const newProps = this.readSubSchema(this.position+'/'+update.getRelativeId(), this.schemaPosition+'/'+update.getRelativeId(),
-      update, null);
-    for (let i = 0; i< this.childrenToDisplay.length;i++) {
-      if (this.childrenToDisplay[i]===afterElement) {
-        if (update.isReplace()) {
-          this.childrenToDisplay.splice(i+1, this.childrenToDisplay.length-i, ...newProps);
-        }else {
-          this.childrenToDisplay.splice(i+1, 0, ...newProps);
-        }
-        break;
-      }
-    }
-  }
-*/
-  /**
-   * Finds where in the children to display list we should insert an element of the given propertyName or schemaItem
-   * @param childId
-   * @param schemaItem
-   */
-/*  findInsertionPointOf (childId: string, schemaItem?:DontCodeSchemaItem) {
-    let targetSchema = schemaItem || this.schemaModel.getChild(childId);
-    const targetSchemaPosition = this.schemaModel.getChildIndex (targetSchema);
-    let targetIndex = -1;
-    this.childrenToDisplay.forEach((value, index) => {
-      if (this.schemaModel.getChildIndex(value.schemaModel) <= targetSchemaPosition) {
-        targetIndex=index;
-      }
-    });
-    return targetIndex++;
-  }*/
 
   /**
    * Reads a DontCodeSchemaItem schema. Either is merges with current EditorElement, or it uses the provided toMerge and elementCache without touching the current EditorElement
@@ -313,7 +267,7 @@ export class EditorElement {
       return null;
     }
 
-    if ((index+1) == parentList.length-1) {
+    if ((index+1) === parentList.length-1) {
       // Item becomes the last element, so no-one is after him
       return undefined;
     } else

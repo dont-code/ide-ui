@@ -13,33 +13,38 @@ export class ProjectService {
 
   projects: Array<IdeProject> = [];
 
-  protected currentProject: IdeProject = this.projects[0];
-  constructor(protected http: HttpClient) { }
+  protected currentProject: IdeProject;
+  constructor(protected http: HttpClient) {
+    this.currentProject=new IdeProject();
+    this.currentProject.template=false;
+    this.currentProject.current = true;
+  }
 
   loadListOfProjects () :Observable<Array<IdeProject>> {
     if (this.projects.length===0) {
       return this.http.get<Array<IdeProject>>(environment.projectUrl).pipe(
         map(newProjects => {
-          let found;
-          if( !this.currentProject) {
-            this.currentProject=new IdeProject();
-            this.currentProject.template=false;
-            this.currentProject.current = true;
-          }
-          // Keep the currentProject at first place in the list
-          found = newProjects.findIndex(value => {
-            return value.name === this.currentProject.name;
-          });
-          if( found === -1) {
-            this.projects=[this.currentProject, ...newProjects];
-          } else {
-            this.projects=[this.currentProject, ...newProjects.splice(found, 1)];
-          }
+          this.projects=this.placeCurrentProject(newProjects);
           return this.projects;
         }));
     } else {
       return of(this.projects);
     }
+  }
+
+  placeCurrentProject (projects:Array<IdeProject>) {
+    // Keep the currentProject at first place in the list
+    const found = projects.findIndex(value => {
+      return value.name === this.currentProject.name;
+    });
+    if( found === -1) {
+      projects=[this.currentProject, ...projects];
+    } else {
+      projects.splice(found, 1);
+      projects=[this.currentProject, ...projects];
+    }
+    return projects;
+
   }
 
   saveCurrentProject (): Promise<IdeProject> {
@@ -62,12 +67,21 @@ export class ProjectService {
 
   }
 
+  loadProject (prj:IdeProject): Promise<IdeProject> {
+    if( prj.name) {
+      return this.http.get<IdeProject>(environment.projectUrl + '/' + prj.name, {responseType: 'json'}).toPromise();
+    } else {
+      return Promise.resolve(prj);
+    }
+  }
+
   setCurrentProject (prj:IdeProject): void {
     if( this.currentProject?.current) {
       delete this.currentProject.current;
     }
     this.currentProject=prj;
-    prj.current = true;
+    this.currentProject.current = true;
+    this.projects = this.placeCurrentProject(this.projects);
   }
 
   getCurrentProject (): IdeProject {
