@@ -86,17 +86,15 @@ export class EditorElement {
 
 
   /**
-   * Reads a DontCodeSchemaItem schema. Either is merges with current EditorElement, or it uses the provided toMerge and elementCache without touching the current EditorElement
+   * Reads a DontCodeSchemaItem schema. Either is merges with current EditorElement
    * @param position
    * @param schemaPosition
    * @param model
-   * @param toMerge
-   * @param elementCache
    */
-  readSubSchema ( position:string, schemaPosition:string, model:DontCodeSchemaItem, nextArrayId:string, toMerge?:Array<EditorElement>, mergeStartPosition?:number, elementCache?:Map<string, EditorElement>): Array<EditorElement> {
-    const ret = /*toMerge ? toMerge :*/ this.childrenToDisplay;
+  readSubSchema ( position:string, schemaPosition:string, model:DontCodeSchemaItem, nextArrayId:string, mergeStartPosition?:number): Array<EditorElement> {
+    const ret = this.childrenToDisplay;
     let mergePosition = mergeStartPosition ? mergeStartPosition : 0;
-    const cache = /*elementCache ? elementCache :*/ this.allChildren;
+    const cache = this.allChildren;
 
     const parent = model;
 
@@ -142,7 +140,7 @@ export class EditorElement {
             newElement = EditorElement.createNew(
               childPosition, schemaChildPosition, EditorElementType.object, value);
           } else if (value.isReference()) {
-            this.readSubSchema(childPosition, schemaChildPosition, value, null, ret, mergePosition, cache);
+            this.readSubSchema(childPosition, schemaChildPosition, value, null, mergePosition);
           } else {
             console.error('Unknown item read from schema at position ' + position + ':', value);
           }
@@ -151,10 +149,10 @@ export class EditorElement {
 
       if (newElement) {
         newElement.parent=this;
-        mergePosition = this.mergeElement(newElement, value, mergePosition, null, null);
+        mergePosition = this.mergeElement(newElement, value, mergePosition);
         if (newElement.hasActiveProperties()) {
           const toAddProps = newElement.getActiveProperties();
-          this.readSubSchema(position, schemaPosition, toAddProps, null,null, mergePosition, null);
+          this.readSubSchema(position, schemaPosition, toAddProps, null, mergePosition);
           // if the active properties are replacing the remaining elements, then remove the remaining elements and  just stop the loop here
           if (newElement.isReplacementActive()) {
             break;
@@ -222,7 +220,7 @@ export class EditorElement {
     if( !index){
       index = parentList.indexOf(item);
     }
-    let ret = parentList.splice(index,1)[0];
+    const ret = parentList.splice(index,1)[0];
     return ret;
   }
 
@@ -311,9 +309,9 @@ export class EditorElement {
       return false;
   }
 
-  protected mergeElement(newElement: EditorElement, after:DontCodeSchemaItem, mergeStartPosition: number, toMerge?: Array<EditorElement>, elementCache?: Map<string, EditorElement>): number {
-    const list= /*toMerge?toMerge:*/this.childrenToDisplay;
-    const cache = /*elementCache?elementCache:*/this.allChildren;
+  protected mergeElement(newElement: EditorElement, after:DontCodeSchemaItem, mergeStartPosition: number): number {
+    const list= this.childrenToDisplay;
+    const cache = this.allChildren;
     const key = newElement.schemaModel.getRelativeId();
     cache.set(key, newElement);
     if (mergeStartPosition>=list.length){
