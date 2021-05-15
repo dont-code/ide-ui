@@ -30,10 +30,18 @@ export class ChangeListenService {
         this.listOfChanges.push(msg);
       }
       this.changeEmitter.next(msg);
+      if (msg.type===ChangeType.RESET)
+        this.resetEmitter ();
     };
     this.modelMgr = dtcde.getModelManager();
     this.modelMgr.receiveUpdatesFrom(this.changeEmitter);
 
+  }
+
+  resetEmitter () {
+    const newReplay = new ReplaySubject<Change>();
+    newReplay.observers=this.changeEmitter.observers;
+    this.changeEmitter=newReplay;
   }
 
   getListOfChanges (): Change[] {
