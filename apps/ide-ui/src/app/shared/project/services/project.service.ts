@@ -35,7 +35,7 @@ export class ProjectService {
   placeCurrentProject (projects:Array<IdeProject>) {
     // Keep the currentProject at first place in the list
     const found = projects.findIndex(value => {
-      return value.name === this.currentProject.name;
+      return value._id === this.currentProject._id;
     });
     if( found === -1) {
       projects=[this.currentProject, ...projects];

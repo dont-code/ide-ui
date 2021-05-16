@@ -138,7 +138,7 @@
           "options": {
             "cypressConfig": "apps/ide-ui-e2e/cypress.json",
             "tsConfig": "apps/ide-ui-e2e/tsconfig.e2e.json",
-            "devServerTarget": "ide-ui:serve"
+            "devServerTarget": "ide-ui:serve:online"
           },
           "configurations": {
             "production": {
