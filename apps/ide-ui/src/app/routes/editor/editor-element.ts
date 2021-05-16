@@ -129,23 +129,13 @@ export class EditorElement {
         }
       }
       if (children.length === 0) {// No initial items, so create a new empty one
-        // We are managing items of an array
-
         children.push([this.getNextId(), parent]);
       }
     } else {
-      if (arrayAction !== ArrayAction.NEW_ITEM) {
-        for (const itemKey in initialValue) {
-          if (initialValue.hasOwnProperty(itemKey)) {
-            children.push([itemKey, parent.getChild(itemKey)]);
-          }
-        }
-      }
-      if( children.length===0) {
         for (const childModel of parent.getChildren()) {
-          children.push(childModel);
+          const propKey = childModel[0];
+          children.push([propKey, childModel[1]]);
         }
-      }
     }
 
         // resolve schemareference of all children

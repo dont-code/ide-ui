@@ -96,6 +96,7 @@ describe('ChangeUpdateService', () => {
       }
     };
     rootElement.setEditedValue(edited2);
+    expect(rootElement.getChildInHierarchy('before/a')).toBeTruthy(); // A new element 'before' must have been created for editing purpose
     expect(rootElement.getChildInHierarchy('before/a/name')?.getEditedValue()).toBeFalsy();
     expect(rootElement.getChildInHierarchy('after/aa/name')?.getEditedValue()).toEqual(edited2.after.aa.name);
     expect(rootElement.getChildInHierarchy('after/ab/name')?.getEditedValue()).toBeFalsy();
