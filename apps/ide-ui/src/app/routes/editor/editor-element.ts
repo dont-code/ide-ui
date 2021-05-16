@@ -94,7 +94,7 @@ export class EditorElement {
         }
       }
       if(!added) {*/
-        this.readSubSchema(this.position, this.schemaPosition, this.schemaModel,ArrayAction.ONLY_ITEM,null, this.editedValue );
+        this.readSubSchema(this.position, this.schemaPosition, this.schemaModel,null, this.editedValue );
         if (this.schemaModel.isObject() || this.schemaModel.isArray())  // Object's value are stored in the children hierarchy, so we remove it from parent
           this.editedValue=undefined;
 //      }
@@ -110,28 +110,27 @@ export class EditorElement {
    * @param schemaPosition
    * @param model
    */
-  readSubSchema ( position:string, schemaPosition:string, model:DontCodeSchemaItem, arrayAction:ArrayAction, mergeStartPosition?:number, values?:any): Array<EditorElement> {
+  readSubSchema ( position:string, schemaPosition:string, model:DontCodeSchemaItem, mergeStartPosition?:number, values?:any): Array<EditorElement> {
     const ret = this.childrenToDisplay;
     let mergePosition = mergeStartPosition ? mergeStartPosition : 0;
     const cache = this.allChildren;
 
     const parent = model;
     const children = new Array();
-    let initialValue = values??this.editedValue;
+    let initialValue = values;
 
     if (parent.isArray()) {
-      if (arrayAction !== ArrayAction.NEW_ITEM) {
-        // Makes sure subItems are created from the initialValues sent
+        // Makes sure subItems are created from the initialValues sent, if any
         for (const itemKey in initialValue) {
           if (initialValue.hasOwnProperty(itemKey)) {
             children.push([itemKey, parent]);
           }
-        }
       }
       if (children.length === 0) {// No initial items, so create a new empty one
         children.push([this.getNextId(), parent]);
       }
     } else {
+      // Make sure all subproperties are considered
         for (const childModel of parent.getChildren()) {
           const propKey = childModel[0];
           children.push([propKey, childModel[1]]);
@@ -149,7 +148,7 @@ export class EditorElement {
     for (const [propName, child] of children) {
       let childPosition = position;
       let schemaChildPosition = schemaPosition;
-      initialValue = values??this.editedValue;
+      initialValue = values;
         // Are we reading a subProperty ?
       if (propName && propName.length>0) {
         childPosition = childPosition + '/' + propName;
@@ -189,7 +188,7 @@ export class EditorElement {
         mergePosition = this.mergeElement(newElement, child, propName,mergePosition);
         if (newElement.hasActiveProperties()) {
           const toAddProps = newElement.getActiveProperties();
-          this.readSubSchema(position, schemaPosition, toAddProps, ArrayAction.DEFAULT, mergePosition, initialValue);
+          this.readSubSchema(position, schemaPosition, toAddProps, mergePosition, initialValue);
           // if the active properties are replacing the remaining elements, then remove the remaining elements and  just stop the loop here
           if (newElement.isReplacementActive()) {
             break;
@@ -239,7 +238,7 @@ export class EditorElement {
     /**
      * Creates the new element and adds it to the list
      */
-    this.readSubSchema(this.position, this.schemaPosition, this.schemaModel,ArrayAction.NEW_ITEM);
+    this.readSubSchema(this.position, this.schemaPosition, this.schemaModel,null, null);
   }
 
   removeElement( item:EditorElement, index?:number): EditorElement {
