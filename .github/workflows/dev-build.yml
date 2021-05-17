@@ -40,15 +40,22 @@ jobs:
       - name: Tests
         run: |
           npm run ng test
-          npm run ng e2e -- --browser=chromium
-      - uses: actions/upload-artifact@v1
+          npm run ng e2e
+      - uses: actions/upload-artifact@v2
         # Test run screenshots only on failure
         if: failure()
         with:
           name: cypress-screenshots
           path: dist/cypress/apps/ide-ui-e2e/screenshots
         # Test run video was always captured, so this action uses "always()" condition
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
+        # Test run screenshots only on failure
+        if: failure()
+        with:
+          name: cypress-logs
+          path: /home/runner/.npm/_logs/
+        # Test run video was always captured, so this action uses "always()" condition
+      - uses: actions/upload-artifact@v2
         if: always()
         with:
           name: cypress-videos
