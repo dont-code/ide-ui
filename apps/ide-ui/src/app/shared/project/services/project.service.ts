@@ -4,7 +4,8 @@ import {IdeProject} from "../IdeProject";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {map} from "rxjs/operators";
-import {dtcde} from "@dontcode/core";
+import {Change, ChangeType, dtcde} from "@dontcode/core";
+import {ChangeUpdateService} from "../../change/services/change-update.service";
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,15 @@ export class ProjectService {
     this.currentProject=prj;
     this.currentProject.current = true;
     this.projects = this.placeCurrentProject(this.projects);
+  }
+
+  loadAndSetCurrentProject (prj:IdeProject, updateService: ChangeUpdateService) : Promise<IdeProject>{
+    return this.loadProject(prj).then (value => {
+      this.setCurrentProject(value);
+      updateService.pushChange(new Change(ChangeType.RESET, '/', value.content));
+      return value;
+    })
+
   }
 
   getCurrentProject (): IdeProject {
