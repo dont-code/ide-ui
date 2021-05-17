@@ -21,15 +21,15 @@ export class ProjectService {
   }
 
   loadListOfProjects () :Observable<Array<IdeProject>> {
-    if (this.projects.length===0) {
+//    if (this.projects.length===0) {
       return this.http.get<Array<IdeProject>>(environment.projectUrl).pipe(
         map(newProjects => {
           this.projects=this.placeCurrentProject(newProjects);
           return this.projects;
         }));
-    } else {
+  /*  } else {
       return of(this.projects);
-    }
+    }*/
   }
 
   placeCurrentProject (projects:Array<IdeProject>) {
