@@ -20,6 +20,8 @@ describe('projects', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should save and load projects', () => {
+    cy.intercept('GET','https://test.dont-code.net/project/').as('Reload');
+
     getMenuWithText("Editor").click();
     getAppNameInput().type('Task Manager');
     getIndexEntityName('a').type('Task');
@@ -31,6 +33,7 @@ describe('projects', () => {
     getIndexEntityFieldType('a','b').click();
     selectPopupChoiceWithText('boolean');
     getMenuWithText("Projects").click();
+    cy.wait('@Reload');
     getCurrentProjectButtonWithText ("Save").click();
     selectConfirmButtonWithText("Yes").click();
     cy.focused().should('have.id', 'project-name-edit').type("Task Manager "+new Date().getTime());
@@ -41,7 +44,8 @@ describe('projects', () => {
     getIndexEntityFieldRemoveButton('a','a').click();
     getMenuWithText("Projects").click();
     getCurrentProjectButtonWithText ("Reload").click();
-    cy.wait(1000);  // We must wait until the project reloads as for now the UI doesn't show anything
+    cy.wait('@Reload');
+//    cy.wait(1000);  // We must wait until the project reloads as for now the UI doesn't show anything
     getMenuWithText("Editor").click();
     getIndexEntityFieldNameValue('a','a').should('equal','Old Name');
     getIndexEntityFieldName('a','a').clear().type('Name');
