@@ -6,6 +6,7 @@ import {
   DontCodeSchemaRef
 } from "@dontcode/core";
 
+
 export class EditorElement {
 
   constructor(id:string, schemaItem:DontCodeSchemaItem, position?:string, schemaPosition?:string, type?:EditorElementType) {
@@ -48,10 +49,14 @@ export class EditorElement {
 
   protected parent: EditorElement;
 
-  static createNew (position:string, schemaPosition:string, type:EditorElementType, schemaItem:DontCodeSchemaItem, values?:string[]) {
+  static createNew (position:string, schemaPosition:string, type:EditorElementType, schemaItem:DontCodeSchemaItem, listValues?:string[], initialValue?:any) {
     const ret = new EditorElement(position, schemaItem, position, schemaPosition, type);
-    if (values) {
-      ret.values=values;
+    if (listValues) {
+      ret.values=listValues;
+    }
+    if (initialValue) {
+        // Dont call setEditedValue as it would try to recalculate children
+      ret.editedValue=initialValue;
     }
     return ret;
   }
@@ -77,130 +82,113 @@ export class EditorElement {
   getChildrenToDisplay (): Array<EditorElement> {
     if (this.forceRead) {
       this.childrenToDisplay.length=0;
-      const nextId = (this.type===EditorElementType.array)?'a':null;
-      this.readSubSchema(this.position, this.schemaPosition, this.schemaModel, nextId );
+/*      let added=false;
+      if (this.type===EditorElementType.array) {
+        if (this.editedValue) {
+          for (const item in this.editedValue) {
+            if (this.editedValue.hasOwnProperty(item)) {
+              this.readSubSchema(this.position, this.schemaPosition, this.schemaModel, item, this.editedValue[item]);
+              added=true;
+            }
+          }
+        }
+      }
+      if(!added) {*/
+        this.readSubSchema(this.position, this.schemaPosition, this.schemaModel,null, this.editedValue );
+        if (this.schemaModel.isObject() || this.schemaModel.isArray())  // Object's value are stored in the children hierarchy, so we remove it from parent
+          this.editedValue=undefined;
+//      }
       this.forceRead = false;
     }
     return this.childrenToDisplay;
   }
 
-/*  addToDisplayChildren(editorElement: EditorElement[]) {
-    editorElement.forEach(value => {
-      value.setParent(this);
-      this.childrenToDisplay.push(value);
-    })
-  }
-*/
 
   /**
-   * Inserts or replace the properties right after the position of the given element
-   * @param afterElement
-   * @param childId
-   * @param update
-   */
-/*  mergeDisplayChildren (afterElement:EditorElement, update:DontCodeSchemaProperty) {
-
-    const newProps = this.readSubSchema(this.position+'/'+update.getRelativeId(), this.schemaPosition+'/'+update.getRelativeId(),
-      update, null);
-    for (let i = 0; i< this.childrenToDisplay.length;i++) {
-      if (this.childrenToDisplay[i]===afterElement) {
-        if (update.isReplace()) {
-          this.childrenToDisplay.splice(i+1, this.childrenToDisplay.length-i, ...newProps);
-        }else {
-          this.childrenToDisplay.splice(i+1, 0, ...newProps);
-        }
-        break;
-      }
-    }
-  }
-*/
-  /**
-   * Finds where in the children to display list we should insert an element of the given propertyName or schemaItem
-   * @param childId
-   * @param schemaItem
-   */
-/*  findInsertionPointOf (childId: string, schemaItem?:DontCodeSchemaItem) {
-    let targetSchema = schemaItem || this.schemaModel.getChild(childId);
-    const targetSchemaPosition = this.schemaModel.getChildIndex (targetSchema);
-    let targetIndex = -1;
-    this.childrenToDisplay.forEach((value, index) => {
-      if (this.schemaModel.getChildIndex(value.schemaModel) <= targetSchemaPosition) {
-        targetIndex=index;
-      }
-    });
-    return targetIndex++;
-  }*/
-
-  /**
-   * Reads a DontCodeSchemaItem schema. Either is merges with current EditorElement, or it uses the provided toMerge and elementCache without touching the current EditorElement
+   * Reads a DontCodeSchemaItem schema. Either is merges with current EditorElement
    * @param position
    * @param schemaPosition
    * @param model
-   * @param toMerge
-   * @param elementCache
    */
-  readSubSchema ( position:string, schemaPosition:string, model:DontCodeSchemaItem, nextArrayId:string, toMerge?:Array<EditorElement>, mergeStartPosition?:number, elementCache?:Map<string, EditorElement>): Array<EditorElement> {
-    const ret = /*toMerge ? toMerge :*/ this.childrenToDisplay;
+  readSubSchema ( position:string, schemaPosition:string, model:DontCodeSchemaItem, mergeStartPosition?:number, values?:any): Array<EditorElement> {
+    const ret = this.childrenToDisplay;
     let mergePosition = mergeStartPosition ? mergeStartPosition : 0;
-    const cache = /*elementCache ? elementCache :*/ this.allChildren;
+    const cache = this.allChildren;
 
     const parent = model;
+    const children = new Array();
+    let initialValue = values;
 
-    let children = parent.getChildren();
-
-    if (nextArrayId)  {
-      // We are managing subelements of an array
-      children = new Map([['', parent]]).entries();
-      position = position + '/'+ nextArrayId;
+    if (parent.isArray()) {
+        // Makes sure subItems are created from the initialValues sent, if any
+        for (const itemKey in initialValue) {
+          if (initialValue.hasOwnProperty(itemKey)) {
+            children.push([itemKey, parent]);
+          }
+      }
+      if (children.length === 0) {// No initial items, so create a new empty one
+        children.push([this.getNextId(), parent]);
+      }
+    } else {
+      // Make sure all subproperties are considered
+        for (const childModel of parent.getChildren()) {
+          const propKey = childModel[0];
+          children.push([propKey, childModel[1]]);
+        }
     }
-    // Transparently resolves references
-    if( parent instanceof DontCodeSchemaRef) {
-      // We are emulating referenced elements as children of the ref
-      children = new Map([['', this.resolveRefs(parent)]]).entries();
-    }
 
-    for (const [key, value] of children) {
+        // resolve schemareference of all children
+    children.forEach(value => {
+      if (value[1] instanceof DontCodeSchemaRef) {
+        if( !value[1].isArray() || parent === value[1]) // Only resolve ref if we are not creating the array element
+          value[1]=this.resolveRefs(value[1]);
+      }
+    });
+
+    for (const [propName, child] of children) {
       let childPosition = position;
       let schemaChildPosition = schemaPosition;
-      if (key && key.length>0) {
-        childPosition = childPosition + '/' + key;
-        schemaChildPosition = schemaChildPosition + '/'+ key;
+      initialValue = values;
+        // Are we reading a subProperty ?
+      if (propName && propName.length>0) {
+        childPosition = childPosition + '/' + propName;
+        if( !parent.isArray())
+          schemaChildPosition = schemaChildPosition + '/'+ propName;
+        if( initialValue)
+          initialValue = initialValue[propName];
       }
 
-      let newElement:EditorElement = cache.get(key);
+      let newElement:EditorElement = cache.get(propName);
       if (!newElement) {
-        if (value.isArray() ) {
-          if(!nextArrayId) {
-          // An model can be an array and an object or value at the same time.
-            newElement = EditorElement.createNew(
-              childPosition, schemaChildPosition, EditorElementType.array, value);
-          }
+        if (child.isArray() && (child!==parent) ) {
+          // A model can be an array and an object or value at the same time.
+          newElement = EditorElement.createNew(
+            childPosition, schemaChildPosition, EditorElementType.array, child, null, initialValue);
+        } else if (child.isValue()) {
+          newElement = EditorElement.createNew(
+            childPosition, schemaChildPosition, EditorElementType.input, child, null, initialValue);
+        } else if (child.isEnum()) {
+          const asEnum = child as DontCodeSchemaEnum;
+          newElement = EditorElement.createNew(
+            childPosition, schemaChildPosition, EditorElementType.list, child, asEnum.getValues(), initialValue);
+        } else if (child.isObject()) {
+          newElement = EditorElement.createNew(
+            childPosition, schemaChildPosition, EditorElementType.object, child, null, initialValue);
+        } /*else if (child.isReference()) {
+          this.readSubSchema(childPosition, schemaChildPosition, child, true, mergePosition, initialValue);
+        }*/ else {
+          console.error('Unknown item read from schema at position ' + position + ':', child);
         }
-        if( !newElement) {
-          if (value.isValue()) {
-            newElement = EditorElement.createNew(
-              childPosition, schemaChildPosition, EditorElementType.input, value);
-          } else if (value.isEnum()) {
-            const asEnum = value as DontCodeSchemaEnum;
-            newElement = EditorElement.createNew(
-              childPosition, schemaChildPosition, EditorElementType.list, value, asEnum.getValues());
-          } else if (value.isObject()) {
-            newElement = EditorElement.createNew(
-              childPosition, schemaChildPosition, EditorElementType.object, value);
-          } else if (value.isReference()) {
-            this.readSubSchema(childPosition, schemaChildPosition, value, null, ret, mergePosition, cache);
-          } else {
-            console.error('Unknown item read from schema at position ' + position + ':', value);
-          }
-        }
+      } else if (initialValue!==undefined) {
+        newElement.setEditedValue(initialValue);
       }
 
       if (newElement) {
         newElement.parent=this;
-        mergePosition = this.mergeElement(newElement, value, mergePosition, null, null);
+        mergePosition = this.mergeElement(newElement, child, propName,mergePosition);
         if (newElement.hasActiveProperties()) {
           const toAddProps = newElement.getActiveProperties();
-          this.readSubSchema(position, schemaPosition, toAddProps, null,null, mergePosition, null);
+          this.readSubSchema(position, schemaPosition, toAddProps, mergePosition, initialValue);
           // if the active properties are replacing the remaining elements, then remove the remaining elements and  just stop the loop here
           if (newElement.isReplacementActive()) {
             break;
@@ -229,21 +217,14 @@ export class EditorElement {
   }
 
   getNextId() {
-    const list = this.getChildrenToDisplay();
     const position = this.position;
-    let tentative = 97+list.length;
+    let tentative = 97+this.allChildren.size;
     let found = false;
     let id : string;
     do {
       id = String.fromCharCode(tentative);
       const toTest = position+'/'+id;
-      found = false;
-      list.forEach(value => {
-          if (value.position===toTest) {
-            found=true;
-          }
-        }
-      );
+      found = this.allChildren.has(id);
       tentative++;
     } while(found);
     return id;
@@ -257,10 +238,7 @@ export class EditorElement {
     /**
      * Creates the new element and adds it to the list
      */
-      //const list = this.getList(element.position);
-    const subSchema = this.schemaModel;
-    const nextId = this.getNextId ();
-    this.readSubSchema(this.position, this.schemaPosition, subSchema, nextId);
+    this.readSubSchema(this.position, this.schemaPosition, this.schemaModel,null, null);
   }
 
   removeElement( item:EditorElement, index?:number): EditorElement {
@@ -268,7 +246,7 @@ export class EditorElement {
     if( !index){
       index = parentList.indexOf(item);
     }
-    let ret = parentList.splice(index,1)[0];
+    const ret = parentList.splice(index,1)[0];
     return ret;
   }
 
@@ -313,7 +291,7 @@ export class EditorElement {
       return null;
     }
 
-    if ((index+1) == parentList.length-1) {
+    if ((index+1) === parentList.length-1) {
       // Item becomes the last element, so no-one is after him
       return undefined;
     } else
@@ -333,6 +311,14 @@ export class EditorElement {
       //this.parent.mergeDisplayChildren(this, props);
       this.parent.forceRead=true;
       return true;
+    } else if ((this.schemaModel.isArray()) || (this.schemaModel.isObject())) {
+        // Remove all array items that are no more in values
+      for (const oldProp of this.allChildren.keys()) {
+        if( (!this.editedValue) || (this.editedValue[oldProp]===undefined)) {
+          this.allChildren.delete(oldProp);
+        }
+      }
+      this.forceRead=true;
     }
     return false;
   }
@@ -357,10 +343,10 @@ export class EditorElement {
       return false;
   }
 
-  protected mergeElement(newElement: EditorElement, after:DontCodeSchemaItem, mergeStartPosition: number, toMerge?: Array<EditorElement>, elementCache?: Map<string, EditorElement>): number {
-    const list= /*toMerge?toMerge:*/this.childrenToDisplay;
-    const cache = /*elementCache?elementCache:*/this.allChildren;
-    const key = newElement.schemaModel.getRelativeId();
+  protected mergeElement(newElement: EditorElement, after:DontCodeSchemaItem, propName:string, mergeStartPosition: number): number {
+    const list= this.childrenToDisplay;
+    const cache = this.allChildren;
+    const key = propName??newElement.schemaModel.getRelativeId();
     cache.set(key, newElement);
     if (mergeStartPosition>=list.length){
       list.push(newElement);
@@ -391,6 +377,46 @@ export class EditorElement {
       list.splice(mergeStartPosition, 0, newElement);
     return mergeStartPosition;
   }
+
+  getChild (propName:string) {
+    if (this.forceRead)
+      this.getChildrenToDisplay();
+    return this.allChildren.get(propName);
+  }
+
+  /**
+   * Retrieve the child in the hierarchy at the specified subposition.
+   * For example getChildInHierarchy ('sub/item/name') will return the name of the item who is child of sub child of the element
+   * getChildInHierarchy ('sub/table/ab/type') will return the type of the element ab of the array named table of sub child
+   * @param beforeAName
+   */
+  getChildInHierarchy(beforeAName: string): EditorElement|null {
+    const propNames=beforeAName.split('/');
+    let current:EditorElement = this;
+    //let nextIsArray= false;
+    //let arrayProp:string=null;
+    for (const propName of propNames) {
+      if( propName!=="") {
+        /*if( nextIsArray) {
+          current = this.getChildrenToDisplay().find(value => {
+            if (value.position.endsWith(arrayProp+'/'+propName))
+              return true;
+          });
+          arrayProp=null;
+          nextIsArray=false;
+        } else if( this.schemaModel.getChild(propName)?.isArray()) {
+          nextIsArray=true;
+          arrayProp = propName;
+        } else {*/
+        current = current.getChild(propName);
+   //     }
+        if(!current) {
+          return null;
+        }
+      }
+    }
+    return current;
+  }
 }
 
 export enum EditorElementType {
@@ -400,4 +426,9 @@ export enum EditorElementType {
   input='input',
   list='list',
   label='label'
+}
+enum ArrayAction {
+  DEFAULT,
+  NEW_ITEM=1,
+  ONLY_ITEM
 }

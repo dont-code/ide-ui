@@ -1,5 +1,5 @@
 <span class="displayable">{{(element.schemaPosition | locale)}}</span>
-<p-dropdown class="displayable" [id]="element.id" [options]="element.values" (onChange)="onChange($event)">
+<p-dropdown class="displayable" [id]="element.id" [options]="element.values" (onChange)="onChange($event)" [ngModel]="element?.getEditedValue()">
   <ng-template let-option pTemplate="item">
     {{(option | locale)}}
   </ng-template>

@@ -11,7 +11,7 @@
                <span class="project-name">{{project.name?project.name:'Please enter a name'}}<i class="pi pi-pencil edit-icon"></i></span>
              </ng-template>
              <ng-template pTemplate="content">
-               <input type="text" [(ngModel)]="project.name" pInputText (focusout)="inPlaceName.deactivate(); inPlaceDescription.activate()" #editName>{{ editName.focus() }}
+               <input type="text" id="project-name-edit" [(ngModel)]="project.name" pInputText (focusout)="inPlaceName.deactivate(); inPlaceDescription.activate()" #editName>{{ editName.focus() }}
              </ng-template>
            </p-inplace>
            <p-inplace closable="true" closeIcon="pi pi-check" #inPlaceDescription>
@@ -19,7 +19,7 @@
                <span class="project-description">{{project.description?project.description:'Please enter a description'}}<i class="pi pi-pencil edit-icon"></i></span>
              </ng-template>
              <ng-template pTemplate="content">
-               <input type="text" size="50" [(ngModel)]="project.description" pInputText (focusout)="inPlaceDescription.deactivate()" #editDescription>{{ editDescription.focus() }}
+               <input type="text" id="project-description-edit" size="50" [(ngModel)]="project.description" pInputText (focusout)="inPlaceDescription.deactivate()" #editDescription>{{ editDescription.focus() }}
              </ng-template>
            </p-inplace>
          </div>

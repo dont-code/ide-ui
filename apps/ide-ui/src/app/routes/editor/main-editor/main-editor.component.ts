@@ -25,11 +25,13 @@ export class MainEditorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.changeListener.getChangeEvents().pipe( takeUntil(this.unsubscriber))
-      .subscribe(value => {
-        if (value.type===ChangeType.RESET) {
-          if( value.position===DontCodeModel.ROOT) {
+      .subscribe(change => {
+        if (change.type===ChangeType.RESET) {
+          if( change.position===DontCodeModel.ROOT || change.position==="/") {
             this.rootElement = this.textService.getRootElement();
+            this.rootElement.setEditedValue(change.value?.creation);
 //            console.log('Reset received');
+            this.ref.markForCheck();
             this.ref.detectChanges();
           }
         }
