@@ -43,6 +43,7 @@ describe('projects', () => {
     getMenuWithText("Editor").click();
     getIndexEntityFieldRemoveButton('a','a').click();
     getMenuWithText("Projects").click();
+    cy.wait('@Reload');
     getCurrentProjectButtonWithText ("Reload").click();
     cy.wait('@Reload');
 //    cy.wait(1000);  // We must wait until the project reloads as for now the UI doesn't show anything
