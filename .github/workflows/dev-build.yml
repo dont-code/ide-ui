@@ -40,7 +40,7 @@ jobs:
       - name: Tests
         run: |
           npm run ng test
-          npm run ng e2e --browser=chromium
+          npm run ng e2e -- --browser=chromium
       - uses: actions/upload-artifact@v1
         # Test run screenshots only on failure
         if: failure()
