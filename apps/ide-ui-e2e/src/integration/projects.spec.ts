@@ -41,6 +41,7 @@ describe('projects', () => {
     getIndexEntityFieldRemoveButton('a','a').click();
     getMenuWithText("Projects").click();
     getCurrentProjectButtonWithText ("Reload").click();
+    cy.wait(1000);  // We must wait until the project reloads as for now the UI doesn't show anything
     getMenuWithText("Editor").click();
     getIndexEntityFieldNameValue('a','a').should('equal','Old Name');
     getIndexEntityFieldName('a','a').clear().type('Name');
