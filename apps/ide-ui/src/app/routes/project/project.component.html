@@ -1,6 +1,6 @@
 
 <p-confirmPopup></p-confirmPopup>
-<p-dataView [value]="projects" layout="list">
+<p-dataView [value]="projectService.projects" layout="list">
   <ng-template let-project pTemplate="listItem">
     <div class="p-col-12">
      <div class="project-list-item" [ngClass]="currentProjectClass(project)">

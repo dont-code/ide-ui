@@ -76,6 +76,14 @@ export class ProjectService {
     }
   }
 
+  /**
+   * Creates a new empty project and sets it as current project
+   */
+  newCurrentProject (): IdeProject {
+    this.setCurrentProject(new IdeProject());
+    return this.currentProject;
+  }
+
   setCurrentProject (prj:IdeProject): void {
     if( this.currentProject?.current) {
       delete this.currentProject.current;

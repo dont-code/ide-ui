@@ -25,7 +25,7 @@ export class TextService {
    */
   mapOfJson = new Map<string, DontCodeSchemaItem>();
 
-  constructor(protected http:HttpClient, protected updateService:ChangeUpdateService) {
+  constructor(protected http:HttpClient) {
 
   }
 
@@ -33,7 +33,7 @@ export class TextService {
   resetSchema () {
     this.rootElement=null;
     this.mapOfJson.clear();
-    this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
+    //this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
   }
 
   /**
@@ -47,7 +47,6 @@ export class TextService {
       this.rootElement = EditorElement.createNew(
         DontCodeModel.ROOT, DontCodeModel.ROOT,
         EditorElementType.label, rootSchema);
-      this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
     }
   }
 

@@ -7,6 +7,7 @@ import {ButtonModule} from "primeng/button";
 import {ToolbarModule} from "primeng/toolbar";
 import {SidebarModule} from "primeng/sidebar";
 import {MenuComponent} from "./menu/menu.component";
+import {TooltipModule} from "primeng/tooltip";
 
 
 @NgModule({
@@ -15,7 +16,7 @@ import {MenuComponent} from "./menu/menu.component";
     MainComponent
   ],
     imports: [
-        CommonModule, RouterModule, SidebarModule, ToolbarModule, ButtonModule, MenuModule
+        CommonModule, RouterModule, SidebarModule, ToolbarModule, ButtonModule, MenuModule, TooltipModule
     ]
 })
 export class LayoutModule { }

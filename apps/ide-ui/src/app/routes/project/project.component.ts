@@ -5,7 +5,6 @@ import {IdeProject} from "../../shared/project/IdeProject";
 import {ConfirmationService} from "primeng/api";
 import {Inplace} from "primeng/inplace";
 import {ChangeUpdateService} from "../../shared/change/services/change-update.service";
-import {Change, ChangeType} from "@dontcode/core";
 
 @Component({
   selector: 'ide-ui-project',
@@ -14,17 +13,17 @@ import {Change, ChangeType} from "@dontcode/core";
 })
 export class ProjectComponent extends IdeComponent implements OnInit {
 
-  projects = new Array<IdeProject>();
+  //projects = new Array<IdeProject>();
 
   @ViewChild('inPlaceName') inPlaceName: Inplace;
 
-  constructor(protected projectService: ProjectService, protected changeUpdateService: ChangeUpdateService, protected confirmationService: ConfirmationService) {
+  constructor(public projectService: ProjectService, protected changeUpdateService: ChangeUpdateService, protected confirmationService: ConfirmationService) {
     super();
   }
 
   ngOnInit(): void {
     this.subscriptions.add(this.projectService.loadListOfProjects().subscribe(newList => {
-      this.projects=newList;
+      //this.projects=newList;
     }));
   }
 
@@ -68,13 +67,13 @@ export class ProjectComponent extends IdeComponent implements OnInit {
   }
 
   loadProject(project:IdeProject): void {
-    console.log("Calling projectService");
+    //console.log("Calling projectService");
 
     this.projectService.loadAndSetCurrentProject(project, this.changeUpdateService).then(value => {
-      console.log("projectService Call Returned");
-      this.projects=this.projectService.projects;
+      //console.log("projectService Call Returned");
+      //this.projects=this.projectService.projects;
     });
-    console.log("Called projectService");
+    //console.log("Called projectService");
   }
 
 }
