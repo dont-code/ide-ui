@@ -23,7 +23,7 @@ export class TextService {
    *  'creation/entities/fields/' => The SchemaItem describing a field in an entity
    *  'creation/screens[type=list]/columns' => The SchemaItem describing a column of a screen when the screen type is list
    */
-  mapOfJson = new Map<string, DontCodeSchemaItem>();
+  //mapOfJson = new Map<string, DontCodeSchemaItem>();
 
   constructor(protected http:HttpClient) {
 
@@ -32,7 +32,7 @@ export class TextService {
 
   resetSchema () {
     this.rootElement=null;
-    this.mapOfJson.clear();
+    //this.mapOfJson.clear();
     //this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
   }
 

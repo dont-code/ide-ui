@@ -1,11 +1,10 @@
-import { Injectable } from "@angular/core";
-import {Change, ChangeType, dtcde} from "@dontcode/core";
-import { BroadcastChannel } from "broadcast-channel";
-import { webSocket, WebSocketSubject, WebSocketSubjectConfig } from "rxjs/webSocket";
+import {Injectable} from "@angular/core";
+import {Change, ChangeType} from "@dontcode/core";
+import {BroadcastChannel} from "broadcast-channel";
+import {webSocket, WebSocketSubject, WebSocketSubjectConfig} from "rxjs/webSocket";
 
-import { environment } from "../../../../environments/environment";
-import {Observable, ReplaySubject, Subject} from "rxjs";
-import {DontCodeModelManager} from "@dontcode/core/lib/model/dont-code-model-manager";
+import {environment} from "../../../../environments/environment";
+import {Observable, ReplaySubject} from "rxjs";
 
 /**
  * Updates all changes to the edited elements (what the user entered in the IDE)
