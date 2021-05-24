@@ -68,11 +68,13 @@ export class ProjectComponent extends IdeComponent implements OnInit {
   }
 
   loadProject(project:IdeProject): void {
-    this.projectService.loadProject(project).then(value => {
-      this.projectService.setCurrentProject(value);
+    console.log("Calling projectService");
+
+    this.projectService.loadAndSetCurrentProject(project, this.changeUpdateService).then(value => {
+      console.log("projectService Call Returned");
       this.projects=this.projectService.projects;
-      this.changeUpdateService.pushChange(new Change(ChangeType.RESET, '/', value.content));
     });
+    console.log("Called projectService");
   }
 
 }

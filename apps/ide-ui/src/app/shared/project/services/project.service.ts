@@ -4,7 +4,8 @@ import {IdeProject} from "../IdeProject";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {map} from "rxjs/operators";
-import {dtcde} from "@dontcode/core";
+import {Change, ChangeType, dtcde} from "@dontcode/core";
+import {ChangeUpdateService} from "../../change/services/change-update.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,15 +22,15 @@ export class ProjectService {
   }
 
   loadListOfProjects () :Observable<Array<IdeProject>> {
-    if (this.projects.length===0) {
+//    if (this.projects.length===0) {
       return this.http.get<Array<IdeProject>>(environment.projectUrl).pipe(
         map(newProjects => {
           this.projects=this.placeCurrentProject(newProjects);
           return this.projects;
         }));
-    } else {
+  /*  } else {
       return of(this.projects);
-    }
+    }*/
   }
 
   placeCurrentProject (projects:Array<IdeProject>) {
@@ -82,6 +83,19 @@ export class ProjectService {
     this.currentProject=prj;
     this.currentProject.current = true;
     this.projects = this.placeCurrentProject(this.projects);
+  }
+
+  loadAndSetCurrentProject (prj:IdeProject, updateService: ChangeUpdateService) : Promise<IdeProject>{
+   // console.log("Loading Project");
+    return this.loadProject(prj).then (value => {
+     // console.log("Setting current Project");
+      this.setCurrentProject(value);
+      // console.log("Pushing update");
+      updateService.pushChange(new Change(ChangeType.RESET, '/', value.content));
+      // console.log("Loading Project done");
+      return value;
+    })
+
   }
 
   getCurrentProject (): IdeProject {
