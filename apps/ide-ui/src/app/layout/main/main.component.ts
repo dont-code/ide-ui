@@ -4,7 +4,8 @@ import {map} from 'rxjs/operators';
 import {TextService} from '../../shared/text/services/text.service';
 import {ChangeUpdateService} from "../../shared/change/services/change-update.service";
 import {environment} from "../../../environments/environment";
-import {dtcde} from "@dontcode/core";
+import {Change, ChangeType, DontCodeModel, dtcde} from "@dontcode/core";
+import {ProjectService} from "../../shared/project/services/project.service";
 
 
 @Component({
@@ -22,6 +23,7 @@ export class MainComponent implements OnInit{
 
   constructor( protected service:TextService
               , protected updateService:ChangeUpdateService
+              , protected projectService: ProjectService
               , protected ref: ChangeDetectorRef
               ) {
 
@@ -51,6 +53,8 @@ export class MainComponent implements OnInit{
     this.service.resetSchema();
     this.service.readSchema(dtcde.getSchemaManager().getSchema());
 //    this.service.readSchemaFormUrl('assets/core/'+DontCode.dtcde.getSchemaUri());
+    this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
+    this.projectService.newCurrentProject();
 
     this.ref.detectChanges();
   }

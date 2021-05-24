@@ -23,17 +23,17 @@ export class TextService {
    *  'creation/entities/fields/' => The SchemaItem describing a field in an entity
    *  'creation/screens[type=list]/columns' => The SchemaItem describing a column of a screen when the screen type is list
    */
-  mapOfJson = new Map<string, DontCodeSchemaItem>();
+  //mapOfJson = new Map<string, DontCodeSchemaItem>();
 
-  constructor(protected http:HttpClient, protected updateService:ChangeUpdateService) {
+  constructor(protected http:HttpClient) {
 
   }
 
 
   resetSchema () {
     this.rootElement=null;
-    this.mapOfJson.clear();
-    this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
+    //this.mapOfJson.clear();
+    //this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
   }
 
   /**
@@ -47,7 +47,6 @@ export class TextService {
       this.rootElement = EditorElement.createNew(
         DontCodeModel.ROOT, DontCodeModel.ROOT,
         EditorElementType.label, rootSchema);
-      this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
     }
   }
 
