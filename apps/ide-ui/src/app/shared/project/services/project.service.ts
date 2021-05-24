@@ -86,13 +86,13 @@ export class ProjectService {
   }
 
   loadAndSetCurrentProject (prj:IdeProject, updateService: ChangeUpdateService) : Promise<IdeProject>{
-    console.log("Loading Project");
+   // console.log("Loading Project");
     return this.loadProject(prj).then (value => {
-      console.log("Setting current Project");
+     // console.log("Setting current Project");
       this.setCurrentProject(value);
-      console.log("Pushing update");
+      // console.log("Pushing update");
       updateService.pushChange(new Change(ChangeType.RESET, '/', value.content));
-      console.log("Loading Project done");
+      // console.log("Loading Project done");
       return value;
     })
 
