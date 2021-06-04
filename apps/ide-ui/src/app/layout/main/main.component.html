@@ -9,7 +9,17 @@
       <button pButton type="button" class="p-button-rounded p-button-outlined" icon="pi pi-cloud-download" pTooltip="New Application" (click)="loadSchema()"></button>
       <button pButton type="button" class="p-button-rounded p-button-outlined" icon="pi pi-book" pTooltip="Open Debugging Window" (click)="openDevUrl()"></button>
       <button pButton type="button" class="p-button-rounded p-button-outlined" [ngClass]="connectedClass(ctx)" icon="pi pi-external-link" pTooltip="Open Previewer" (click)="openPreview()"></button>
-      <button pButton type="button" class="p-button-rounded p-button-outlined" [ngClass]="connectedClass(ctx)" icon="pi pi-sort" ></button>
+      <button pButton type="button" class="p-button-rounded p-button-outlined" [ngClass]="connectedClass(ctx)" icon="pi pi-sort"  (mouseenter)="op.show($event)"></button>
+      <p-overlayPanel #op [showCloseIcon]="false" [style]="{width: '500px'}">
+        <ng-template pTemplate>
+          <div class="p-grid">
+            <div class="p-col-2">Server:</div>
+            <div class="p-col-10">{{serverUrl}}</div>
+            <div class="p-col-2">Session:</div>
+            <div class="p-col-10">{{ctx.sessionId}}</div>
+          </div>
+        </ng-template>
+      </p-overlayPanel>
     </div>
   </p-toolbar>
   <div class="p-d-md-none">

@@ -16,10 +16,13 @@ import {ProjectService} from "../../shared/project/services/project.service";
 export class MainComponent implements OnInit{
   context$: Observable<
     {
-      status:string
+      status:string,
+      sessionId:string
     }>;
 
   sidePanelVisible: boolean;
+
+  serverUrl = environment.webSocketUrl;
 
   constructor( protected service:TextService
               , protected updateService:ChangeUpdateService
@@ -29,12 +32,15 @@ export class MainComponent implements OnInit{
 
   }
 
+  protected sessionId:string;
+
   ngOnInit(): void {
     this.sidePanelVisible = true;
 
-    this.context$ = combineLatest([this.updateService.getConnectionStatus()])
+    this.context$ = combineLatest([this.updateService.getConnectionStatus(), this.updateService.getSessionId()])
       .pipe(map ((status) => {
-        return {status:status[0]};
+        this.sessionId=status[1];
+        return {status:status[0], sessionId:status[1]};
       }));
 
     this.loadSchema();
@@ -64,7 +70,7 @@ export class MainComponent implements OnInit{
   }
 
   openPreview() {
-    window.open(environment.previewUrl, '_blank');
+    window.open(environment.previewUrl+'?sessionId='+this.sessionId, '_blank');
   }
 
   connectedClass(ctx: { status: string }): string {
@@ -72,5 +78,7 @@ export class MainComponent implements OnInit{
       return "p-button-danger";
     }
   }
+
+
 
 }
