@@ -79,6 +79,7 @@ export class ChangeUpdateService {
           this.ideServicesWebSocket.unsubscribe();
           this.ideServicesWebSocket = null;
           this.connectionStatus.next("ERROR:" + err);
+          this.sessionIdSubject.next(null);
         },
         // Called if WebSocket API signals some kind of error
         complete: () => {
@@ -86,6 +87,7 @@ export class ChangeUpdateService {
           this.ideServicesWebSocket.unsubscribe();
           this.ideServicesWebSocket = null;
           this.connectionStatus.next("closed");
+          this.sessionIdSubject.next(null);
         }
         // Called when connection is closed (for whatever reason)
       });
