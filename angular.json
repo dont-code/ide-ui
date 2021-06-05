@@ -48,6 +48,14 @@
                 }
               ]
             },
+            "e2e": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ide-ui/src/environments/environment.ts",
+                  "with": "apps/ide-ui/src/environments/environment.e2e.ts"
+                }
+              ]
+            },
             "offline": {
               "fileReplacements": [
                 {
@@ -95,6 +103,9 @@
             "online": {
               "browserTarget": "ide-ui:build:online"
             },
+            "e2e": {
+              "browserTarget": "ide-ui:build:e2e"
+            },
             "offline": {
               "browserTarget": "ide-ui:build:offline"
             },
@@ -138,7 +149,7 @@
           "options": {
             "cypressConfig": "apps/ide-ui-e2e/cypress.json",
             "tsConfig": "apps/ide-ui-e2e/tsconfig.e2e.json",
-            "devServerTarget": "ide-ui:serve:online"
+            "devServerTarget": "ide-ui:serve:e2e"
           },
           "configurations": {
             "production": {
