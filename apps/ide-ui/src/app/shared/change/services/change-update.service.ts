@@ -22,6 +22,13 @@ export class ChangeUpdateService {
   protected ideServicesWebSocket: WebSocketSubject<Change>;
   protected connectionStatus: ReplaySubject<string>=new ReplaySubject<string>(1);
 
+  /**
+   * The Id of the session as returned by the services. This is used to tell the previewer to listen only to this session
+   * @protected
+   */
+  protected sessionIdSubject = new ReplaySubject<string>(1);
+  protected sessionId;
+
   constructor() {
     console.log('Creating channel');
     this.channel = new BroadcastChannel(ChangeUpdateService.CHANNEL_CHANGE_NAME);
@@ -56,13 +63,23 @@ export class ChangeUpdateService {
       this.ideServicesWebSocket = webSocket(config);
       this.connectionStatus.next("connected");
       this.ideServicesWebSocket.asObservable().subscribe({
-        next: msg => console.log('message received: ' + msg),
+        next: msg => {
+          const resp = msg as unknown as Response;
+          //console.log('message received: ' , msg);
+          const newId=resp?.SessionId;
+          if ((newId) && (newId !== this.sessionId)){
+            console.log('Received SessionId ', newId);
+            this.sessionId=newId;
+            this.sessionIdSubject.next(newId);
+          }
+        },
         // Called whenever there is a message from the server
         error: err => {
           console.log(err);
           this.ideServicesWebSocket.unsubscribe();
           this.ideServicesWebSocket = null;
           this.connectionStatus.next("ERROR:" + err);
+          this.sessionIdSubject.next(null);
         },
         // Called if WebSocket API signals some kind of error
         complete: () => {
@@ -70,6 +87,7 @@ export class ChangeUpdateService {
           this.ideServicesWebSocket.unsubscribe();
           this.ideServicesWebSocket = null;
           this.connectionStatus.next("closed");
+          this.sessionIdSubject.next(null);
         }
         // Called when connection is closed (for whatever reason)
       });
@@ -99,4 +117,12 @@ export class ChangeUpdateService {
   getConnectionStatus (): Observable<string> {
     return this.connectionStatus;
   }
+  getSessionId (): Observable<string> {
+    return this.sessionIdSubject;
+  }
+}
+
+class Response {
+  result;
+  SessionId;
 }
