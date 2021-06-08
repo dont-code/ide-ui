@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Change, ChangeType} from "@dontcode/core";
+import {Change, ChangeType, Message, MessageType} from "@dontcode/core";
 import {BroadcastChannel} from "broadcast-channel";
 import {webSocket, WebSocketSubject, WebSocketSubjectConfig} from "rxjs/webSocket";
 
@@ -19,7 +19,7 @@ export class ChangeUpdateService {
   protected listOfChanges: Change[]=[];
   protected channel: BroadcastChannel<Change>;
 
-  protected ideServicesWebSocket: WebSocketSubject<Change>;
+  protected ideServicesWebSocket: WebSocketSubject<Message>;
   protected connectionStatus: ReplaySubject<string>=new ReplaySubject<string>(1);
 
   /**
@@ -34,13 +34,13 @@ export class ChangeUpdateService {
     this.channel = new BroadcastChannel(ChangeUpdateService.CHANNEL_CHANGE_NAME);
   }
 
-  protected openWebSocket (): Promise<WebSocketSubject<Change>> {
+  protected openWebSocket (): Promise<WebSocketSubject<Message>> {
     if (this.ideServicesWebSocket) {
       if ((!this.ideServicesWebSocket.isStopped) && (!this.ideServicesWebSocket.closed)) {
         return Promise.resolve(this.ideServicesWebSocket);
       }
     }
-    const ret = new Promise<WebSocketSubject<Change>>((resolve, reject) => {
+    const ret = new Promise<WebSocketSubject<Message>>((resolve, reject) => {
       const config: WebSocketSubjectConfig<any> = {
         url: environment.webSocketUrl,
         closeObserver: {
@@ -62,11 +62,12 @@ export class ChangeUpdateService {
 
       this.ideServicesWebSocket = webSocket(config);
       this.connectionStatus.next("connected");
+      this.sessionIdSubject.next(null);
       this.ideServicesWebSocket.asObservable().subscribe({
         next: msg => {
-          const resp = msg as unknown as Response;
+
           //console.log('message received: ' , msg);
-          const newId=resp?.SessionId;
+          const newId=msg?.sessionId;
           if ((newId) && (newId !== this.sessionId)){
             console.log('Received SessionId ', newId);
             this.sessionId=newId;
@@ -103,10 +104,10 @@ export class ChangeUpdateService {
       this.listOfChanges.push(newChange);
     }
     this.channel.postMessage(newChange);
-    this.updateSocket(newChange);
+    this.updateSocket(new Message (MessageType.CHANGE, this.sessionId, newChange));
   }
 
-  async updateSocket (newChange:Change) {
+  async updateSocket (newChange:Message) {
     this.openWebSocket().then (socket => socket.next(newChange));
   }
 
@@ -120,9 +121,4 @@ export class ChangeUpdateService {
   getSessionId (): Observable<string> {
     return this.sessionIdSubject;
   }
-}
-
-class Response {
-  result;
-  SessionId;
 }
