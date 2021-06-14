@@ -3,8 +3,13 @@
     <ng-container [ngSwitch]="element.type">
       <br *ngSwitchCase="'newLine'"/>
       <ide-ui-text-element *ngSwitchCase="'string'" [element]="element"></ide-ui-text-element>
-      <ide-ui-sub-text-element *ngSwitchCase="'object'" [element]="element">
-      </ide-ui-sub-text-element>
+      <ng-container *ngSwitchCase="'object'">
+        <div><span class="displayable" >{{(element.schemaPosition | locale)}}</span>
+          <ide-ui-text-handler  [element]="element">
+          </ide-ui-text-handler>
+        </div>
+        <br />
+      </ng-container>
       <ide-ui-sub-text-element *ngSwitchCase="'array'" [element]="element">
       </ide-ui-sub-text-element>
       <ide-ui-select-element *ngSwitchCase="'list'" [element]="element" (refresh)="refresh()"></ide-ui-select-element>
