@@ -40,7 +40,7 @@
     "@angular/platform-browser": "^11.2.3",
     "@angular/platform-browser-dynamic": "^11.2.3",
     "@angular/router": "^11.2.3",
-    "@dontcode/core": "^0.2.14",
+    "@dontcode/core": "^0.2.15",
     "@dontcode/plugin-basic": "^0.1.38",
     "@dontcode/plugin-common": "^0.1.38",
     "@dontcode/plugin-fields": "^0.1.36",
