@@ -68,6 +68,8 @@ MIT
 
 @dontcode/core
 
+@dontcode/plugin-basic
+
 @dontcode/plugin-common
 
 @dontcode/plugin-fields
