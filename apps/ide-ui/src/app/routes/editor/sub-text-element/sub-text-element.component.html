@@ -5,7 +5,7 @@
     <ng-template pTemplate="content">  <div style="padding-left: 10px">
       <ng-container *ngFor="let item of items; index as i">
         <ide-ui-text-handler [element]="item"></ide-ui-text-handler>
-        <ng-container *ngIf="element.type==='array'">
+        <ng-container>
           <button pButton type="button" class="p-button-secondary p-button-rounded p-button-outlined" [id]="item.id+'-add-button'" icon="pi pi-plus" aria-label="Add item" (click)="addElement()">
           </button>
           <button pButton type="button" class="p-button-danger p-button-rounded p-button-outlined" [id]="item.id+'-remove-button'" icon="pi pi-minus" aria-label="Remove item" (click)="removeElement(item, i)">
@@ -18,7 +18,7 @@
         </ng-container>
       </ng-container>
       <ng-container *ngIf="items.length==0">
-        <button *ngIf="element.type==='array'" pButton type="button" class="p-button-secondary p-button-rounded p-button-outlined" [id]="element.id+'-new-button'" icon="pi pi-plus" aria-label="Add item" (click)="addElement()">
+        <button pButton type="button" class="p-button-secondary p-button-rounded p-button-outlined" [id]="element.id+'-new-button'" icon="pi pi-plus" aria-label="Add item" (click)="addElement()">
         </button>
       </ng-container>
     </div>

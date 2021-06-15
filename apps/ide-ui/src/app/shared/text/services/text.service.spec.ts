@@ -53,6 +53,8 @@ describe('TextService', () => {
       'creation/entities/a/fields/a(object)',
       'creation/entities/a/fields/a/name(input)',
       'creation/entities/a/fields/a/type(list)',
+      'creation/sharing(object)',
+      'creation/sharing/with(list)',
       'creation/screens(array)',
       'creation/screens/a(object)',
       'creation/screens/a/name(input)',

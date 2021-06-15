@@ -7,7 +7,7 @@ import { DontCodeModel } from '@dontcode/core';
 export class LocaleService {
   texts = new Map<string, string> ([
     [DontCodeModel.ROOT, 'I want to create'],
-    [DontCodeModel.APP_TYPE, 'I want to create an application'],
+    [DontCodeModel.APP_TYPE, 'I want to create a'],
     [DontCodeModel.APP_NAME, 'with the name'],
     [DontCodeModel.APP_NAME+'-desc', 'Enter the name'],
     [DontCodeModel.APP_ENTITIES, 'handing the following items:'],
@@ -20,6 +20,10 @@ export class LocaleService {
     [DontCodeModel.APP_FIELDS_NAME+'-desc', 'Name of field'],
     [DontCodeModel.APP_FIELDS_TYPE, 'with the type'],
     [DontCodeModel.APP_FIELDS_TYPE+'-desc', 'Type of field'],
+    [DontCodeModel.APP_SHARING, 'Information will be shared '],
+    [DontCodeModel.APP_SHARING+'-desc', 'List of screens'],
+    [DontCodeModel.APP_SHARING_WITH, 'with'],
+    [DontCodeModel.APP_SHARING_WITH+'-desc', 'Persons to information will be visible to.'],
     [DontCodeModel.APP_SCREENS, 'Showing the screens'],
     [DontCodeModel.APP_SCREENS+'-desc', 'List of screens'],
     [DontCodeModel.APP_SCREENS_NAME, 'A screen with the name'],
