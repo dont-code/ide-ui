@@ -27,7 +27,7 @@ describe('projects', () => {
     getIndexEntityName('a').type('Task');
     getIndexEntityFieldName('a','a').type('Old Name');
     getIndexEntityFieldType('a','a').click();
-    selectPopupChoiceWithText('string');
+    selectPopupChoiceWithText('text');
     getIndexEntityFieldAddButton('a','a').click();
     getIndexEntityFieldName('a','b').type('Done');
     getIndexEntityFieldType('a','b').click();

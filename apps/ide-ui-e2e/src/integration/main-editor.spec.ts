@@ -28,7 +28,7 @@ describe('main-editor', () => {
     getIndexEntityName('a').type('ToDo');
     getIndexEntityFieldName('a','a').type('name');
     getIndexEntityFieldType('a','a').click();
-    selectPopupChoiceWithText('string');
+    selectPopupChoiceWithText('text');
     getIndexEntityAddButton('a').click();
     getIndexEntityName('b').type('2nd');
     getIndexEntityFieldName('b','a').type('description');
@@ -36,7 +36,7 @@ describe('main-editor', () => {
     getListOfChanges().should('have.length.greaterThan', 0);
     getEditorMenu().click();
     getIndexEntityFieldNameValue('a','a').should('equal','name');
-    getEntityFieldTypeValue('string').contains('string');
+    getEntityFieldTypeValue('text').contains('text');
     getIndexEntityFieldNameValue('b','a').should('equal','description');
 
   });
@@ -48,7 +48,7 @@ describe('main-editor', () => {
     getIndexEntityName('a').type('ToDo');
     getIndexEntityFieldName('a','a').type('name');
     getIndexEntityFieldType('a','a').click();
-    selectPopupChoiceWithText('string');
+    selectPopupChoiceWithText('text');
     getIndexEntityAddButton('a').click();
     getIndexEntityName('b').type('2nd');
     getIndexEntityFieldName('b','a').type('done');
