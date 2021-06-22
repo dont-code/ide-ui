@@ -1,0 +1,20 @@
+p-card {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+.welcome-question  {
+  text-align: center;
+}
+
+.welcome-item {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.welcome-item > * {
+  margin-left: 5px;
+  margin-right: 5px;
+}

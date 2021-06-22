@@ -4,7 +4,7 @@
       <img src="./assets/images/logo.png" width="119" height="66"/>
       <button pButton type="button" class="p-d-md-none p-button-rounded p-button-outlined" icon="pi pi-bars" (click)="sidePanelVisible=!sidePanelVisible"></button>
     </div>
-    Dont-Code Builder
+   <h1>Dont-code Builder</h1>
     <div class="p-toolbar-group-right">
       <button pButton type="button" class="p-button-rounded p-button-outlined" icon="pi pi-cloud-download" pTooltip="New Application" (click)="loadSchema()"></button>
       <button pButton type="button" class="p-button-rounded p-button-outlined" icon="pi pi-book" pTooltip="Open Debugging Window" (click)="openDevUrl()"></button>
@@ -29,79 +29,12 @@
     </p-sidebar>
   </div>
   <div class="p-grid">
-    <div class="p-col p-d-none p-d-md-block p-md-3">
+    <div class="p-col p-d-none p-d-md-block p-md-2">
       <ide-ui-menu id="mainMenu"></ide-ui-menu>
     </div>
-    <div class="p-col p-md-9">
+    <div class="p-col p-md-10">
       <router-outlet> </router-outlet>
     </div>
   </div>
 
 </div>
-<!-- div *ngIf="(context$ | async) as ctx">
-  <mat-toolbar id="mainToolbar" color="primary">
-  <button
-    type="button"
-    aria-label="Toggle sidenav"
-    mat-icon-button
-    (click)="drawer.toggle()"
-    *ngIf="isHandset$ | async">
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-  </button>
-  <img src="assets/images/logo64.png">
-  <span>Non-Development Environment</span>
-  <span class="fill-remaining-space"></span>
-    <button
-      type="button"
-      aria-label="Connected"
-      mat-icon-button
-      id="connected">
-      <mat-icon *ngIf="ctx.status === 'connected'" aria-label="Connected">sync</mat-icon>
-      <mat-icon *ngIf="ctx.status !== 'connected'" aria-label="Connection error" color="warn">sync_problem</mat-icon>
-    </button>
-    <button
-      type="button"
-      aria-label="Open Preview"
-      mat-icon-button
-      id="preview"
-      [disabled]="ctx.status !== 'connected'"
-      (click)="openPreview()">
-      <mat-icon aria-label="Preview">screen_share</mat-icon>
-    </button>
-    <button
-      type="button"
-      aria-label="Load Schema"
-      mat-icon-button
-      id="loadSchema"
-      (click)="loadSchema()">
-      <mat-icon aria-label="Load the schema">cloud_download</mat-icon>
-    </button>
-    <mat-menu #devMenu="matMenu">
-      <button mat-menu-item (click)="openDevUrl()"><mat-icon>trending_up</mat-icon>View Changes</button>
-      <button mat-menu-item>Help</button>
-    </mat-menu>
-
-    <button mat-icon-button [matMenuTriggerFor]="devMenu">
-      <mat-icon>code</mat-icon>
-    </button>
-  </mat-toolbar>
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav id="mainSidePanel" #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false"
-    fixedTopGap="64">
-    <mat-toolbar id="sideNavToolbar">Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item id="welcomeMenu" [routerLink]="['/welcome']">Welcome</a>
-      <a mat-list-item id="editorMenu" [routerLink]="['/editor']">Editor</a>
-      <a mat-list-item id="devMenu" [routerLink]="['/dev']">Dev</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-</div>
--->
