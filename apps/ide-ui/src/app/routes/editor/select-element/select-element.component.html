@@ -1,7 +1,17 @@
 <span class="displayable">{{(element.schemaPosition | locale)}}</span>
-<p-dropdown class="displayable" [id]="element.id" [options]="element.values" (onChange)="onChange($event)" [ngModel]="element?.getEditedValue()">
+<p-autoComplete class="displayable" [group]="true" [id]="element.id" [suggestions]="filteredElements" (completeMethod)="filterGroupedElements($event)" [dropdown]="true">
+  <ng-template let-group pTemplate="group">
+    <div class="p-d-flex p-ai-center">
+      <span>{{group.label}}</span>
+    </div>
+  </ng-template>
   <ng-template let-option pTemplate="item">
     {{(option | locale)}}
   </ng-template>
-</p-dropdown>
+</p-autoComplete>
+<!-- p-dropdown class="displayable" [id]="element.id" [options]="element.values" (onChange)="onChange($event)" [ngModel]="element?.getEditedValue()">
+  <ng-template let-option pTemplate="item">
+    {{(option | locale)}}
+  </ng-template>
+</p-dropdown -->
 
