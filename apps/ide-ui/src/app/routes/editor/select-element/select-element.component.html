@@ -1,5 +1,6 @@
 <span class="displayable">{{(element.schemaPosition | locale)}}</span>
-<p-autoComplete class="displayable" [group]="true" [id]="element.id" [suggestions]="filteredElements" (completeMethod)="filterGroupedElements($event)" [dropdown]="true">
+<p-autoComplete class="displayable" [ngModel]="editedValue()" [group]="true" [id]="element.id" [suggestions]="filteredElements" (completeMethod)="filterGroupedElements($event)"
+                (onSelect)="onChange($event)" [dropdown]="true">
   <ng-template let-group pTemplate="group">
     <div class="p-d-flex p-ai-center">
       <span>{{group.label}}</span>

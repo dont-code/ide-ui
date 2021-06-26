@@ -27,11 +27,11 @@ describe('projects', () => {
     getIndexEntityName('a').type('Task');
     getIndexEntityFieldName('a','a').type('Old Name');
     getIndexEntityFieldType('a','a').click();
-    selectPopupChoiceWithText('text');
+    selectPopupChoiceWithText('Text');
     getIndexEntityFieldAddButton('a','a').click();
     getIndexEntityFieldName('a','b').type('Done');
     getIndexEntityFieldType('a','b').click();
-    selectPopupChoiceWithText('boolean');
+    selectPopupChoiceWithText('Boolean');
     getMenuWithText("Projects").click();
     cy.wait('@Reload');
     getCurrentProjectButtonWithText ("Save").click();

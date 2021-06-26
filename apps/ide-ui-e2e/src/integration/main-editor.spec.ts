@@ -2,17 +2,19 @@ import {
   getAppNameInput,
   getDevMenu,
   getEditorMenu,
-  getEntityFieldTypeValue,
   getEntityNewButton,
   getIndexEntityAddButton,
   getIndexEntityDownButton,
   getIndexEntityFieldName,
   getIndexEntityFieldNameValue,
   getIndexEntityFieldType,
+  getIndexEntityFieldTypeInput,
+  getIndexEntityFieldTypeValue,
   getIndexEntityName,
   getIndexEntityRemoveButton,
   getIndexEntityUpButton,
-  getListOfChanges, selectPopupChoiceWithText
+  getListOfChanges,
+  selectPopupChoiceWithText
 } from "../support/main-editor.po";
 
 
@@ -28,16 +30,19 @@ describe('main-editor', () => {
     getIndexEntityName('a').type('ToDo');
     getIndexEntityFieldName('a','a').type('name');
     getIndexEntityFieldType('a','a').click();
-    selectPopupChoiceWithText('text');
+    selectPopupChoiceWithText('Text');
     getIndexEntityAddButton('a').click();
     getIndexEntityName('b').type('2nd');
     getIndexEntityFieldName('b','a').type('description');
+    getIndexEntityFieldTypeInput('b','a').type('boolean');
+    getIndexEntityFieldTypeValue('b','a').should('equal', 'Boolean');
     getDevMenu ().click();
     getListOfChanges().should('have.length.greaterThan', 0);
     getEditorMenu().click();
     getIndexEntityFieldNameValue('a','a').should('equal','name');
-    getEntityFieldTypeValue('text').contains('text');
+    getIndexEntityFieldTypeValue('a','a').should('equal','Text');
     getIndexEntityFieldNameValue('b','a').should('equal','description');
+    getIndexEntityFieldTypeValue('b','a').should('equal', 'Boolean');
 
   });
 
@@ -48,17 +53,17 @@ describe('main-editor', () => {
     getIndexEntityName('a').type('ToDo');
     getIndexEntityFieldName('a','a').type('name');
     getIndexEntityFieldType('a','a').click();
-    selectPopupChoiceWithText('text');
+    selectPopupChoiceWithText('Text');
     getIndexEntityAddButton('a').click();
     getIndexEntityName('b').type('2nd');
     getIndexEntityFieldName('b','a').type('done');
     getIndexEntityFieldType('b','a').click();
-    selectPopupChoiceWithText('boolean');
+    selectPopupChoiceWithText('Boolean');
     getIndexEntityAddButton('b').click();
     getIndexEntityName('c').type('3rd');
     getIndexEntityFieldName('c','a').type('index');
     getIndexEntityFieldType('c','a').click();
-    selectPopupChoiceWithText('number');
+    selectPopupChoiceWithText('Number');
 
     getIndexEntityUpButton('c').click();
     getIndexEntityUpButton('c').click();
