@@ -31,7 +31,7 @@ export class EditorElement {
   /**
    * The list of possible values (for a select box)
    */
-  values: string[];
+  values: any[];
   /**
    * The position of this element in the DontCode schema
    */
@@ -49,7 +49,7 @@ export class EditorElement {
 
   protected parent: EditorElement;
 
-  static createNew (position:string, schemaPosition:string, type:EditorElementType, schemaItem:DontCodeSchemaItem, listValues?:string[], initialValue?:any) {
+  static createNew (position:string, schemaPosition:string, type:EditorElementType, schemaItem:DontCodeSchemaItem, listValues?:any[], initialValue?:any) {
     const ret = new EditorElement(position, schemaItem, position, schemaPosition, type);
     if (listValues) {
       ret.values=listValues;

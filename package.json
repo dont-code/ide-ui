@@ -7,7 +7,7 @@
     "nx": "nx",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test --detectOpenHandles",
+    "test": "ng test --detectOpenHandles=true",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e --browser chromium",
     "affected:apps": "nx affected:apps",

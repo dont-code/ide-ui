@@ -12,6 +12,7 @@ import {ButtonModule} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
 import {InputTextModule} from "primeng/inputtext";
 import {FormsModule} from "@angular/forms";
+import {AutoCompleteModule} from "primeng/autocomplete";
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {FormsModule} from "@angular/forms";
         ButtonModule,
         DropdownModule,
         InputTextModule,
-        FormsModule
+        FormsModule,
+        AutoCompleteModule
     ]
 })
 export class EditorModule { }

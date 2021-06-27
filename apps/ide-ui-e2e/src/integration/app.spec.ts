@@ -1,4 +1,4 @@
-import {getMainEditor, getSidePanel, getToolbar, getToolbarTitle, getWelcome} from '../support/app.po';
+import {getSidePanel, getToolbar, getToolbarTitle, getWelcome} from '../support/app.po';
 
 describe('ide-ui', () => {
   beforeEach(() => cy.visit('/'));
