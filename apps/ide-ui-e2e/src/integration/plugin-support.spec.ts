@@ -20,7 +20,7 @@ describe('plugin-support', () => {
     getEditorMenu().click();
     getAppNameInput().type('To Do App');
     getIndexScreenComponentType('a','a').click();
-    selectPopupChoiceWithText('edit');
+    selectPopupChoiceWithText('Edit');
     getIndexScreenComponentEntity('a','a').type('testEntity');
 
     getIndexScreenType('a').click();
