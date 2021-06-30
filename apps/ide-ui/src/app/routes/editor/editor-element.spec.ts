@@ -114,7 +114,7 @@ describe('ChangeUpdateService', () => {
         "id": "type",
         "after": "before"
       },
-      "add": {
+      "update": {
         "enum": [
           "list"
         ]
