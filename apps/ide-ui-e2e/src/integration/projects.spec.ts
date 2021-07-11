@@ -20,7 +20,8 @@ describe('projects', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should save and load projects', () => {
-    cy.intercept('GET','https://test.dont-code.net/project').as('Reload');
+    cy.intercept('GET','https://test.dont-code.net/project').as('Load');
+    cy.intercept('GET','https://test.dont-code.net/project/**').as('Reload');
 
     getMenuWithText("Editor").click();
     getAppNameInput().type('Task Manager');
@@ -33,7 +34,7 @@ describe('projects', () => {
     getIndexEntityFieldType('a','b').click();
     selectPopupChoiceWithText('Boolean');
     getMenuWithText("Projects").click();
-    cy.wait('@Reload');
+    cy.wait('@Load');
     getCurrentProjectButtonWithText ("Save").click();
     selectConfirmButtonWithText("Yes").click();
     cy.focused().should('have.id', 'project-name-edit').type("Task Manager "+new Date().getTime());
@@ -43,7 +44,7 @@ describe('projects', () => {
     getMenuWithText("Editor").click();
     getIndexEntityFieldRemoveButton('a','a').click();
     getMenuWithText("Projects").click();
-    cy.wait('@Reload');
+    cy.wait('@Load');
     getCurrentProjectButtonWithText ("Reload").click();
     cy.wait('@Reload');
 //    cy.wait(1000);  // We must wait until the project reloads as for now the UI doesn't show anything

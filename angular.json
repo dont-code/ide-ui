@@ -20,7 +20,6 @@
             "main": "apps/ide-ui/src/main.ts",
             "polyfills": "apps/ide-ui/src/polyfills.ts",
             "tsConfig": "apps/ide-ui/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/ide-ui/src/favicon.ico",
               "apps/ide-ui/src/assets",
@@ -37,7 +36,13 @@
               "./node_modules/primeng/resources/primeng.min.css",
               "./node_modules/primeicons/primeicons.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "online": {
@@ -92,7 +97,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -127,7 +133,10 @@
               "apps/ide-ui/tsconfig.app.json",
               "apps/ide-ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/ide-ui/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ide-ui/**/*"
+            ]
           }
         },
         "test": {
@@ -160,8 +169,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/ide-ui-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/ide-ui-e2e/**/*"]
+            "tsConfig": [
+              "apps/ide-ui-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ide-ui-e2e/**/*"
+            ]
           }
         }
       }
