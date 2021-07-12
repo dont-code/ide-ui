@@ -38,7 +38,7 @@ jobs:
           npm run ng test
       - name: E2E Tests on ${{matrix.browser}}
         run: |
-          npm run ng e2e --browser ${{matrix.browser}}
+          npm run ng e2e -- --browser ${{matrix.browser}}
       - uses: actions/upload-artifact@v2
         # Test run screenshots only on failure
         if: failure()
