@@ -25,12 +25,8 @@ jobs:
       - name: Use Node.js 16
         uses: actions/setup-node@v2
         with:
-          node-version: 16
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          node-version: '16'
+          cache: 'npm'
       - name: Install
         run: |
           npm install @dontcode/core@latest @dontcode/plugin-common@latest @dontcode/plugin-screen@latest @dontcode/plugin-basic@latest @dontcode/plugin-fields@latest
