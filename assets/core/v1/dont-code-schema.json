@@ -1,0 +1,146 @@
+{
+  "$id": "http://dont-code.net/v1/dont-code-schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "JSON Schema v1 for dont-code",
+  "type": "object",
+  "required": [
+    "creation"
+  ],
+  "properties": {
+    "creation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "Application"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/entity"
+          }
+        },
+        "sharing": {
+          "$ref": "#/definitions/sharing"
+        },
+        "screens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/screen"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "entity": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/field"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "field": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "Text",
+            "Number",
+            "Boolean",
+            {
+              "Time": {
+                "enum": [
+                  "Date",
+                  "Date & Time",
+                  "Time"
+                ]
+              }
+            },
+            {
+              "Money": {
+                "enum": [
+                  "Dollar",
+                  "Euro",
+                  "Other currency"
+                  ]
+              },
+              "Web": {
+                "enum": [
+                  "Website (url)",
+                  "Image"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "sharing": {
+      "type": "object",
+      "properties": {
+        "with": {
+          "enum": [
+            "No-one"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "screen": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type":"string"
+        },
+        "layout": {
+          "enum": [
+            "Flow",
+            "Grid"
+          ]
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/component"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "component": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "List",
+            "Edit",
+            "View"
+          ]
+        },
+        "entity": {
+          "type": "string",
+          "format": "#/creation/entities"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
