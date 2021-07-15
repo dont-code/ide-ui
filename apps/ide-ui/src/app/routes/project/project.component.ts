@@ -15,7 +15,7 @@ export class ProjectComponent extends IdeComponent implements OnInit {
 
   //projects = new Array<IdeProject>();
 
-  @ViewChild('inPlaceName') inPlaceName: Inplace;
+  @ViewChild('inPlaceName') inPlaceName!: Inplace;
 
   constructor(public projectService: ProjectService, protected changeUpdateService: ChangeUpdateService, protected confirmationService: ConfirmationService) {
     super();
@@ -31,11 +31,11 @@ export class ProjectComponent extends IdeComponent implements OnInit {
     return this.projectService.isCurrentProject(project);
   }
 
-  currentProjectClass(project: any) {
+  currentProjectClass(project: any): string {
     if (this.isCurrentProject(project))
       return "current-project-item";
     else
-      return null;
+      return '';
   }
 
   playButtonLabel(project: IdeProject) {
@@ -49,11 +49,11 @@ export class ProjectComponent extends IdeComponent implements OnInit {
       return 'Select';
   }
 
-  saveCurrentProject(): void {
+  saveCurrentProject(event:Event): void {
     const curProject = this.projectService.getCurrentProject();
     if( !curProject.name || curProject.name.length===0) {
       this.confirmationService.confirm({
-        target: event.target,
+        target: event.target?event.target:undefined,
         message: 'Please define a name for your project',
         icon: 'pi pi-exclamation-triangle',
         rejectVisible: false,

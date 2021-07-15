@@ -10,7 +10,7 @@ import { EditorElement } from '../editor-element';
 export class TextHandlerComponent implements OnInit, OnChanges {
 
   @Input()
-  element:EditorElement;
+  element!:EditorElement;
 
   listOfElements:EditorElement[] = [];
 

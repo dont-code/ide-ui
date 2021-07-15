@@ -9,19 +9,6 @@ import {
 
 export class EditorElement {
 
-  constructor(id:string, schemaItem:DontCodeSchemaItem, position?:string, schemaPosition?:string, type?:EditorElementType) {
-    this.id = id;
-    this.schemaModel = schemaItem;
-    this.position=position;
-    this.schemaPosition=schemaPosition;
-
-    /**
-     * The id may not contains / as it is forbidden by html
-     */
-    if( this.id)
-      this.id=this.id.split('/').join('-');
-    this.type=type;
-  }
   id: string;
   type: EditorElementType;
   /**
@@ -31,7 +18,7 @@ export class EditorElement {
   /**
    * The list of possible values (for a select box)
    */
-  values: any[];
+  values: any[]|null=null;
   /**
    * The position of this element in the DontCode schema
    */
@@ -47,7 +34,21 @@ export class EditorElement {
   protected allChildren = new Map<string, EditorElement> ();
   protected forceRead = true;
 
-  protected parent: EditorElement;
+  protected parent: EditorElement|null=null;
+
+  constructor(id:string, schemaItem:DontCodeSchemaItem, position:string, schemaPosition:string, type:EditorElementType) {
+    this.id = id;
+    this.schemaModel = schemaItem;
+    this.position=position;
+    this.schemaPosition=schemaPosition;
+
+    /**
+     * The id may not contains / as it is forbidden by html
+     */
+    if( this.id)
+      this.id=this.id.split('/').join('-');
+    this.type=type;
+  }
 
   static createNew (position:string, schemaPosition:string, type:EditorElementType, schemaItem:DontCodeSchemaItem, listValues?:any[], initialValue?:any) {
     const ret = new EditorElement(position, schemaItem, position, schemaPosition, type);
@@ -61,7 +62,7 @@ export class EditorElement {
     return ret;
   }
 
-  getParent (): EditorElement {
+  getParent (): EditorElement|null {
     return this.parent;
   }
 
@@ -72,7 +73,7 @@ export class EditorElement {
   /**
    * Returns the item id of the DontCodeSchemaItem managed by this editor element if it's part of an array
    */
-  getItemIdIfExists (): string {
+  getItemIdIfExists (): string|null {
     if( (this.parent) && (this.parent.type===EditorElementType.array)) {
       return this.position.substring(this.position.lastIndexOf('/') + 1);
     }
@@ -94,7 +95,7 @@ export class EditorElement {
         }
       }
       if(!added) {*/
-        this.readSubSchema(this.position, this.schemaPosition, this.schemaModel,null, this.editedValue );
+        this.readSubSchema(this.position, this.schemaPosition, this.schemaModel,undefined, this.editedValue );
         if (this.schemaModel.isObject() || this.schemaModel.isArray())  // Object's value are stored in the children hierarchy, so we remove it from parent
           this.editedValue=undefined;
 //      }
@@ -158,22 +159,22 @@ export class EditorElement {
           initialValue = initialValue[propName];
       }
 
-      let newElement:EditorElement = cache.get(propName);
+      let newElement:EditorElement|undefined = cache.get(propName);
       if (!newElement) {
         if (child.isArray() && (child!==parent) ) {
           // A model can be an array and an object or value at the same time.
           newElement = EditorElement.createNew(
-            childPosition, schemaChildPosition, EditorElementType.array, child, null, initialValue);
+            childPosition, schemaChildPosition, EditorElementType.array, child, undefined, initialValue);
         } else if (child.isValue()) {
           newElement = EditorElement.createNew(
-            childPosition, schemaChildPosition, EditorElementType.input, child, null, initialValue);
+            childPosition, schemaChildPosition, EditorElementType.input, child, undefined, initialValue);
         } else if (child.isEnum()) {
           const asEnum = child as DontCodeSchemaEnum;
           newElement = EditorElement.createNew(
             childPosition, schemaChildPosition, EditorElementType.list, child, asEnum.getValues(), initialValue);
         } else if (child.isObject()) {
           newElement = EditorElement.createNew(
-            childPosition, schemaChildPosition, EditorElementType.object, child, null, initialValue);
+            childPosition, schemaChildPosition, EditorElementType.object, child, undefined, initialValue);
         } /*else if (child.isReference()) {
           this.readSubSchema(childPosition, schemaChildPosition, child, true, mergePosition, initialValue);
         }*/ else {
@@ -188,10 +189,12 @@ export class EditorElement {
         mergePosition = this.mergeElement(newElement, child, propName,mergePosition);
         if (newElement.hasActiveProperties()) {
           const toAddProps = newElement.getActiveProperties();
-          this.readSubSchema(position, schemaPosition, toAddProps, mergePosition, initialValue);
-          // if the active properties are replacing the remaining elements, then remove the remaining elements and  just stop the loop here
-          if (newElement.isReplacementActive()) {
-            break;
+          if (toAddProps) {
+            this.readSubSchema(position, schemaPosition, toAddProps, mergePosition, initialValue);
+            // if the active properties are replacing the remaining elements, then remove the remaining elements and  just stop the loop here
+            if (newElement.isReplacementActive()) {
+              break;
+            }
           }
         }
       }
@@ -203,15 +206,17 @@ export class EditorElement {
     let ret = entity;
     if( entity.isReference()) {
       const toFind = (entity as DontCodeSchemaRef).getReference();
-      ret = AbstractSchemaItem.goto(this.calculateRootSchema(),toFind);
+      const found= AbstractSchemaItem.goto(this.calculateRootSchema(),toFind);
+      if (found) ret=found;
     }
     return ret;
   }
 
-  calculateRootSchema () {
+  calculateRootSchema (): DontCodeSchemaItem {
     let ret:DontCodeSchemaItem = this.schemaModel;
     while (ret.getParent()) {
-      ret=ret.getParent();
+      const parent =ret.getParent();
+      if (parent) ret = parent;
     }
     return ret;
   }
@@ -238,7 +243,7 @@ export class EditorElement {
     /**
      * Creates the new element and adds it to the list
      */
-    this.readSubSchema(this.position, this.schemaPosition, this.schemaModel,null, null);
+    this.readSubSchema(this.position, this.schemaPosition, this.schemaModel);
   }
 
   removeElement( item:EditorElement, index?:number): EditorElement {
@@ -256,7 +261,7 @@ export class EditorElement {
    * @param item
    * @param index
    */
-  upElement( item: EditorElement, index: number): EditorElement {
+  upElement( item: EditorElement, index: number): EditorElement|null {
     const parentList = this.getChildrenToDisplay();
     if( !index){
       index = parentList.indexOf(item);
@@ -279,7 +284,7 @@ export class EditorElement {
    * @param item
    * @param index
    */
-  downElement(item: EditorElement, index: number): EditorElement {
+  downElement(item: EditorElement, index: number): EditorElement|null|undefined {
     const parentList = this.getChildrenToDisplay();
     if( !index){
       index = parentList.indexOf(item);
@@ -309,7 +314,8 @@ export class EditorElement {
     if (props || (oldValue && (this.schemaModel.getProperties(oldValue)))) {
       // The children properties have changed
       //this.parent.mergeDisplayChildren(this, props);
-      this.parent.forceRead=true;
+      if( this.parent)
+        this.parent.forceRead=true;
       return true;
     } else if ((this.schemaModel.isArray()) || (this.schemaModel.isObject())) {
         // Remove all array items that are no more in values
@@ -331,7 +337,7 @@ export class EditorElement {
       return false;
   }
 
-  protected getActiveProperties(): DontCodeSchemaProperty {
+  protected getActiveProperties(): DontCodeSchemaProperty|undefined {
     return this.schemaModel.getProperties(this.editedValue);
   }
 
@@ -392,7 +398,7 @@ export class EditorElement {
    */
   getChildInHierarchy(beforeAName: string): EditorElement|null {
     const propNames=beforeAName.split('/');
-    let current:EditorElement = this;
+    let current:EditorElement|undefined = this;
     //let nextIsArray= false;
     //let arrayProp:string=null;
     for (const propName of propNames) {

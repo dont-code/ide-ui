@@ -10,9 +10,9 @@ import { Change, ChangeType } from "@dontcode/core";
 })
 export class SubTextElementComponent implements OnInit, OnChanges {
   @Input()
-  element: EditorElement;
+  element!: EditorElement;
 
-  items: EditorElement[];
+  items: EditorElement[]=new Array();
   constructor(protected changeService:ChangeUpdateService) { }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class SubTextElementComponent implements OnInit, OnChanges {
       const nextKey= nextElement.getItemIdIfExists();
 
       this.changeService.pushChange(
-        new Change(ChangeType.MOVE, item.position, item.getEditedValue(),null, nextKey, oldPos)
+        new Change(ChangeType.MOVE, item.position, item.getEditedValue(),undefined, nextKey?nextKey as string:undefined, oldPos)
       );
     }
   }
@@ -52,12 +52,12 @@ export class SubTextElementComponent implements OnInit, OnChanges {
     if( nextElement!==null) {
       let nextKey;
       if( nextElement===undefined) {  // It is the last element
-        nextKey = null;
+        nextKey = undefined;
       } else {
         nextKey=nextElement.getItemIdIfExists();
       }
       this.changeService.pushChange(
-          new Change(ChangeType.MOVE, item.position, item.getEditedValue(),null, nextKey, oldPos)
+          new Change(ChangeType.MOVE, item.position, item.getEditedValue(),undefined, nextKey?nextKey as string:undefined, oldPos)
         );
 
     }

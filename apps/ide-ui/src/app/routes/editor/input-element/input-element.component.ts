@@ -10,7 +10,7 @@ import { Change, ChangeType } from '@dontcode/core';
 })
 export class InputElementComponent implements OnInit {
   @Input()
-  element: EditorElement;
+  element!: EditorElement;
 
   constructor(protected changeService:ChangeUpdateService) { }
 

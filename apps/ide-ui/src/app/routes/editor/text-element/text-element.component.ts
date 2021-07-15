@@ -8,7 +8,7 @@ import { EditorElement } from '../editor-element';
 })
 export class TextElementComponent implements OnInit {
   @Input()
-  element: EditorElement;
+  element!: EditorElement;
 
   constructor() { }
 

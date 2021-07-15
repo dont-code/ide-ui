@@ -12,9 +12,9 @@ import { ChangeUpdateService } from "../../change/services/change-update.service
 })
 export class TextService {
 
-  protected jsonSchema:DontCodeSchemaItem;
+  protected jsonSchema:DontCodeSchemaItem|null=null;
 
-  protected rootElement:EditorElement;
+  protected rootElement:EditorElement|null=null;
 
   /**
    * Stores the SchemaItem corresponding to a position in the schema
@@ -51,6 +51,7 @@ export class TextService {
   }
 
   getRootElement (): EditorElement {
+    if (!this.rootElement) throw new Error('No root elements to return');
     return this.rootElement;
   }
 }

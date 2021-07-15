@@ -18,9 +18,9 @@ export class MainComponent implements OnInit{
     {
       status:string,
       sessionId:string
-    }>;
+    }>|null = null;
 
-  sidePanelVisible: boolean;
+  sidePanelVisible: boolean = true;
 
   serverUrl = environment.webSocketUrl;
 
@@ -32,7 +32,7 @@ export class MainComponent implements OnInit{
 
   }
 
-  protected sessionId:string;
+  protected sessionId:string|null = null;
 
   ngOnInit(): void {
     this.sidePanelVisible = true;
@@ -77,6 +77,7 @@ export class MainComponent implements OnInit{
     if( ctx.status!=="connected") {
       return "p-button-danger";
     }
+    return '';
   }
 
 

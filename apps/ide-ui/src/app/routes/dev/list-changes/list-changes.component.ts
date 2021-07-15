@@ -15,7 +15,7 @@ export class ListChangesComponent implements OnInit {
   @Input()
   title: string='List of Changes';
 
-  listOfChanges:Change[];
+  listOfChanges:Change[]=new Array();
 
   constructor(protected changeService:ChangeListenService,
               private ref: ChangeDetectorRef) {

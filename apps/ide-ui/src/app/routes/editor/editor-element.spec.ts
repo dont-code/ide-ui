@@ -8,6 +8,7 @@ import {
   DontCodeSchemaRoot, dtcde
 } from "@dontcode/core";
 import { checkElementTree } from "../../shared/text/services/text.service.spec";
+import {root} from "rxjs/internal/util/root";
 
 describe('ChangeUpdateService', () => {
 
@@ -15,8 +16,11 @@ describe('ChangeUpdateService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    if (!rootSchema)
-      rootSchema= AbstractSchemaItem.goto(dtcde.getSchemaManager().getSchema(), DontCodeModel.ROOT);
+    if (!rootSchema) {
+      const func= AbstractSchemaItem.goto(dtcde.getSchemaManager().getSchema(), DontCodeModel.ROOT);
+      expect(func).toBeTruthy();
+      rootSchema = func as DontCodeSchemaItem;
+    }
   });
 
   it('should read the core model', () => {
@@ -31,9 +35,9 @@ describe('ChangeUpdateService', () => {
     const rootElement = EditorElement.createNew(
       DontCodeModel.ROOT, DontCodeModel.ROOT,
       EditorElementType.label, rootSubSchema.getChild(DontCodeModel.ROOT
-      ));
+      ) as DontCodeSchemaItem);
 
-    const edited={
+    const edited:{[key:string]:any}={
       before:'BeforeValue',
       type:'view',
       firstAfter: 23,
@@ -41,10 +45,10 @@ describe('ChangeUpdateService', () => {
     };
     rootElement.setEditedValue(edited);
     for (const field in edited) {
-      expect(rootElement.getChild(field).getEditedValue()).toEqual(edited[field]);
+      expect(rootElement.getChild(field)?.getEditedValue()).toEqual(edited[field]);
     }
 
-    const edited2={
+    const edited2:{[key:string]:any}={
       before:null,
       type:'view',
       firstAfter: null,
@@ -52,7 +56,7 @@ describe('ChangeUpdateService', () => {
     };
     rootElement.setEditedValue(edited2);
     for (const field in edited2) {
-      expect(rootElement.getChild(field).getEditedValue()).toEqual(edited2[field]);
+      expect(rootElement.getChild(field)?.getEditedValue()).toEqual(edited2[field]);
     }
 
   });
@@ -62,7 +66,7 @@ describe('ChangeUpdateService', () => {
     const rootElement = EditorElement.createNew(
       DontCodeModel.ROOT, DontCodeModel.ROOT,
       EditorElementType.label, rootSubSchema.getChild(DontCodeModel.ROOT
-      ));
+      ) as DontCodeSchemaItem);
 
     const edited={
       before: {
