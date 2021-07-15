@@ -189,10 +189,12 @@ export class EditorElement {
         mergePosition = this.mergeElement(newElement, child, propName,mergePosition);
         if (newElement.hasActiveProperties()) {
           const toAddProps = newElement.getActiveProperties();
-          this.readSubSchema(position, schemaPosition, toAddProps, mergePosition, initialValue);
-          // if the active properties are replacing the remaining elements, then remove the remaining elements and  just stop the loop here
-          if (newElement.isReplacementActive()) {
-            break;
+          if (toAddProps) {
+            this.readSubSchema(position, schemaPosition, toAddProps, mergePosition, initialValue);
+            // if the active properties are replacing the remaining elements, then remove the remaining elements and  just stop the loop here
+            if (newElement.isReplacementActive()) {
+              break;
+            }
           }
         }
       }
@@ -204,15 +206,17 @@ export class EditorElement {
     let ret = entity;
     if( entity.isReference()) {
       const toFind = (entity as DontCodeSchemaRef).getReference();
-      ret = AbstractSchemaItem.goto(this.calculateRootSchema(),toFind);
+      const found= AbstractSchemaItem.goto(this.calculateRootSchema(),toFind);
+      if (found) ret=found;
     }
     return ret;
   }
 
-  calculateRootSchema () {
+  calculateRootSchema (): DontCodeSchemaItem {
     let ret:DontCodeSchemaItem = this.schemaModel;
     while (ret.getParent()) {
-      ret=ret.getParent();
+      const parent =ret.getParent();
+      if (parent) ret = parent;
     }
     return ret;
   }
@@ -333,7 +337,7 @@ export class EditorElement {
       return false;
   }
 
-  protected getActiveProperties(): DontCodeSchemaProperty {
+  protected getActiveProperties(): DontCodeSchemaProperty|undefined {
     return this.schemaModel.getProperties(this.editedValue);
   }
 
