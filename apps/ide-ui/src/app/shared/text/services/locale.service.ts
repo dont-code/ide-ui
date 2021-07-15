@@ -48,7 +48,7 @@ export class LocaleService {
   }
 
   toText (context:string, element?:string): string {
-    let ret:string;
+    let ret:string|undefined;
     if (element) {
       ret = this.texts.get(context+'/'+element);
       if (!ret) {

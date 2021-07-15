@@ -33,7 +33,7 @@ describe('ChangeUpdateService', () => {
       EditorElementType.label, rootSubSchema.getChild(DontCodeModel.ROOT
       ));
 
-    const edited={
+    const edited:{[key:string]:any}={
       before:'BeforeValue',
       type:'view',
       firstAfter: 23,
@@ -41,10 +41,10 @@ describe('ChangeUpdateService', () => {
     };
     rootElement.setEditedValue(edited);
     for (const field in edited) {
-      expect(rootElement.getChild(field).getEditedValue()).toEqual(edited[field]);
+      expect(rootElement.getChild(field)?.getEditedValue()).toEqual(edited[field]);
     }
 
-    const edited2={
+    const edited2:{[key:string]:any}={
       before:null,
       type:'view',
       firstAfter: null,
@@ -52,7 +52,7 @@ describe('ChangeUpdateService', () => {
     };
     rootElement.setEditedValue(edited2);
     for (const field in edited2) {
-      expect(rootElement.getChild(field).getEditedValue()).toEqual(edited2[field]);
+      expect(rootElement.getChild(field)?.getEditedValue()).toEqual(edited2[field]);
     }
 
   });

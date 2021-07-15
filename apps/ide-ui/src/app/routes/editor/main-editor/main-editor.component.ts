@@ -14,7 +14,7 @@ import { ChangeType, DontCodeModel } from "@dontcode/core";
 })
 export class MainEditorComponent implements OnInit, OnDestroy {
 
-  rootElement :EditorElement;
+  rootElement:EditorElement|null=null;
 
   unsubscriber = new Subject();
 

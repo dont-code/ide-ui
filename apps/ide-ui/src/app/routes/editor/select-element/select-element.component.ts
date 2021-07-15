@@ -11,12 +11,12 @@ import {Change, ChangeType, DontCodeSchemaEnumValue} from '@dontcode/core';
 export class SelectElementComponent implements OnInit {
 
   @Input()
-  element: EditorElement;
+  element!: EditorElement;
 
   @Output()
   refresh = new EventEmitter<string>();
 
-  filteredElements:any[];
+  filteredElements:any[]=new Array();
 
   constructor(protected changeService:ChangeUpdateService) {
   }
@@ -53,15 +53,15 @@ export class SelectElementComponent implements OnInit {
     }
   }
 
-  filterGroupedElements(event) {
+  filterGroupedElements(event:any) {
     const filteredGroups = [];
-    const defaultGroup = {
+    const defaultGroup:{label:string, items:Array<any>|null} = {
       label: 'Standard',
       items: null
     }
 
       // If there is only one selection left, then selects it
-    let selectItem = null;
+    let selectItem:DontCodeSchemaEnumValue|null = null;
     let selectedCount = 0;
 
     event.query = event.query?.toLowerCase();
@@ -80,21 +80,21 @@ export class SelectElementComponent implements OnInit {
             }
         }
       } else {
-        const items = optgroup.getChildren().filter (value => value.getLabel().toLowerCase().indexOf(event.query) >=0).map(value => value.getLabel());
+        const items = optgroup.getChildren().filter (value => value.getLabel().toLowerCase().indexOf(event.query) >=0);
         if( items.length>0) {
           selectedCount += items.length;
           selectItem = items[0];
           filteredGroups.push({
             label: optgroup.getLabel(),
             value: optgroup.getValue(),
-            items: items
+            items: items.map(value => value.getLabel())
           });
         }
       }
     }
 
     this.filteredElements = filteredGroups;
-    if (selectedCount===1) {
+    if ((selectedCount===1)&&(selectItem)) {
       if (selectItem.getLabel().length===event.query?.length) {
         this.onChange({target: {value:selectItem.getLabel()}});
       }

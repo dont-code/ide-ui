@@ -19,7 +19,7 @@ export class ChangeUpdateService {
   protected listOfChanges: Change[]=[];
   protected channel: BroadcastChannel<Change>;
 
-  protected ideServicesWebSocket: WebSocketSubject<Message>;
+  protected ideServicesWebSocket: WebSocketSubject<Message>|null=null;
   protected connectionStatus: ReplaySubject<string>=new ReplaySubject<string>(1);
 
   /**
@@ -27,7 +27,7 @@ export class ChangeUpdateService {
    * @protected
    */
   protected sessionIdSubject = new ReplaySubject<string>(1);
-  protected sessionId;
+  protected sessionId?:string;
 
   constructor() {
     console.log('Creating channel');
@@ -51,7 +51,10 @@ export class ChangeUpdateService {
         },
         openObserver: {
           next: value => {
-            resolve(this.ideServicesWebSocket);
+            if (this.ideServicesWebSocket)
+              resolve(this.ideServicesWebSocket);
+            else
+              reject('No WebSocket');
           },
           error: err => {
             console.log("error connecting socket", err);
@@ -62,7 +65,7 @@ export class ChangeUpdateService {
 
       this.ideServicesWebSocket = webSocket(config);
       this.connectionStatus.next("connected");
-      this.sessionIdSubject.next(null);
+      this.sessionIdSubject.next();
       this.ideServicesWebSocket.asObservable().subscribe({
         next: msg => {
 
@@ -77,18 +80,18 @@ export class ChangeUpdateService {
         // Called whenever there is a message from the server
         error: err => {
           console.log(err);
-          this.ideServicesWebSocket.unsubscribe();
+          this.ideServicesWebSocket?.unsubscribe();
           this.ideServicesWebSocket = null;
           this.connectionStatus.next("ERROR:" + err);
-          this.sessionIdSubject.next(null);
+          this.sessionIdSubject.next();
         },
         // Called if WebSocket API signals some kind of error
         complete: () => {
           console.log('complete');
-          this.ideServicesWebSocket.unsubscribe();
+          this.ideServicesWebSocket?.unsubscribe();
           this.ideServicesWebSocket = null;
           this.connectionStatus.next("closed");
-          this.sessionIdSubject.next(null);
+          this.sessionIdSubject.next();
         }
         // Called when connection is closed (for whatever reason)
       });
