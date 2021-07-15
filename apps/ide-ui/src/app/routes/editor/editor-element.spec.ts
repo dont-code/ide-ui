@@ -8,6 +8,7 @@ import {
   DontCodeSchemaRoot, dtcde
 } from "@dontcode/core";
 import { checkElementTree } from "../../shared/text/services/text.service.spec";
+import {root} from "rxjs/internal/util/root";
 
 describe('ChangeUpdateService', () => {
 
@@ -15,8 +16,11 @@ describe('ChangeUpdateService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    if (!rootSchema)
-      rootSchema= AbstractSchemaItem.goto(dtcde.getSchemaManager().getSchema(), DontCodeModel.ROOT);
+    if (!rootSchema) {
+      const func= AbstractSchemaItem.goto(dtcde.getSchemaManager().getSchema(), DontCodeModel.ROOT);
+      expect(func).toBeTruthy();
+      rootSchema = func as DontCodeSchemaItem;
+    }
   });
 
   it('should read the core model', () => {
@@ -31,7 +35,7 @@ describe('ChangeUpdateService', () => {
     const rootElement = EditorElement.createNew(
       DontCodeModel.ROOT, DontCodeModel.ROOT,
       EditorElementType.label, rootSubSchema.getChild(DontCodeModel.ROOT
-      ));
+      ) as DontCodeSchemaItem);
 
     const edited:{[key:string]:any}={
       before:'BeforeValue',
@@ -62,7 +66,7 @@ describe('ChangeUpdateService', () => {
     const rootElement = EditorElement.createNew(
       DontCodeModel.ROOT, DontCodeModel.ROOT,
       EditorElementType.label, rootSubSchema.getChild(DontCodeModel.ROOT
-      ));
+      ) as DontCodeSchemaItem);
 
     const edited={
       before: {
