@@ -29,7 +29,7 @@ jobs:
           cache: 'npm'
       - name: Install
         run: |
-          npm install @dontcode/core@latest @dontcode/plugin-common@latest @dontcode/plugin-screen@latest @dontcode/plugin-basic@latest @dontcode/plugin-fields@latest
+          npm install @dontcode/core@latest @dontcode/plugin-common@latest @dontcode/plugin-screen@latest @dontcode/plugin-basic@latest @dontcode/plugin-fields@latest --force
           npm ci
       - name: Build
         run: npm run build --if-present
