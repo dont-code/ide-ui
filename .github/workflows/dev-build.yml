@@ -20,8 +20,8 @@ jobs:
 
     steps:
       - name: Test conditions
-        if: $${{ matrix.browser == 'chromium'}}
-        run: echo "About to deploy on $MATRIX_BROWSER"
+        if: $${{ matrix.browser == 'chromium' }}
+        run: echo "About to deploy on $MATRIX_BROWSER $${{matrix.browser}}"
       - uses: actions/checkout@v2
         with:
           ref: Development
