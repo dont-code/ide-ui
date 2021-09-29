@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { TextService } from './text.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { EditorElement } from "../../../routes/editor/editor-element";
+import {TextService} from './text.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {EditorElement} from "../../../routes/editor/editor-element";
 
 //jest.mock('../../change/services/change-update.service');
-import { ChangeUpdateService } from '../../change/services/change-update.service';
+import {ChangeUpdateService} from '../../change/services/change-update.service';
 import {DontCodeSchemaRoot, dtcde} from "@dontcode/core";
 
 describe('TextService', () => {
@@ -119,6 +119,3 @@ export function checkElementTree (root:EditorElement, expectedIds:string[]) {
     }
   }
 };
-
-
-

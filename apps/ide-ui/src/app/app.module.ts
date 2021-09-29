@@ -17,6 +17,7 @@ import {ScreenModule} from "@dontcode/plugin-screen";
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FieldsModule} from "@dontcode/plugin-fields";
 import {ConfirmationService} from "primeng/api";
+import { RestModule } from '@dontcode/plugin-rest';
 
 const appRoutes:Routes = [
   { path: '', component: WelcomeComponent },
@@ -39,6 +40,7 @@ const appRoutes:Routes = [
     ,BasicModule
     ,ScreenModule
     ,FieldsModule
+    ,RestModule
     ,FontAwesomeModule
   ],
   providers: [ConfirmationService],
