@@ -133,10 +133,7 @@
               "apps/ide-ui/tsconfig.app.json",
               "apps/ide-ui/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ide-ui/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/ide-ui/**/*"]
           }
         },
         "test": {
@@ -146,7 +143,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "ide-ui-e2e": {
       "root": "apps/ide-ui-e2e",
@@ -169,30 +167,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/ide-ui-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ide-ui-e2e/**/*"
-            ]
+            "tsConfig": ["apps/ide-ui-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/ide-ui-e2e/**/*"]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["ide-ui"]
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular",
-    "analytics": false
-  },
-  "schematics": {
-    "@nrwl/angular:application": {
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "unitTestRunner": "jest"
-    }
-  },
-  "defaultProject": "ide-ui"
+  }
 }

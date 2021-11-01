@@ -2,7 +2,7 @@
   <p-toolbar id="mainToolbar">
     <div class="p-toolbar-group-left">
       <img src="./assets/images/logo.png" width="119" height="66"/>
-      <button pButton type="button" class="p-d-md-none p-button-rounded p-button-outlined" icon="pi pi-bars" (click)="sidePanelVisible=!sidePanelVisible"></button>
+      <button pButton type="button" class="md:hidden p-button-rounded p-button-outlined" icon="pi pi-bars" (click)="sidePanelVisible=!sidePanelVisible"></button>
     </div>
    <h1>Dont-code Builder</h1>
     <div class="p-toolbar-group-right">
@@ -12,27 +12,27 @@
       <button pButton type="button" class="p-button-rounded p-button-outlined" [ngClass]="connectedClass(ctx)" icon="pi pi-sort"  (mouseenter)="op.show($event)"></button>
       <p-overlayPanel #op [showCloseIcon]="false" [style]="{width: '500px'}">
         <ng-template pTemplate>
-          <div class="p-grid">
-            <div class="p-col-2">Server:</div>
-            <div class="p-col-10">{{serverUrl}}</div>
-            <div class="p-col-2">Session:</div>
-            <div class="p-col-10">{{ctx.sessionId}}</div>
+          <div class="grid">
+            <div class="col-2">Server:</div>
+            <div class="col-10">{{serverUrl}}</div>
+            <div class="col-2">Session:</div>
+            <div class="col-10">{{ctx.sessionId}}</div>
           </div>
         </ng-template>
       </p-overlayPanel>
     </div>
   </p-toolbar>
-  <div class="p-d-md-none">
+  <div class="md:hidden">
     <p-sidebar id="mainSidePanel" [style]="{width:'15em'}" [(visible)]="sidePanelVisible" [modal]="false" [closeOnEscape]="true" [showCloseIcon]="true">
       <img src="./assets/images/logo.png" width="119" height="66"/>
       <ide-ui-menu></ide-ui-menu>
     </p-sidebar>
   </div>
-  <div class="p-grid">
-    <div class="p-col p-d-none p-d-md-block p-md-2">
+  <div class="grid">
+    <div class="col hidden md:block md:col-2">
       <ide-ui-menu id="mainMenu"></ide-ui-menu>
     </div>
-    <div class="p-col p-md-10">
+    <div class="col md:col-10">
       <router-outlet> </router-outlet>
     </div>
   </div>
