@@ -42,7 +42,7 @@ describe('ChangeUpdateService', () => {
 
     const subEntity = entity.getChildrenToDisplay()[0];
     expect(subEntity).toBeDefined();
-    expect(subEntity.schemaPosition).toEqual('creation/entities/name');
+    expect(subEntity.schemaPosition).toEqual('creation/entities/from');
   });
 
   it('should read array of objects', () => {
@@ -226,7 +226,7 @@ const subArraySchema= {
         "before": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/entity"
+            "$ref": "#/$defs/entity"
           }
         },
         "type": {
@@ -238,14 +238,14 @@ const subArraySchema= {
         "after": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/screen"
+            "$ref": "#/$defs/screen"
           }
         }
       },
       "additionalProperties": false
     }
   },
-  "definitions": {
+  "$defs": {
     "entity": {
       "type": "object",
       "properties": {
