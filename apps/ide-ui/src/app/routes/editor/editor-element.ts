@@ -36,6 +36,12 @@ export class EditorElement {
 
   protected parent: EditorElement|null=null;
 
+  /** An array of item carry the same schemamodel than the item itself, we use this to distinguish between the 2 modes
+   *
+   * @protected
+   */
+  protected asArray = false;
+
   constructor(id:string, schemaItem:DontCodeSchemaItem, position:string, schemaPosition:string, type:EditorElementType) {
     this.id = id;
     this.schemaModel = schemaItem;
@@ -50,7 +56,7 @@ export class EditorElement {
     this.type=type;
   }
 
-  static createNew (position:string, schemaPosition:string, type:EditorElementType, schemaItem:DontCodeSchemaItem, listValues?:any[], initialValue?:any) {
+  static createNew (position:string, schemaPosition:string, type:EditorElementType, schemaItem:DontCodeSchemaItem, listValues?:any[], initialValue?:any, asArray?:boolean) {
     const ret = new EditorElement(position, schemaItem, position, schemaPosition, type);
     if (listValues) {
       ret.values=listValues;
@@ -59,6 +65,8 @@ export class EditorElement {
         // Dont call setEditedValue as it would try to recalculate children
       ret.editedValue=initialValue;
     }
+
+    if( asArray) ret.asArray=asArray;
     return ret;
   }
 
@@ -68,6 +76,10 @@ export class EditorElement {
 
   setParent (newParent:EditorElement ) {
     this.parent = newParent;
+  }
+
+  isAsArray (): boolean {
+    return this.asArray;
   }
 
   /**
@@ -120,7 +132,7 @@ export class EditorElement {
     const children = new Array();
     let initialValue = values;
 
-    if (parent.isArray()) {
+    if (this.asArray) {
         // Makes sure subItems are created from the initialValues sent, if any
         for (const itemKey in initialValue) {
           if (initialValue.hasOwnProperty(itemKey)) {
@@ -153,7 +165,7 @@ export class EditorElement {
         // Are we reading a subProperty ?
       if (propName && propName.length>0) {
         childPosition = childPosition + '/' + propName;
-        if( !parent.isArray())
+        if( !this.asArray)
           schemaChildPosition = schemaChildPosition + '/'+ propName;
         if( initialValue)
           initialValue = initialValue[propName];
@@ -164,7 +176,7 @@ export class EditorElement {
         if (child.isArray() && (child!==parent) ) {
           // A model can be an array and an object or value at the same time.
           newElement = EditorElement.createNew(
-            childPosition, schemaChildPosition, EditorElementType.array, child, undefined, initialValue);
+            childPosition, schemaChildPosition, EditorElementType.array, child, undefined, initialValue, true);
         } else if (child.isValue()) {
           newElement = EditorElement.createNew(
             childPosition, schemaChildPosition, EditorElementType.input, child, undefined, initialValue);
@@ -174,7 +186,7 @@ export class EditorElement {
             childPosition, schemaChildPosition, EditorElementType.list, child, asEnum.getValues(), initialValue);
         } else if (child.isObject()) {
           newElement = EditorElement.createNew(
-            childPosition, schemaChildPosition, EditorElementType.object, child, undefined, initialValue);
+            childPosition, schemaChildPosition, EditorElementType.object, child, undefined, initialValue, false);
         } /*else if (child.isReference()) {
           this.readSubSchema(childPosition, schemaChildPosition, child, true, mergePosition, initialValue);
         }*/ else {

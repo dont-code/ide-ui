@@ -18,15 +18,6 @@
       }
     }
   },
-  "projects": {
-    "ide-ui": {
-      "tags": []
-    },
-    "ide-ui-e2e": {
-      "tags": [],
-      "implicitDependencies": ["ide-ui"]
-    }
-  },
   "affected": {
     "defaultBase": "master"
   },
@@ -37,5 +28,19 @@
         "projects": "dependencies"
       }
     ]
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": false
+  },
+  "defaultProject": "ide-ui",
+  "generators": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
   }
 }

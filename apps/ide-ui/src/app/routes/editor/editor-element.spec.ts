@@ -1,14 +1,15 @@
-import { TestBed } from "@angular/core/testing";
-import { EditorElement, EditorElementType } from "./editor-element";
+import {TestBed} from "@angular/core/testing";
+import {EditorElement, EditorElementType} from "./editor-element";
 import {
   AbstractSchemaItem,
   DontCodeModel,
   DontCodeSchemaItem,
+  DontCodeSchemaManager,
   DontCodeSchemaObject,
-  DontCodeSchemaRoot, dtcde
+  DontCodeSchemaRoot,
+  dtcde
 } from "@dontcode/core";
-import { checkElementTree } from "../../shared/text/services/text.service.spec";
-import {root} from "rxjs/internal/util/root";
+import {checkElementTree} from "../../shared/text/services/text.service.spec";
 
 describe('ChangeUpdateService', () => {
 
@@ -28,6 +29,41 @@ describe('ChangeUpdateService', () => {
         DontCodeModel.ROOT, DontCodeModel.ROOT,
         EditorElementType.label, rootSchema);
     expect(rootElement).toBeTruthy();
+    const entities = rootElement.getChild('entities');
+    expect(entities).toBeTruthy();
+    expect(entities!.type).toEqual('array');
+    expect(entities!.isAsArray()).toBeTruthy();
+
+    const entity = entities!.getChildrenToDisplay()[0];
+    expect(entity.type).toEqual('object');
+    expect(entity.id).toEqual('creation-entities-a');
+    expect(entity.schemaPosition).toEqual('creation/entities');
+    expect(entity.isAsArray()).toBeFalsy();
+
+    const subEntity = entity.getChildrenToDisplay()[0];
+    expect(subEntity).toBeDefined();
+    expect(subEntity.schemaPosition).toEqual('creation/entities/from');
+  });
+
+  it('should read array of objects', () => {
+    const rootElement = EditorElement.createNew(
+      DontCodeModel.ROOT, DontCodeModel.ROOT,
+      EditorElementType.label, new DontCodeSchemaManager().convertSchemaToMap(testArrayObject));
+    expect(rootElement).toBeTruthy();
+    const sources = rootElement.getChild('creation')?.getChild('sources');
+    expect(sources).toBeTruthy();
+    expect(sources!.type).toEqual('array');
+    expect(sources!.isAsArray()).toBeTruthy();
+
+    const source = sources!.getChildrenToDisplay()[0];
+    expect(source.id).toEqual('creation-creation-sources-a');
+    expect(source.schemaPosition).toEqual('creation/creation/sources');
+    expect(source.type).toEqual('object');
+    expect(source.isAsArray()).toBeFalsy();
+
+    const subSource = source.getChildrenToDisplay()[0];
+    expect(subSource).toBeDefined();
+    expect(subSource.schemaPosition).toEqual('creation/creation/sources/name');
   });
 
   it('should support values updates', () => {
@@ -190,7 +226,7 @@ const subArraySchema= {
         "before": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/entity"
+            "$ref": "#/$defs/entity"
           }
         },
         "type": {
@@ -202,14 +238,14 @@ const subArraySchema= {
         "after": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/screen"
+            "$ref": "#/$defs/screen"
           }
         }
       },
       "additionalProperties": false
     }
   },
-  "definitions": {
+  "$defs": {
     "entity": {
       "type": "object",
       "properties": {
@@ -265,3 +301,31 @@ const subObjectSchema={
   }
 };
 
+const testArrayObject = {
+  "$id": "http://dont-code.net/dont-code-schema/v1",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "JSON Schema v1 for dont-code",
+  "type": "object",
+  "required": [
+    "creation"
+  ],
+  "properties": {
+    "creation": {
+      "type": "object",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+};

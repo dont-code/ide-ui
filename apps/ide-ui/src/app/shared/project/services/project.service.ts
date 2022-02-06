@@ -99,7 +99,7 @@ export class ProjectService {
      // console.log("Setting current Project");
       this.setCurrentProject(value);
       // console.log("Pushing update");
-      updateService.pushChange(new Change(ChangeType.RESET, '/', value.content));
+      updateService.pushChange(new Change(ChangeType.RESET, '', value.content));
       // console.log("Loading Project done");
       return value;
     })

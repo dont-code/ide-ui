@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { TextService } from './text.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { EditorElement } from "../../../routes/editor/editor-element";
+import {TextService} from './text.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {EditorElement} from "../../../routes/editor/editor-element";
 
 //jest.mock('../../change/services/change-update.service');
-import { ChangeUpdateService } from '../../change/services/change-update.service';
+import {ChangeUpdateService} from '../../change/services/change-update.service';
 import {DontCodeSchemaRoot, dtcde} from "@dontcode/core";
 
 describe('TextService', () => {
@@ -48,6 +48,7 @@ describe('TextService', () => {
       'creation/name(input)',
       'creation/entities(array)',
       'creation/entities/a(object)',
+      'creation/entities/a/from(input)',
       'creation/entities/a/name(input)',
       'creation/entities/a/fields(array)',
       'creation/entities/a/fields/a(object)',
@@ -55,6 +56,10 @@ describe('TextService', () => {
       'creation/entities/a/fields/a/type(list)',
       'creation/sharing(object)',
       'creation/sharing/with(list)',
+      'creation/sources(array)',
+      'creation/sources/a(object)',
+      'creation/sources/a/name(input)',
+      'creation/sources/a/type(list)',
       'creation/screens(array)',
       'creation/screens/a(object)',
       'creation/screens/a/name(input)',
@@ -119,6 +124,3 @@ export function checkElementTree (root:EditorElement, expectedIds:string[]) {
     }
   }
 };
-
-
-

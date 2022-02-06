@@ -34,7 +34,12 @@ export class ChangeListenService {
         this.resetEmitter ();
     };
     this.modelMgr = dtcde.getModelManager();
-    this.modelMgr.receiveUpdatesFrom(this.changeEmitter);
+    this.changeEmitter.subscribe({
+      next: change => {
+        this.modelMgr.applyChange(change);
+      }
+    })
+
 
   }
 
