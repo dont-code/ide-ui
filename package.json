@@ -38,12 +38,12 @@
     "@angular/platform-browser": "^12.2.13",
     "@angular/platform-browser-dynamic": "^12.2.13",
     "@angular/router": "^12.2.13",
-    "@dontcode/core": "^0.4.2",
-    "@dontcode/plugin-basic": "^0.4.0",
-    "@dontcode/plugin-common": "^0.4.0",
-    "@dontcode/plugin-fields": "^0.4.0",
-    "@dontcode/plugin-screen": "^0.4.0",
+    "@dontcode/core": "^0.4.5",
+    "@dontcode/plugin-basic": "^0.4.2",
+    "@dontcode/plugin-common": "^0.4.2",
+    "@dontcode/plugin-fields": "^0.4.2",
     "@dontcode/plugin-rest": "^0.0.4",
+    "@dontcode/plugin-screen": "^0.4.2",
     "@fortawesome/angular-fontawesome": "^0.9.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
@@ -86,4 +86,3 @@
     "fsevents": "^2.3.2"
   }
 }
-
