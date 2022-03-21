@@ -1,19 +1,21 @@
 <ng-container>
   <ng-container *ngFor="let element of listOfElements">
-    <ng-container [ngSwitch]="element.type">
-      <br *ngSwitchCase="'newLine'"/>
-      <ide-ui-text-element *ngSwitchCase="'string'" [element]="element"></ide-ui-text-element>
-      <ng-container *ngSwitchCase="'object'">
-        <div><span class="displayable" >{{(element.schemaPosition | locale)}}</span>
-          <ide-ui-text-handler  [element]="element">
-          </ide-ui-text-handler>
-        </div>
-        <br />
+    <ng-container *ngIf="!element.isHidden()">
+      <ng-container [ngSwitch]="element.type">
+        <br *ngSwitchCase="'newLine'"/>
+        <ide-ui-text-element *ngSwitchCase="'string'" [element]="element"></ide-ui-text-element>
+        <ng-container *ngSwitchCase="'object'">
+          <div><span class="displayable" >{{(element.schemaPosition | locale)}}</span>
+            <ide-ui-text-handler  [element]="element">
+            </ide-ui-text-handler>
+          </div>
+          <br />
+        </ng-container>
+        <ide-ui-sub-text-element *ngSwitchCase="'array'" [element]="element">
+        </ide-ui-sub-text-element>
+        <ide-ui-select-element *ngSwitchCase="'list'" [element]="element" (refresh)="refresh()"></ide-ui-select-element>
+        <ide-ui-input-element *ngSwitchCase="'input'" [element]="element"></ide-ui-input-element>
       </ng-container>
-      <ide-ui-sub-text-element *ngSwitchCase="'array'" [element]="element">
-      </ide-ui-sub-text-element>
-      <ide-ui-select-element *ngSwitchCase="'list'" [element]="element" (refresh)="refresh()"></ide-ui-select-element>
-      <ide-ui-input-element *ngSwitchCase="'input'" [element]="element"></ide-ui-input-element>
     </ng-container>
   </ng-container>
 </ng-container>
