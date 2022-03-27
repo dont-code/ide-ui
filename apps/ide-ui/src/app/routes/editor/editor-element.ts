@@ -1,9 +1,11 @@
 import {
   AbstractSchemaItem,
+  DontCodeModelManager,
   DontCodeSchemaEnum,
   DontCodeSchemaItem,
   DontCodeSchemaProperty,
-  DontCodeSchemaRef
+  DontCodeSchemaRef,
+  dtcde
 } from "@dontcode/core";
 
 
@@ -80,6 +82,14 @@ export class EditorElement {
 
   isAsArray (): boolean {
     return this.asArray;
+  }
+
+  isHidden (): boolean {
+    return DontCodeModelManager.isHidden (this.editedValue);
+  }
+
+  isReadonly (): boolean {
+    return DontCodeModelManager.isReadonly (this.editedValue);
   }
 
   /**

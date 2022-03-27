@@ -106,13 +106,13 @@ export function checkElementTree (root:EditorElement, expectedIds:string[]) {
       "type": "object",
       "properties": {
         "entity": {
-            "$ref": "#/definitions/entity"
+            "$ref": "#/$defs/entity"
         }
       },
       "additionalProperties": false
     }
   },
-  "definitions": {
+  "$defs": {
     "entity": {
       "type": "object",
       "properties": {
