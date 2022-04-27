@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        browser: [chromium, chrome, firefox]
+        browser: [chromium, chrome]
 
     steps:
       - uses: actions/checkout@v2
@@ -29,16 +29,17 @@ jobs:
           cache: 'npm'
       - name: Install
         run: |
+          npm install -g nx
           npm install @dontcode/core@latest @dontcode/plugin-common@latest @dontcode/plugin-rest@latest @dontcode/plugin-screen@latest @dontcode/plugin-basic@latest @dontcode/plugin-fields@latest --force
           npm ci
       - name: Build
-        run: npm run build --if-present
+        run: nx run ide-ui:build:production
       - name: Unit Tests
         run: |
-          npm run ng test
+          nx run ide-ui:test
       - name: E2E Tests on ${{matrix.browser}}
         run: |
-          npm run ng e2e -- --browser ${{matrix.browser}}
+          nx run ide-ui-e2e:e2e --browser ${{matrix.browser}}
       - uses: actions/upload-artifact@v2
         # Test run screenshots only on failure
         if: failure()
@@ -53,7 +54,7 @@ jobs:
           path: dist/cypress/apps/ide-ui-e2e/videos
       - name: Rebuild for deploy
         if: ${{ matrix.browser == 'chromium'}}
-        run: npm run build -- --prod --base-href "https://dont-code.net/ide-ui/"
+        run: nx run ide-ui:build:production --base-href "https://dont-code.net/ide-ui/"
       - name: Push
         if: ${{ matrix.browser == 'chromium'}}
         run: |

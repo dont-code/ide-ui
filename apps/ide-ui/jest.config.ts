@@ -1,6 +1,6 @@
 module.exports = {
   name: 'ide-ui',
-  preset: '../../jest.preset.js',
+
   coverageDirectory: '../../coverage/apps/ide-ui',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
@@ -15,5 +15,9 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
-  transform: { '^.+\\.(ts|js|html)$': 'jest-preset-angular' },
+  transform: {
+    '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',
+  },
+  transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
+  preset: '../../jest.preset.ts',
 };
