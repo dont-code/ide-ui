@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from "rxjs";
+import {firstValueFrom, Observable, of} from "rxjs";
 import {IdeProject} from "../IdeProject";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
@@ -55,22 +55,26 @@ export class ProjectService {
     const model = dtcde.getModelManager().getContent();
     toSave.content = model;
     if( toSave._id) {
-      return this.http.put<IdeProject>(environment.projectUrl+'/'+this.currentProject.name, toSave, {responseType:"json"} ).toPromise().then (value => {
+      return firstValueFrom(this.http.put<IdeProject>(environment.projectUrl+'/'+this.currentProject.name, toSave, {responseType:"json"} ).pipe(
+        map (value => {
         delete value.content;
         return value;
-      });
+      }))
+      );
     } else {
-      return this.http.post<IdeProject>(environment.projectUrl, toSave, {responseType:"json"} ).toPromise().then(value => {
-        this.currentProject._id=value._id;
-        return this.currentProject;
-      });
+      return firstValueFrom(this.http.post<IdeProject>(environment.projectUrl, toSave, {responseType:"json"} ).pipe (
+        map (value => {
+          this.currentProject._id=value._id;
+          return this.currentProject;
+        }))
+      );
     }
 
   }
 
   loadProject (prj:IdeProject): Promise<IdeProject> {
     if( prj.name) {
-      return this.http.get<IdeProject>(environment.projectUrl + '/' + prj.name, {responseType: 'json'}).toPromise();
+      return firstValueFrom(this.http.get<IdeProject>(environment.projectUrl + '/' + prj.name, {responseType: 'json'}));
     } else {
       return Promise.resolve(prj);
     }

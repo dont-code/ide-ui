@@ -26,11 +26,11 @@ export class ChangeUpdateService {
    * The Id of the session as returned by the services. This is used to tell the previewer to listen only to this session
    * @protected
    */
-  protected sessionIdSubject = new ReplaySubject<string>(1);
+  protected sessionIdSubject = new ReplaySubject<string|undefined>(1);
   protected sessionId?:string;
 
   constructor() {
-    console.log('Creating channel');
+    console.debug('Creating channel');
     this.channel = new BroadcastChannel(ChangeUpdateService.CHANNEL_CHANGE_NAME);
   }
 
@@ -45,7 +45,7 @@ export class ChangeUpdateService {
         url: environment.webSocketUrl,
         closeObserver: {
           next: value => {
-            console.log("Close", value);
+            console.debug("Close", value);
 
           }
         },
@@ -57,7 +57,7 @@ export class ChangeUpdateService {
               reject('No WebSocket');
           },
           error: err => {
-            console.log("error connecting socket", err);
+            console.error("error connecting socket", err);
             reject(err);
           }
         }
@@ -65,33 +65,33 @@ export class ChangeUpdateService {
 
       this.ideServicesWebSocket = webSocket(config);
       this.connectionStatus.next("connected");
-      this.sessionIdSubject.next();
+      this.sessionIdSubject.next(undefined);
       this.ideServicesWebSocket.asObservable().subscribe({
         next: msg => {
 
           //console.log('message received: ' , msg);
           const newId=msg?.sessionId;
           if ((newId) && (newId !== this.sessionId)){
-            console.log('Received SessionId ', newId);
+            console.debug('Received SessionId ', newId);
             this.sessionId=newId;
             this.sessionIdSubject.next(newId);
           }
         },
         // Called whenever there is a message from the server
         error: err => {
-          console.log(err);
+          console.error(err);
           this.ideServicesWebSocket?.unsubscribe();
           this.ideServicesWebSocket = null;
           this.connectionStatus.next("ERROR:" + err);
-          this.sessionIdSubject.next();
+          this.sessionIdSubject.next(undefined);
         },
         // Called if WebSocket API signals some kind of error
         complete: () => {
-          console.log('complete');
+          console.debug('complete');
           this.ideServicesWebSocket?.unsubscribe();
           this.ideServicesWebSocket = null;
           this.connectionStatus.next("closed");
-          this.sessionIdSubject.next();
+          this.sessionIdSubject.next(undefined);
         }
         // Called when connection is closed (for whatever reason)
       });
@@ -121,7 +121,7 @@ export class ChangeUpdateService {
   getConnectionStatus (): Observable<string> {
     return this.connectionStatus;
   }
-  getSessionId (): Observable<string> {
+  getSessionId (): Observable<string|undefined> {
     return this.sessionIdSubject;
   }
 }

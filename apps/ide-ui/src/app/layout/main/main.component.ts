@@ -17,7 +17,7 @@ export class MainComponent implements OnInit{
   context$: Observable<
     {
       status:string,
-      sessionId:string
+      sessionId:string|undefined
     }>|null = null;
 
   sidePanelVisible: boolean = true;
@@ -32,7 +32,7 @@ export class MainComponent implements OnInit{
 
   }
 
-  protected sessionId:string|null = null;
+  protected sessionId:string|undefined;
 
   ngOnInit(): void {
     this.sidePanelVisible = true;
@@ -70,7 +70,11 @@ export class MainComponent implements OnInit{
   }
 
   openPreview() {
-    window.open(environment.previewUrl+'?sessionId='+this.sessionId, '_blank');
+    if( this.sessionId==null) {
+      window.open(environment.previewUrl, '_blank');
+    }else {
+      window.open(environment.previewUrl+'?sessionId='+this.sessionId, '_blank');
+    }
   }
 
   connectedClass(ctx: { status: string }): string {
