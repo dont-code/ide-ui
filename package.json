@@ -11,7 +11,7 @@
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e --browser chromium",
     "postinstall": "ngcc --properties es2015 browser module main && node ./decorate-angular-cli.js",
-    "yalc-add-all": "yalc add @dontcode/plugin-common && yalc add @dontcode/plugin-basic && yalc add @dontcode/plugin-fields && yalc add @dontcode/plugin-rest",
+    "yalc-add-all": "yalc add @dontcode/core && yalc add @dontcode/plugin-common && yalc add @dontcode/plugin-basic && yalc add @dontcode/plugin-fields && yalc add @dontcode/plugin-rest",
     "yalc-add": "yalc add @dontcode/${npm_config_lib}"
   },
   "private": true,
