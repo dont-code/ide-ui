@@ -15,21 +15,41 @@ It gets the application schema from the core library (extended by plugins), and 
 This project is a standard Angular project:
 
 1. Installing
-   `npm install`
 
-2. Running
-`npm run nx serve ide-ui --configuration=online --hmr`
+  `npm install nx -g` Install nx.dev globally
+
+  `npm install`
+
+4. Running
+`nx ide-ui:serve:online`
 
 and point your browser to https://localhost:4200
 
 3. Running tests
 
-  `npm run nx run ide-ui:test`
+  `nx run ide-ui:test`
 
 4. Running Cypress End to end tests
 
-   `npm run nx e2e ide-ui-e2e`
+   `nx ide-ui-e2e:e2e`
 
+6. Debugging your plugin in the Builder itself
+   We have setup some commands to enable debugging the plugin when run inside the Builder.
+   Using npm link is difficult and doesn't work all the time, so we use [Yalc](https://github.com/wclr/yalc).
+
+`npm install yalc -g` Installs the Yalc tool globally
+
+`npm run publish-all` in the dist/libs/XXX directory of your plugin to publish it to Yalc repository, after version increase (to bypass Angular caching)
+
+Then in this project (ide-ui) :
+`npm run yalc-add-all` to install all the common plugins and libraries
+
+and
+
+`yalc add @dontcode/plugin-xxxx` to install your plugin using Yalc
+
+You can now set breakpoints in your plugin classes running in the builder, and if you modify your plugin code, just run
+`npm run publish-all` again to rebuild it and reload in the builder application.
 
 ## Thank you
 
