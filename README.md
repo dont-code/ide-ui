@@ -51,6 +51,42 @@ and
 You can now set breakpoints in your plugin classes running in the builder, and if you modify your plugin code, just run
 `npm run publish-all` again to rebuild it and reload in the builder application.
 
+7. Committing
+  If you are using yalc as described above, it modifies the package.json to point to the yalc repository, like this:
+   ```
+   "@dontcode/core": "file:.yalc/@dontcode/core",
+   "@dontcode/plugin-basic": "file:.yalc/@dontcode/plugin-basic",
+   "@dontcode/plugin-common": "file:.yalc/@dontcode/plugin-common",
+   "@dontcode/plugin-fields": "file:.yalc/@dontcode/plugin-fields",
+   "@dontcode/plugin-rest": "file:.yalc/@dontcode/plugin-rest",
+   ```
+
+  Before publishing, you need to revert package.json to the standard npm import, you can do it easily with some yalc commands:
+```
+$> yalc retreat --all
+Retreating package @dontcode/core version ==> ^0.5.2
+Retreating package @dontcode/plugin-common version ==> ^0.5.2
+Retreating package @dontcode/plugin-basic version ==> ^0.5.2
+Retreating package @dontcode/plugin-fields version ==> ^0.5.2
+Retreating package @dontcode/plugin-rest version ==> ^0.1.3
+
+$> git commit ....
+....
+
+$> yalc restore --all
+Restoring package `@dontcode/core` from .yalc directory
+Restoring package `@dontcode/plugin-common` from .yalc directory
+Restoring package `@dontcode/plugin-basic` from .yalc directory
+Restoring package `@dontcode/plugin-fields` from .yalc directory
+Restoring package `@dontcode/plugin-rest` from .yalc directory
+Package @dontcode/plugin-common@0.5.6-3 added ==> /home/gc-garunda/devs/dont-code/github/ide-ui/node_modules/@dontcode/plugin-common
+Package @dontcode/plugin-basic@0.5.6-2 added ==> /home/gc-garunda/devs/dont-code/github/ide-ui/node_modules/@dontcode/plugin-basic
+Package @dontcode/plugin-rest@0.1.0 added ==> /home/gc-garunda/devs/dont-code/github/ide-ui/node_modules/@dontcode/plugin-rest
+Package @dontcode/core@0.5.3-5 added ==> /home/gc-garunda/devs/dont-code/github/ide-ui/node_modules/@dontcode/core
+Package @dontcode/plugin-fields@0.5.6-1 added ==> /home/gc-garunda/devs/dont-code/github/ide-ui/node_modules/@dontcode/plugin-fields
+
+```
+  
 ## Thank you
 
 This project was generated using [Nx](https://nx.dev), visit the [Nx Documentation](https://nx.dev/angular) to learn more.
