@@ -18,6 +18,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FieldsModule} from "@dontcode/plugin-fields";
 import {ConfirmationService} from "primeng/api";
 import { RestModule } from '@dontcode/plugin-rest';
+import {PluginCommonModule} from "@dontcode/plugin-common";
 
 const appRoutes:Routes = [
   { path: '', component: WelcomeComponent },
@@ -36,7 +37,8 @@ const appRoutes:Routes = [
       { enableTracing: false,useHash:true } // <-- debugging purposes only
     ),
   HttpClientModule,
-  WelcomeModule
+  WelcomeModule,
+    PluginCommonModule.forRoot()
     ,BasicModule
     ,ScreenModule
     ,FieldsModule
