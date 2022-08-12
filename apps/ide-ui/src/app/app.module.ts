@@ -19,6 +19,7 @@ import {FieldsModule} from "@dontcode/plugin-fields";
 import {ConfirmationService} from "primeng/api";
 import { RestModule } from '@dontcode/plugin-rest';
 import {PluginCommonModule} from "@dontcode/plugin-common";
+import {ReportModule} from "@dontcode/plugin-report";
 
 const appRoutes:Routes = [
   { path: '', component: WelcomeComponent },
@@ -43,6 +44,7 @@ const appRoutes:Routes = [
     ,ScreenModule
     ,FieldsModule
     ,RestModule
+    ,ReportModule
     ,FontAwesomeModule
   ],
   providers: [ConfirmationService],
