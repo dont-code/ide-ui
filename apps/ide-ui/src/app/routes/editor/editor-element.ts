@@ -244,17 +244,8 @@ export class EditorElement {
   }
 
   getNextId() {
-    const position = this.position;
-    let tentative = 97+this.allChildren.size;
-    let found = false;
-    let id : string;
-    do {
-      id = String.fromCharCode(tentative);
-      const toTest = position+'/'+id;
-      found = this.allChildren.has(id);
-      tentative++;
-    } while(found);
-    return id;
+    const childrenKeys = new Set<string>(this.allChildren.keys());
+    return DontCodeModelManager.generateNextKey(childrenKeys);
   }
 
   /**

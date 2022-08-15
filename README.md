@@ -31,7 +31,7 @@ and point your browser to https://localhost:4200
 
 4. Running Cypress End to end tests
 
-   `nx ide-ui-e2e:e2e`
+   `nx run ide-ui-e2e:e2e`
 
 6. Debugging your plugin in the Builder itself
    We have setup some commands to enable debugging the plugin when run inside the Builder.
