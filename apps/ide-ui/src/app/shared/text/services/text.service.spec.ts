@@ -73,6 +73,7 @@ describe('TextService', () => {
       'creation/reports/a/as/a(object)',
       'creation/reports/a/as/a/type(list)',
       'creation/reports/a/as/a/of(input)',
+      'creation/reports/a/as/a/by(input)',
       'creation/reports/a/as/a/title(input)',
       'creation/sources(array)',
       'creation/sources/a(object)',
