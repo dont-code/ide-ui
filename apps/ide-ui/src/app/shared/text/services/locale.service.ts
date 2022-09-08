@@ -52,6 +52,8 @@ export class LocaleService {
     [DontCodeModel.APP_REPORTS_DISPLAY_TYPE+'-desc', 'the graph or table you want displayed'],
     [DontCodeModel.APP_REPORTS_DISPLAY_OF, 'of'],
     [DontCodeModel.APP_REPORTS_DISPLAY_OF+'-desc', 'the field to display. Empty for all'],
+    [DontCodeModel.APP_REPORTS_DISPLAY_BY, 'by'],
+    [DontCodeModel.APP_REPORTS_DISPLAY_BY+'-desc', 'the field to display. Empty for all'],
     [DontCodeModel.APP_REPORTS_DISPLAY_TITLE, 'with the title'],
     [DontCodeModel.APP_REPORTS_DISPLAY_TITLE+'-desc', 'Enter the title of the graph or table displayed'],
     [DontCodeModel.APP_SHARING, 'Information will be shared '],
