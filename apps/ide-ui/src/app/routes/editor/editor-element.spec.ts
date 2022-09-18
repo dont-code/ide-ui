@@ -2,10 +2,10 @@ import {TestBed} from "@angular/core/testing";
 import {EditorElement, EditorElementType} from "./editor-element";
 import {
   AbstractSchemaItem,
-  DontCodeModel,
+  DontCodeModel, DontCodeSchema,
   DontCodeSchemaItem,
   DontCodeSchemaManager,
-  DontCodeSchemaObject,
+  DontCodeSchemaObject, DontCodeSchemaRef,
   DontCodeSchemaRoot,
   dtcde
 } from "@dontcode/core";
@@ -209,7 +209,63 @@ describe('ChangeUpdateService', () => {
     checkElementTree (rootElement, expectedIds);
 
   });
-});
+  it ('should load dynamic data', () => {
+      // Create a copy of the schema to avoid side effects
+    const rootSchema = dtcde.getSchemaManager().convertSchemaToMap(DontCodeSchema.defaultv1);
+
+    let sourcesSchema = rootSchema.getChild('creation')?.getChild('sources');
+    if( sourcesSchema==null)
+      throw new Error ("No Creation sources model");
+    else {
+      sourcesSchema=dtcde.getSchemaManager().resolveReference(sourcesSchema as DontCodeSchemaRef);
+    }
+
+    sourcesSchema.upsertWith({
+      location: {
+        parent: '#/$defs/source',
+        id: 'type'
+      },
+      update: {
+        enum: [
+          'Rest'
+        ]
+      },
+      props: {
+        url: {
+          type: 'string'
+        }
+      },
+      replace: false
+    });
+
+    const rootElement = EditorElement.createNew(
+      DontCodeModel.APP_SOURCES, DontCodeModel.APP_SOURCES,
+      EditorElementType.array, sourcesSchema,undefined, undefined, true);
+
+    rootElement.setEditedValue({
+          a: {
+            name:"UnitTestSource",
+            type:"Rest",
+            url:"https://unit-test.com"
+          }
+    });
+    const expectedIds=[
+      'creation/sources(array)',
+      'creation/sources/a(object)',
+      'creation/sources/a/name(input)',
+      'creation/sources/a/type(list)',
+      'creation/sources/a/url(input)'
+    ];
+
+    checkElementTree (rootElement, expectedIds);
+
+    const aElement = rootElement.getChild('a');
+    expect(aElement?.getChild("name")?.getEditedValue()).toEqual("UnitTestSource");
+    expect(aElement?.getChild("url")?.getEditedValue()).toEqual("https://unit-test.com");
+  });
+
+
+  });
 
 const subArraySchema= {
   "$id": "http://dont-code.net/dont-code-schema/v1",
