@@ -17,6 +17,14 @@ export const getIndexEntityRemoveButton = (entity:string) => cy.get('#creation-e
 export const getIndexEntityUpButton = (entity:string) => cy.get('#creation-entities-'+entity+'-up-button');
 export const getIndexEntityDownButton = (entity:string) => cy.get('#creation-entities-'+entity+'-down-button');
 
+export const getField= (containerName:string, id:string, field:string) => cy.get("#creation-"+containerName+"-"+id+"-"+field);
+export const getFieldValue= (containerName:string, id:string, field:string) => cy.get("#creation-"+containerName+"-"+id+"-"+field).invoke('val');
+export const getSubField =(parentContainerName:string, parentId:string, containerName:string, id:string, field:string) => cy.get("#creation-"+parentContainerName+"-"+parentId+"-"+containerName+"-"+id+"-"+field);
+export const getDropDown= (containerName:string, id:string, field:string) => cy.get("#creation-"+containerName+"-"+id+"-"+field
+    +" > .p-autocomplete > .p-autocomplete-dropdown");
+export const getSubDropDown =(parentContainerName:string, parentId:string, containerName:string, id:string, field:string) => cy.get("#creation-"+parentContainerName+"-"+parentId+"-"+containerName+"-"+id+"-"+field
+    +" > .p-autocomplete > .p-autocomplete-dropdown");
+
 export const getIndexEntityFieldName = (entity:string, field:string) => cy.get('#creation-entities-'+entity+'-fields-'+field+'-name');
 export const getIndexEntityFieldNameValue = (entity:string, field:string) => cy.get('#creation-entities-'+entity+'-fields-'+field+'-name').invoke('val');
 export const getIndexEntityFieldType = (entity:string, field:string) => cy.get('#creation-entities-'+entity+'-fields-'+field+'-type > .p-autocomplete > .p-autocomplete-dropdown');

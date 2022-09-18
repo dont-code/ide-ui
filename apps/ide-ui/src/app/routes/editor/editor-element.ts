@@ -212,7 +212,13 @@ export class EditorElement {
         if (newElement.hasActiveProperties()) {
           const toAddProps = newElement.getActiveProperties();
           if (toAddProps) {
-            this.readSubSchema(position, schemaPosition, toAddProps, mergePosition, initialValue);
+              // We have to add a dynamic property, so let's create it with a possible value
+            let propValue = toAddProps.getRelativeId();
+            if ((values!=null)&&(propValue!=null)) {
+              propValue = values[propValue];
+            }else
+              propValue=undefined;
+            this.readSubSchema(position, schemaPosition, toAddProps, mergePosition, values);
             // if the active properties are replacing the remaining elements, then remove the remaining elements and  just stop the loop here
             if (newElement.isReplacementActive()) {
               break;
@@ -366,6 +372,18 @@ export class EditorElement {
     const list= this.childrenToDisplay;
     const cache = this.allChildren;
     const key = propName??newElement.schemaModel.getRelativeId();
+    // If the element was already present, do nothing
+    if (cache.get(key)===newElement) {
+      // Returns its position
+      for (let i=0;i<list.length;i++) {
+        if (list[i]===newElement)
+          return i;
+      }
+    } else if (cache.get(key)!=null) {
+      console.error ('Setting 2 differents elements with the same property name: '+key+' for the element '+this.position);
+      throw new Error ('Setting 2 differents elements with the same property name: '+key+' for the element '+this.position);
+    }
+
     cache.set(key, newElement);
     if (mergeStartPosition>=list.length){
       list.push(newElement);
