@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ChangeUpdateService } from './change-update.service';
 import { BroadcastChannel } from 'broadcast-channel';
-import {Change, ChangeType, dtcde} from '@dontcode/core';
+import {Change, ChangeType, DontCodeChangeManager, dtcde} from '@dontcode/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import {DontCodeModelManager} from "@dontcode/core";
 
@@ -18,9 +18,8 @@ export class ChangeListenService {
   protected listOfChanges: Change[]=[];
 
   protected changeEmitter = new ReplaySubject<Change> ();
-  protected modelMgr: DontCodeModelManager;
 
-  constructor() {
+  constructor(protected changeMgr:DontCodeChangeManager) {
     this.channel = new BroadcastChannel(ChangeUpdateService.CHANNEL_CHANGE_NAME);
     console.log('Channel receiver created');
     this.channel.onmessage = msg => {
@@ -33,10 +32,9 @@ export class ChangeListenService {
       if (msg.type===ChangeType.RESET)
         this.resetEmitter ();
     };
-    this.modelMgr = dtcde.getModelManager();
     this.changeEmitter.subscribe({
       next: change => {
-        this.modelMgr.applyChange(change);
+        this.changeMgr.pushChange(change);
       }
     })
 
