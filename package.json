@@ -31,6 +31,7 @@
     "@dontcode/plugin-common": "^0.5.27",
     "@dontcode/plugin-fields": "^0.5.27",
     "@dontcode/plugin-rest": "^0.5.27",
+    "@dontcode/plugin-report": "^0.5.27",
     "@dontcode/plugin-screen": "^0.5.27",
     "@fortawesome/angular-fontawesome": "^0.10.2",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
