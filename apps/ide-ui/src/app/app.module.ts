@@ -14,7 +14,6 @@ import {WelcomeModule} from './routes/welcome/welcome.module';
 import {WelcomeComponent} from "./routes/welcome/main/welcome.component";
 import {BasicModule} from "@dontcode/plugin-basic";
 import {ScreenModule} from "@dontcode/plugin-screen";
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FieldsModule} from "@dontcode/plugin-fields";
 import {ConfirmationService} from "primeng/api";
 import { RestModule } from '@dontcode/plugin-rest';
@@ -47,7 +46,6 @@ const appRoutes:Routes = [
     ,RestModule
     ,ReportModule
     ,CommerceModule
-    ,FontAwesomeModule
   ],
   providers: [ConfirmationService],
   bootstrap: [AppComponent]
