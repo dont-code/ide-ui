@@ -1,15 +1,14 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Ide-Ui Release
+name: Ide-Ui Main
 
 on:
   workflow_dispatch:
-    inputs:
-      deploy:
-        description: Deploy to public website?
-        required: true
-        type: boolean
+
+  push:
+    branches: [ main ]
+
 
 jobs:
   build:
@@ -30,19 +29,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
-      - name: Install Nx.dev
-        run: |
-          npm install -g nx
       - name: Install
         run: |
+          npm install -g nx
           npm install @dontcode/core@latest @dontcode/plugin-common@latest @dontcode/sandbox@latest @dontcode/plugin-basic@latest @dontcode/plugin-fields@latest @dontcode/plugin-screen@latest @dontcode/plugin-rest@latest @dontcode/plugin-report@latest @dontcode/plugin-commerce@latest
           npm install
       - name: Build
         run: |
           nx run ide-ui:build:production
-      - name: Unit tests
+      - name: Tests
         run: |
           nx run ide-ui:test
       - name: E2E Tests on ${{matrix.browser}}
@@ -60,16 +56,3 @@ jobs:
         with:
           name: cypress-videos
           path: dist/cypress/apps/ide-ui-e2e/videos
-      - name: Deploy the tester application in github pages
-        if: ${{ success() && matrix.browser == 'chromium' && ( inputs.deploy == true ) }}
-        run: |
-          nx run ide-ui:build:production --base-href "https://dont-code.net/ide-ui/"
-      - if: ${{ success() && matrix.browser == 'chromium' && ( inputs.deploy == true) }}
-        uses: crazy-max/ghaction-github-pages@v3.0.0
-        with:
-          repo: dont-code/ide-ui
-          target_branch: gh-pages # The branch the action should deploy to.
-          build_dir: dist/apps/ide-ui
-          jekyll: false
-        env:
-          GITHUB_TOKEN: ${{secrets.DONTCODE_ACTIONS_TOKEN }}
