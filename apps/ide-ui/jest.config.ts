@@ -1,4 +1,5 @@
-module.exports = {
+/* eslint-disable */
+export default {
   name: 'ide-ui',
 
   coverageDirectory: '../../coverage/apps/ide-ui',
@@ -19,5 +20,5 @@ module.exports = {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
   transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
 };

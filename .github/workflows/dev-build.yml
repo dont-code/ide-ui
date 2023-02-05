@@ -1,13 +1,14 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Build Development
+name: Ide-Ui Development
 
 on:
+  workflow_dispatch:
+
   push:
-    branches: [ Development ]
-  pull_request:
-    branches: [ Development ]
+    branches:
+    - Development
 
 jobs:
   build:
@@ -16,22 +17,24 @@ jobs:
 
     strategy:
       matrix:
-        browser: [chromium, chrome]
+        browser: [chromium, chrome, firefox]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          ref: Development
-      - name: Use Node.js 16
-        uses: actions/setup-node@v2
+          fetch-depth: 0
+          ref: 'Development'
+          token: ${{secrets.DONTCODE_ACTIONS_TOKEN}}
+      - name: Use Node.js version 18
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18.x'
           cache: 'npm'
       - name: Install
         run: |
           npm install -g nx
-          npm install @dontcode/core@latest @dontcode/plugin-common@latest @dontcode/plugin-rest@latest @dontcode/plugin-screen@latest @dontcode/plugin-basic@latest @dontcode/plugin-fields@latest --force
-          npm ci
+          npm install --force
+          npm install @dontcode/core@next @dontcode/plugin-common@next @dontcode/sandbox@next @dontcode/plugin-basic@next @dontcode/plugin-fields@next @dontcode/plugin-screen@next @dontcode/plugin-rest@next @dontcode/plugin-report@next @dontcode/plugin-commerce@next
       - name: Build
         run: nx run ide-ui:build:production
       - name: Unit Tests
@@ -40,21 +43,14 @@ jobs:
       - name: E2E Tests on ${{matrix.browser}}
         run: |
           nx run ide-ui-e2e:e2e --browser ${{matrix.browser}}
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         # Test run screenshots only on failure
         if: failure()
         with:
           name: cypress-screenshots
           path: dist/cypress/apps/ide-ui-e2e/screenshots
         # Test run video was always captured, so this action uses "always()" condition
-      - uses: actions/upload-artifact@v2
-        # Test run screenshots only on failure
-        if: failure()
-        with:
-          name: cypress-logs
-          path: /home/runner/.npm/_logs/
-        # Test run video was always captured, so this action uses "always()" condition
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: cypress-videos

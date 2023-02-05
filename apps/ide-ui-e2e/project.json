@@ -1,12 +1,13 @@
 {
-  "root": "apps/ide-ui-e2e",
+  "name": "ide-ui-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/ide-ui-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/ide-ui-e2e/cypress.json",
+        "cypressConfig": "apps/ide-ui-e2e/cypress.config.js",
         "tsConfig": "apps/ide-ui-e2e/tsconfig.e2e.json",
         "devServerTarget": "ide-ui:serve:e2e"
       },

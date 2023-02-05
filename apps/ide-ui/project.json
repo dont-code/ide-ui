@@ -1,11 +1,12 @@
 {
+  "name": "ide-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "generators": {
     "@nrwl/angular:component": {
       "style": "<scss"
     }
   },
-  "root": "apps/ide-ui",
   "sourceRoot": "apps/ide-ui/src",
   "prefix": "ide-ui",
   "targets": {
@@ -97,6 +98,14 @@
               "maximumError": "10kb"
             }
           ]
+        },
+        "yolo": {
+          "fileReplacements": [
+            {
+              "replace": "apps/ide-ui/src/environments/environment.ts",
+              "with": "apps/ide-ui/src/environments/environment.yolo.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": ""
@@ -118,6 +127,9 @@
         },
         "production": {
           "browserTarget": "ide-ui:build:production"
+        },
+        "yolo": {
+          "browserTarget": "ide-ui:build:yolo"
         }
       }
     },
