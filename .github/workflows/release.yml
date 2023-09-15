@@ -20,6 +20,7 @@ jobs:
     env:
       branch: ${{ inputs.next == true && 'Development' || 'main' }}
       stage: ${{ inputs.next == true && 'next' || 'latest' }}
+      build: ${{ inputs.next == true && 'next' || 'production' }}
 
     runs-on: ubuntu-latest
 
@@ -70,7 +71,7 @@ jobs:
       - name: Deploy the tester application in github pages
         if: ${{ success() && matrix.browser == 'chromium' && ( inputs.deploy == true ) }}
         run: |
-          nx run ide-ui:build:production --output-path="dist/apps/ide-ui/${{env.stage}}" --base-href "https://dont-code.net/ide-ui/${{env.stage}}/"
+          nx run ide-ui:build:${{env.build}} --output-path="dist/apps/ide-ui/${{env.stage}}" --base-href "https://dont-code.net/ide-ui/${{env.stage}}/"
       - if: ${{ success() && (matrix.browser == 'chromium') && ( inputs.deploy == true ) }}
         uses: gcollin/ghaction-github-pages@main
         with:

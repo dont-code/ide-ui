@@ -52,7 +52,7 @@
           "fileReplacements": [
             {
               "replace": "apps/ide-ui/src/environments/environment.ts",
-              "with": "apps/ide-ui/src/environments/environment.online.ts"
+              "with": "apps/ide-ui/src/environments/environment.next.ts"
             }
           ]
         },
