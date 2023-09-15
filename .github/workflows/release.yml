@@ -76,7 +76,7 @@ jobs:
         with:
           repo: dont-code/ide-ui
           target_branch: gh-pages # The branch the action should deploy to.
-          build_dir: ide-ui/dist/apps/ide-ui
+          build_dir: dist/apps/ide-ui
           keep_history: true
           multiple_sites: true
           jekyll: false
