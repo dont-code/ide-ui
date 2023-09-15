@@ -45,8 +45,8 @@ jobs:
           npm install -g nx
       - name: Install ${{env.stage}}
         run: |
+          npm ci
           npm install @dontcode/core@${{env.stage}} @dontcode/plugin-common@${{env.stage}} @dontcode/sandbox@${{env.stage}} @dontcode/plugin-basic@${{env.stage}} @dontcode/plugin-fields@${{env.stage}} @dontcode/plugin-screen@${{env.stage}} @dontcode/plugin-rest@${{env.stage}} @dontcode/plugin-report@${{env.stage}} @dontcode/plugin-commerce@${{env.stage}}
-          npm install
       - name: Build
         run: |
           nx run ide-ui:build:production
