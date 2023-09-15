@@ -1,0 +1,217 @@
+{
+  "$id": "https://dont-code.net/v1/plugin-config-schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "JSON Schema v1 for plugins to update the dont-code schema",
+  "type": "object",
+  "required": ["plugin"],
+  "properties": {
+    "plugin": {
+      "$ref": "#/$defs/plugin"
+    },
+    "schema-updates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/schema-update"
+      }
+    },
+    "preview-handlers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/change-handler"
+      }
+    },
+    "global-handlers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/change-handler"
+      }
+    },
+    "action-handlers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/action-handler"
+      }
+    },
+    "definition-updates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/definition-update"
+      }
+
+    }
+  },
+  "$defs": {
+    "plugin": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "display-name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "require": {
+          "type": "array",
+          "items": {
+            "$refs": "#/$defs/required-plugin"
+          }
+        }
+      }
+    },
+    "required-plugin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "schema-update": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/change"
+          }
+        }
+      }
+    },
+    "change": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/$defs/change-location"
+        },
+        "update": {
+          "$ref": "#/$defs/additem"
+        },
+        "props": {
+          "$ref": "#/$defs/itemprops"
+        },
+        "replace": {
+          "type": "boolean"
+        }
+      }
+    },
+    "change-location": {
+      "type": "object",
+      "required": ["parent", "id"],
+      "properties": {
+        "parent": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "before": {
+          "type": "string"
+        },
+        "after": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "additem": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "itemprops": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "change-handler": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/$defs/change-location"
+        },
+        "class": {
+          "$ref": "#/$defs/class-definition"
+        }
+      }
+    },
+    "action-handler": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/$defs/change-location"
+        },
+        "action-context": {
+          "$refs": "#/$defs/action-context"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$refs": "#/$defs/action"
+          }
+        },
+        "class": {
+          "$ref": "#/$defs/class-definition"
+        }
+      }
+    },
+    "action-context": {
+      "type": "string",
+      "enum": ["list", "edit", "view"]
+    },
+    "action": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["extract", "update", "calculate"]
+        },
+        "display-name": {
+          "type": "string"
+        },
+        "icon": {
+          "$refs": "#/$defs/icon-definition"
+        }
+      }
+    },
+    "class-definition": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "definition-update": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/$defs/change-location"
+        },
+        "update": {
+          "$ref": "#/$defs/additem"
+        }
+      }
+    },
+    "icon-definition": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
