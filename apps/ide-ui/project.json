@@ -48,11 +48,11 @@
         "namedChunks": true
       },
       "configurations": {
-        "online": {
+        "next": {
           "fileReplacements": [
             {
               "replace": "apps/ide-ui/src/environments/environment.ts",
-              "with": "apps/ide-ui/src/environments/environment.online.ts"
+              "with": "apps/ide-ui/src/environments/environment.next.ts"
             }
           ]
         },
@@ -116,8 +116,8 @@
         "browserTarget": "ide-ui:build"
       },
       "configurations": {
-        "online": {
-          "browserTarget": "ide-ui:build:online"
+        "next": {
+          "browserTarget": "ide-ui:build:next"
         },
         "e2e": {
           "browserTarget": "ide-ui:build:e2e"

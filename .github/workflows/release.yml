@@ -6,6 +6,10 @@ name: Ide-Ui Release
 on:
   workflow_dispatch:
     inputs:
+      next:
+        description: Is it a dev / next release ?
+        required: true
+        type: boolean
       deploy:
         description: Deploy to public website?
         required: true
@@ -13,6 +17,10 @@ on:
 
 jobs:
   build:
+    env:
+      branch: ${{ inputs.next == true && 'Development' || 'main' }}
+      stage: ${{ inputs.next == true && 'next' || 'latest' }}
+      build: ${{ inputs.next == true && 'next' || 'production' }}
 
     runs-on: ubuntu-latest
 
@@ -24,7 +32,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: 'main'
+          ref: ${{env.branch}}
           token: ${{secrets.DONTCODE_ACTIONS_TOKEN}}
       - name: Use Node.js 18
         uses: actions/setup-node@v3
@@ -35,10 +43,10 @@ jobs:
       - name: Install Nx.dev
         run: |
           npm install -g nx
-      - name: Install
+      - name: Install ${{env.stage}}
         run: |
-          npm install @dontcode/core@latest @dontcode/plugin-common@latest @dontcode/sandbox@latest @dontcode/plugin-basic@latest @dontcode/plugin-fields@latest @dontcode/plugin-screen@latest @dontcode/plugin-rest@latest @dontcode/plugin-report@latest @dontcode/plugin-commerce@latest
-          npm install
+          npm ci
+          npm install @dontcode/core@${{env.stage}} @dontcode/plugin-common@${{env.stage}} @dontcode/sandbox@${{env.stage}} @dontcode/plugin-basic@${{env.stage}} @dontcode/plugin-fields@${{env.stage}} @dontcode/plugin-screen@${{env.stage}} @dontcode/plugin-rest@${{env.stage}} @dontcode/plugin-report@${{env.stage}} @dontcode/plugin-commerce@${{env.stage}}
       - name: Build
         run: |
           nx run ide-ui:build:production
@@ -63,13 +71,15 @@ jobs:
       - name: Deploy the tester application in github pages
         if: ${{ success() && matrix.browser == 'chromium' && ( inputs.deploy == true ) }}
         run: |
-          nx run ide-ui:build:production --base-href "https://dont-code.net/ide-ui/"
-      - if: ${{ success() && matrix.browser == 'chromium' && ( inputs.deploy == true) }}
-        uses: crazy-max/ghaction-github-pages@v3.0.0
+          nx run ide-ui:build:${{env.build}} --output-path="dist/apps/ide-ui/${{env.stage}}" --base-href "https://dont-code.net/ide-ui/${{env.stage}}/"
+      - if: ${{ success() && (matrix.browser == 'chromium') && ( inputs.deploy == true ) }}
+        uses: gcollin/ghaction-github-pages@main
         with:
           repo: dont-code/ide-ui
           target_branch: gh-pages # The branch the action should deploy to.
           build_dir: dist/apps/ide-ui
+          keep_history: true
+          multiple_sites: true
           jekyll: false
         env:
           GITHUB_TOKEN: ${{secrets.DONTCODE_ACTIONS_TOKEN }}
