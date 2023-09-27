@@ -32,7 +32,6 @@
     "@dontcode/plugin-fields": "^1.5.0",
     "@dontcode/plugin-report": "^1.1.0",
     "@dontcode/plugin-rest": "^1.0.0",
-    "@dontcode/plugin-screen": "^1.5.0",
     "broadcast-channel": "^4.20.2",
     "core-js": "^3.27.2",
     "primeflex": "^3.3.0",
