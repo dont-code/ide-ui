@@ -13,7 +13,6 @@ import {DevModule} from './routes/dev/dev.module';
 import {WelcomeModule} from './routes/welcome/welcome.module';
 import {WelcomeComponent} from "./routes/welcome/main/welcome.component";
 import {BasicModule} from "@dontcode/plugin-basic";
-import {ScreenModule} from "@dontcode/plugin-screen";
 import {FieldsModule} from "@dontcode/plugin-fields";
 import {ConfirmationService} from "primeng/api";
 import { RestModule } from '@dontcode/plugin-rest';
@@ -41,7 +40,6 @@ const appRoutes:Routes = [
   WelcomeModule,
     PluginCommonModule.forRoot()
     ,BasicModule
-    ,ScreenModule
     ,FieldsModule
     ,RestModule
     ,ReportModule
