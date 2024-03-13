@@ -92,15 +92,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes_welcome_welcome_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./routes/welcome/welcome.module */ 5133);
 /* harmony import */ var _routes_welcome_main_welcome_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./routes/welcome/main/welcome.component */ 2379);
 /* harmony import */ var _dontcode_plugin_basic__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @dontcode/plugin-basic */ 9769);
-/* harmony import */ var _dontcode_plugin_screen__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @dontcode/plugin-screen */ 3773);
-/* harmony import */ var _dontcode_plugin_fields__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @dontcode/plugin-fields */ 9899);
+/* harmony import */ var _dontcode_plugin_fields__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @dontcode/plugin-fields */ 9899);
 /* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var _dontcode_plugin_rest__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @dontcode/plugin-rest */ 9304);
+/* harmony import */ var _dontcode_plugin_rest__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @dontcode/plugin-rest */ 9304);
 /* harmony import */ var _dontcode_plugin_common__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @dontcode/plugin-common */ 9815);
-/* harmony import */ var _dontcode_plugin_report__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @dontcode/plugin-report */ 6087);
-/* harmony import */ var _dontcode_plugin_commerce__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @dontcode/plugin-commerce */ 6585);
+/* harmony import */ var _dontcode_plugin_report__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @dontcode/plugin-report */ 6087);
+/* harmony import */ var _dontcode_plugin_commerce__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @dontcode/plugin-commerce */ 6585);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 2560);
-
 
 
 
@@ -156,12 +154,12 @@ AppModule.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵd
     enableTracing: false,
     useHash: true
   } // <-- debugging purposes only
-  ), _angular_common_http__WEBPACK_IMPORTED_MODULE_13__.HttpClientModule, _routes_welcome_welcome_module__WEBPACK_IMPORTED_MODULE_6__.WelcomeModule, _dontcode_plugin_common__WEBPACK_IMPORTED_MODULE_14__.PluginCommonModule.forRoot(), _dontcode_plugin_basic__WEBPACK_IMPORTED_MODULE_15__.BasicModule, _dontcode_plugin_screen__WEBPACK_IMPORTED_MODULE_16__.ScreenModule, _dontcode_plugin_fields__WEBPACK_IMPORTED_MODULE_17__.FieldsModule, _dontcode_plugin_rest__WEBPACK_IMPORTED_MODULE_18__.RestModule, _dontcode_plugin_report__WEBPACK_IMPORTED_MODULE_19__.ReportModule, _dontcode_plugin_commerce__WEBPACK_IMPORTED_MODULE_20__.CommerceModule]
+  ), _angular_common_http__WEBPACK_IMPORTED_MODULE_13__.HttpClientModule, _routes_welcome_welcome_module__WEBPACK_IMPORTED_MODULE_6__.WelcomeModule, _dontcode_plugin_common__WEBPACK_IMPORTED_MODULE_14__.PluginCommonModule.forRoot(), _dontcode_plugin_basic__WEBPACK_IMPORTED_MODULE_15__.BasicModule, _dontcode_plugin_fields__WEBPACK_IMPORTED_MODULE_16__.FieldsModule, _dontcode_plugin_rest__WEBPACK_IMPORTED_MODULE_17__.RestModule, _dontcode_plugin_report__WEBPACK_IMPORTED_MODULE_18__.ReportModule, _dontcode_plugin_commerce__WEBPACK_IMPORTED_MODULE_19__.CommerceModule]
 });
 (function () {
   (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵsetNgModuleScope"](AppModule, {
     declarations: [_app_component__WEBPACK_IMPORTED_MODULE_0__.AppComponent],
-    imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_10__.BrowserModule, _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_11__.BrowserAnimationsModule, _routes_editor_editor_module__WEBPACK_IMPORTED_MODULE_2__.EditorModule, _layout_layout_module__WEBPACK_IMPORTED_MODULE_1__.LayoutModule, _routes_dev_dev_module__WEBPACK_IMPORTED_MODULE_5__.DevModule, _angular_router__WEBPACK_IMPORTED_MODULE_12__.RouterModule, _angular_common_http__WEBPACK_IMPORTED_MODULE_13__.HttpClientModule, _routes_welcome_welcome_module__WEBPACK_IMPORTED_MODULE_6__.WelcomeModule, _dontcode_plugin_common__WEBPACK_IMPORTED_MODULE_14__.PluginCommonModule, _dontcode_plugin_basic__WEBPACK_IMPORTED_MODULE_15__.BasicModule, _dontcode_plugin_screen__WEBPACK_IMPORTED_MODULE_16__.ScreenModule, _dontcode_plugin_fields__WEBPACK_IMPORTED_MODULE_17__.FieldsModule, _dontcode_plugin_rest__WEBPACK_IMPORTED_MODULE_18__.RestModule, _dontcode_plugin_report__WEBPACK_IMPORTED_MODULE_19__.ReportModule, _dontcode_plugin_commerce__WEBPACK_IMPORTED_MODULE_20__.CommerceModule]
+    imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_10__.BrowserModule, _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_11__.BrowserAnimationsModule, _routes_editor_editor_module__WEBPACK_IMPORTED_MODULE_2__.EditorModule, _layout_layout_module__WEBPACK_IMPORTED_MODULE_1__.LayoutModule, _routes_dev_dev_module__WEBPACK_IMPORTED_MODULE_5__.DevModule, _angular_router__WEBPACK_IMPORTED_MODULE_12__.RouterModule, _angular_common_http__WEBPACK_IMPORTED_MODULE_13__.HttpClientModule, _routes_welcome_welcome_module__WEBPACK_IMPORTED_MODULE_6__.WelcomeModule, _dontcode_plugin_common__WEBPACK_IMPORTED_MODULE_14__.PluginCommonModule, _dontcode_plugin_basic__WEBPACK_IMPORTED_MODULE_15__.BasicModule, _dontcode_plugin_fields__WEBPACK_IMPORTED_MODULE_16__.FieldsModule, _dontcode_plugin_rest__WEBPACK_IMPORTED_MODULE_17__.RestModule, _dontcode_plugin_report__WEBPACK_IMPORTED_MODULE_18__.ReportModule, _dontcode_plugin_commerce__WEBPACK_IMPORTED_MODULE_19__.CommerceModule]
   });
 })();
 
