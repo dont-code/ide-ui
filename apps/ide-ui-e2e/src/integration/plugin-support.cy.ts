@@ -21,6 +21,7 @@ describe('plugin-support', () => {
   it('should load a project with dynamic values properly', () => {
     cy.intercept('GET','https://test.dont-code.net/project').as('Load');
     cy.intercept('GET','https://test.dont-code.net/project/**').as('Reload');
+    cy.intercept('POST','https://test.dont-code.net/project').as('Save');
 
     getEditorMenu().click();
     getAppNameInput().type('Test Dynamic Url');
@@ -39,6 +40,7 @@ describe('plugin-support', () => {
     cy.focused().should('have.id', 'project-name-edit').type(projectName);
     getProjectNameValidator().click();
     getCurrentProjectButtonWithText ("Save").click();
+    cy.wait('@Save');
 
       // Reloads the project
     getMenuWithText("Editor").click();
@@ -48,7 +50,7 @@ describe('plugin-support', () => {
     cy.wait('@Load');
 
     //Find the projectName
-getProjectActionWithText (projectName, "Load").click();
+    getProjectActionWithText (projectName, "Load").click();
     cy.wait('@Reload');
 
     getMenuWithText("Editor").click();
