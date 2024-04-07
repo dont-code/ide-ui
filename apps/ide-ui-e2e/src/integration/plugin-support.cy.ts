@@ -19,9 +19,9 @@ describe('plugin-support', () => {
   beforeEach(() => cy.visit('/') );
 
   it('should load a project with dynamic values properly', () => {
-    cy.intercept('GET','https://test.dont-code.net/project').as('Load');
-    cy.intercept('GET','https://test.dont-code.net/project/**').as('Reload');
-    cy.intercept('POST','https://test.dont-code.net/project').as('Save');
+    cy.intercept('GET','https://test.dont-code.net/e2e/project').as('Load');
+    cy.intercept('GET','https://test.dont-code.net/e2e/project/**').as('Reload');
+    cy.intercept('POST','https://test.dont-code.net/e2e/project').as('Save');
 
     getEditorMenu().click();
     getAppNameInput().type('Test Dynamic Url');
