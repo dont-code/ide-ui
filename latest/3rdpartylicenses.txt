@@ -56,8 +56,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 @dontcode/plugin-rest
 
-@dontcode/plugin-screen
-
 @kurkle/color
 MIT
 The MIT License (MIT)
