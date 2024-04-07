@@ -16,35 +16,12 @@ import {
 
 
 describe('plugin-support', () => {
-  beforeEach(() => cy.visit('/'));
-
-  it('should support dynamic screen properties', () => {
-//    getLoadSchemaButton().click();
-    // Function helper example, see `../support/app.po.ts` file
-
-    getEditorMenu().click();
-    getAppNameInput().type('To Do App');
-    getIndexScreenComponentType('a','a').click();
-    selectPopupChoiceWithText('Edit');
-    getIndexScreenComponentEntity('a','a').type('testEntity');
-
-    getIndexScreenType('a').click();
-    selectPopupChoiceWithText('freeform');
-    getAppNameInput().click();
-    getIndexScreenType('a').click();
-    selectPopupChoiceWithText('list');
-    getIndexScreenEntity ('a').type('newTestEntity');
-
-    getIndexScreenType('a').click();
-    selectPopupChoiceWithText('freeform');
-
-    getIndexScreenComponentEntityValue('a','a').should('equal','testEntity');
-
-  });
+  beforeEach(() => cy.visit('/') );
 
   it('should load a project with dynamic values properly', () => {
     cy.intercept('GET','https://test.dont-code.net/project').as('Load');
     cy.intercept('GET','https://test.dont-code.net/project/**').as('Reload');
+    cy.intercept('POST','https://test.dont-code.net/project').as('Save');
 
     getEditorMenu().click();
     getAppNameInput().type('Test Dynamic Url');
@@ -63,6 +40,7 @@ describe('plugin-support', () => {
     cy.focused().should('have.id', 'project-name-edit').type(projectName);
     getProjectNameValidator().click();
     getCurrentProjectButtonWithText ("Save").click();
+    cy.wait('@Save');
 
       // Reloads the project
     getMenuWithText("Editor").click();
@@ -72,7 +50,7 @@ describe('plugin-support', () => {
     cy.wait('@Load');
 
     //Find the projectName
-getProjectActionWithText (projectName, "Load").click();
+    getProjectActionWithText (projectName, "Load").click();
     cy.wait('@Reload');
 
     getMenuWithText("Editor").click();

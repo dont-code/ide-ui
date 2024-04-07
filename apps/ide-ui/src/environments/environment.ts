@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  webSocketUrl: 'ws://localhost:8082/ide?clientType=test',
+  webSocketUrl: 'ws://localhost:8082/ide',
   previewUrl: 'http://localhost:5001',
   projectUrl: 'http://localhost:8083/project'
 };
