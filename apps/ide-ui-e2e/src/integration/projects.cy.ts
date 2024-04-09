@@ -20,8 +20,8 @@ describe('projects', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should save and load projects', () => {
-    cy.intercept('GET','https://test.dont-code.net/project').as('Load');
-    cy.intercept('GET','https://test.dont-code.net/project/**').as('Reload');
+    cy.intercept('GET','https://test.dont-code.net/e2e/project').as('Load');
+    cy.intercept('GET','https://test.dont-code.net/e2e/project/**').as('Reload');
 
     getMenuWithText("Editor").click();
     getAppNameInput().type('Task Manager');
