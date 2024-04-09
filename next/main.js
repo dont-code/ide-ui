@@ -2223,7 +2223,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ChangeUpdateService": () => (/* binding */ ChangeUpdateService)
 /* harmony export */ });
-/* harmony import */ var _home_runner_work_release_release_ide_ui_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var _home_runner_work_ide_ui_ide_ui_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
 /* harmony import */ var _dontcode_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @dontcode/core */ 8253);
 /* harmony import */ var broadcast_channel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! broadcast-channel */ 1425);
 /* harmony import */ var rxjs_webSocket__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/webSocket */ 2227);
@@ -2325,7 +2325,7 @@ class ChangeUpdateService {
   }
   updateSocket(newChange) {
     var _this = this;
-    return (0,_home_runner_work_release_release_ide_ui_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_home_runner_work_ide_ui_ide_ui_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.openWebSocket().then(socket => socket.next(newChange));
     })();
   }
@@ -2799,9 +2799,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const environment = {
   production: false,
-  webSocketUrl: 'wss://test.dont-code.net/ide?clientType=dev',
+  webSocketUrl: 'wss://test.dont-code.net/demo/ide',
   previewUrl: 'https://dont-code.net/preview-ui/next',
-  projectUrl: 'https://test.dont-code.net/demo_project'
+  projectUrl: 'https://test.dont-code.net/demo/project'
 };
 
 /***/ }),
