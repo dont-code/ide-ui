@@ -10,6 +10,17 @@
     <link href="assets/google/material-icons.css" rel="stylesheet">
 </head>
   <body>
+    <script type="text/javascript">
+      // Storing the parameters before Angular removes them
+      const queryString = location.search;
+      let params = new URLSearchParams(queryString)
+      window.dontCodeConfig =
+        {
+          repositoryUrl:params.get("repositoryUrl"),
+          forceRepositoryLoading:params.get("forceRepositoryLoading")==='false'
+        }
+  </script>
+
     <ide-ui-root></ide-ui-root>
   </body>
 </html>

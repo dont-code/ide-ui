@@ -1,11 +1,12 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {combineLatest, Observable} from 'rxjs';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {combineLatest, Observable, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TextService} from '../../shared/text/services/text.service';
 import {ChangeUpdateService} from "../../shared/change/services/change-update.service";
 import {environment} from "../../../environments/environment";
 import {Change, ChangeType, DontCodeModel, dtcde} from "@dontcode/core";
 import {ProjectService} from "../../shared/project/services/project.service";
+import { CommonConfigService } from '@dontcode/plugin-common';
 
 
 @Component({
@@ -13,7 +14,10 @@ import {ProjectService} from "../../shared/project/services/project.service";
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit{
+export class MainComponent implements OnInit, OnDestroy{
+
+  protected subscriptions = new Subscription();
+
   context$: Observable<
     {
       status:string,
@@ -22,14 +26,23 @@ export class MainComponent implements OnInit{
 
   sidePanelVisible: boolean = true;
 
-  serverUrl = environment.webSocketUrl;
+  serverUrl ='';
 
   constructor( protected service:TextService
               , protected updateService:ChangeUpdateService
               , protected projectService: ProjectService
+              , protected configService:CommonConfigService
               , protected ref: ChangeDetectorRef
               ) {
-
+    this.subscriptions.add (configService.getUpdates ().subscribe( {
+      next: (newConfig) => {
+        const changed = newConfig.ideWebSocketUrl!=this.serverUrl;
+        if (changed) {
+          this.serverUrl=newConfig.ideWebSocketUrl??'';
+          this.ref.markForCheck();
+          this.ref.detectChanges();
+        }
+    }}));
   }
 
   protected sessionId:string|undefined;
@@ -59,7 +72,8 @@ export class MainComponent implements OnInit{
     this.service.resetSchema();
     this.service.readSchema(dtcde.getSchemaManager().getSchema());
 //    this.service.readSchemaFormUrl('assets/core/'+DontCode.dtcde.getSchemaUri());
-    this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
+    if (this.serverUrl.length!=0)
+      this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
     this.projectService.newCurrentProject();
 
     this.ref.detectChanges();
@@ -84,6 +98,8 @@ export class MainComponent implements OnInit{
     return '';
   }
 
-
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
 }

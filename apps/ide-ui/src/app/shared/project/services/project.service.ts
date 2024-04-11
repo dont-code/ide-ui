@@ -1,36 +1,45 @@
-import {Injectable} from '@angular/core';
-import {firstValueFrom, Observable, of} from "rxjs";
+import {Injectable, OnDestroy} from '@angular/core';
+import {firstValueFrom, Observable, of, Subscription, throwError} from "rxjs";
 import {IdeProject} from "../IdeProject";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../../environments/environment";
 import {map} from "rxjs/operators";
 import {Change, ChangeType, dtcde} from "@dontcode/core";
 import {ChangeUpdateService} from "../../change/services/change-update.service";
+import { CommonConfigService } from '@dontcode/plugin-common';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectService {
+export class ProjectService implements OnDestroy{
 
+  protected subscriptions = new Subscription();
   projects: Array<IdeProject> = [];
 
   protected currentProject: IdeProject;
-  constructor(protected http: HttpClient) {
+  projectApiUrl: string|null = null;
+
+  constructor(protected http: HttpClient, protected configService: CommonConfigService) {
     this.currentProject=new IdeProject();
     this.currentProject.template=false;
     this.currentProject.current = true;
+      // Receive any updates of the project urls
+    this.subscriptions.add(this.configService.getUpdates().subscribe ( {
+      next: (newConfig) => {
+        this.projectApiUrl = newConfig.projectApiUrl??null;
+      }
+    }));
   }
 
   loadListOfProjects () :Observable<Array<IdeProject>> {
-//    if (this.projects.length===0) {
-      return this.http.get<Array<IdeProject>>(environment.projectUrl).pipe(
+    if (this.projectApiUrl!=null) {
+      return this.http.get<Array<IdeProject>>(this.projectApiUrl).pipe(
         map(newProjects => {
           this.projects=this.placeCurrentProject(newProjects);
           return this.projects;
         }));
-  /*  } else {
-      return of(this.projects);
-    }*/
+    } else {
+      return throwError ( () => new Error ("No API provided to load projects"));
+    }
   }
 
   placeCurrentProject (projects:Array<IdeProject>) {
@@ -49,32 +58,42 @@ export class ProjectService {
   }
 
   saveCurrentProject (): Promise<IdeProject> {
-    const toSave = {...this.currentProject};
-    delete toSave.current;  // We don't want to save the fact it's the current project
+    if (this.projectApiUrl!=null) {
 
-    const model = dtcde.getModelManager().getContent();
-    toSave.content = model;
-    if( toSave._id) {
-      return firstValueFrom(this.http.put<IdeProject>(environment.projectUrl+'/'+this.currentProject.name, toSave, {responseType:"json"} ).pipe(
-        map (value => {
-        delete value.content;
-        return value;
-      }))
-      );
-    } else {
-      return firstValueFrom(this.http.post<IdeProject>(environment.projectUrl, toSave, {responseType:"json"} ).pipe (
-        map (value => {
-          this.currentProject._id=value._id;
-          return this.currentProject;
+      const toSave = {...this.currentProject};
+      delete toSave.current;  // We don't want to save the fact it's the current project
+
+      const model = dtcde.getModelManager().getContent();
+      toSave.content = model;
+      if( toSave._id) {
+        return firstValueFrom(this.http.put<IdeProject>(this.projectApiUrl+'/'+this.currentProject.name, toSave, {responseType:"json"} ).pipe(
+          map (value => {
+          delete value.content;
+          return value;
         }))
-      );
+        );
+      } else {
+        return firstValueFrom(this.http.post<IdeProject>(this.projectApiUrl, toSave, {responseType:"json"} ).pipe (
+          map (value => {
+            this.currentProject._id=value._id;
+            return this.currentProject;
+          }))
+        );
+      }
+    } else {
+      return Promise.reject ( new Error ("No API provided to save project."));
     }
 
   }
 
   loadProject (prj:IdeProject): Promise<IdeProject> {
     if( prj.name) {
-      return firstValueFrom(this.http.get<IdeProject>(environment.projectUrl + '/' + prj.name, {responseType: 'json'}));
+      if (this.projectApiUrl!=null) {
+        return firstValueFrom(this.http.get<IdeProject>(this.projectApiUrl + '/' + prj.name, {responseType: 'json'}));
+      } else {
+        return Promise.reject ( new Error ("No API provided to load project."));
+      }
+  
     } else {
       return Promise.resolve(prj);
     }
@@ -118,6 +137,10 @@ export class ProjectService {
     if (prj.current)  return prj.current;
     else
       return false;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }
