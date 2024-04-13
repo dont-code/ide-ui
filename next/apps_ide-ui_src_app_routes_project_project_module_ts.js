@@ -276,42 +276,41 @@ class ProjectComponent extends _shared_ui_IdeComponent__WEBPACK_IMPORTED_MODULE_
     });
     //console.log("Called projectService");
   }
+  static #_ = this.ɵfac = function ProjectComponent_Factory(t) {
+    return new (t || ProjectComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_shared_project_services_project_service__WEBPACK_IMPORTED_MODULE_0__.ProjectService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_shared_change_services_change_update_service__WEBPACK_IMPORTED_MODULE_2__.ChangeUpdateService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](primeng_api__WEBPACK_IMPORTED_MODULE_4__.ConfirmationService));
+  };
+  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({
+    type: ProjectComponent,
+    selectors: [["ide-ui-project"]],
+    viewQuery: function ProjectComponent_Query(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵviewQuery"](_c0, 5);
+      }
+      if (rf & 2) {
+        let _t;
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵloadQuery"]()) && (ctx.inPlaceName = _t.first);
+      }
+    },
+    features: [_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵInheritDefinitionFeature"]],
+    decls: 3,
+    vars: 1,
+    consts: [["layout", "list", 3, "value"], ["pTemplate", "listItem"], [1, "col-12"], [1, "project-list-item", 3, "ngClass"], ["class", "project-list-detail", 4, "ngIf"], [1, "project-list-action"], [1, "project-date"], ["icon", "pi pi-save", "label", "Save", 3, "onClick", 4, "ngIf"], ["icon", "pi pi-play", 3, "label", "onClick"], [1, "project-list-detail"], [1, "in-place-edit"], ["closeIcon", "pi pi-check", 3, "closable"], ["inPlaceName", ""], ["pTemplate", "display"], ["pTemplate", "content"], ["inPlaceDescription", ""], [1, "pi", "pi-inbox", "project-category-icon"], [1, "project-category"], [1, "project-name"], [1, "pi", "pi-pencil", "edit-icon"], ["type", "text", "id", "project-name-edit", "pInputText", "", 3, "ngModel", "ngModelChange", "focusout"], ["editName", ""], [1, "project-description"], ["type", "text", "id", "project-description-edit", "size", "50", "pInputText", "", 3, "ngModel", "ngModelChange", "focusout"], ["editDescription", ""], [4, "ngIf"], [1, "pi", "pi-bookmark", "project-category-icon"], [1, "pi", "pi-briefcase", "project-category-icon"], ["icon", "pi pi-save", "label", "Save", 3, "onClick"]],
+    template: function ProjectComponent_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](0, "p-confirmPopup");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "p-dataView", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](2, ProjectComponent_ng_template_2_Template, 10, 8, "ng-template", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+      }
+      if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("value", ctx.projectService.projects);
+      }
+    },
+    dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgIf, primeng_dataview__WEBPACK_IMPORTED_MODULE_6__.DataView, primeng_api__WEBPACK_IMPORTED_MODULE_4__.PrimeTemplate, primeng_button__WEBPACK_IMPORTED_MODULE_7__.Button, primeng_inplace__WEBPACK_IMPORTED_MODULE_8__.Inplace, _angular_forms__WEBPACK_IMPORTED_MODULE_9__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_9__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_9__.NgModel, primeng_confirmpopup__WEBPACK_IMPORTED_MODULE_10__.ConfirmPopup, _angular_common__WEBPACK_IMPORTED_MODULE_5__.DatePipe],
+    styles: [".in-place-edit[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n}\n\n.edit-icon[_ngcontent-%COMP%] {\n  margin-left: 1rem;\n}\n\n.project-name[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  font-weight: 700;\n}\n\n.project-description[_ngcontent-%COMP%] {\n  margin: 0 0 1rem 0;\n}\n\n.project-category-icon[_ngcontent-%COMP%] {\n  vertical-align: middle;\n  margin-right: 0.5rem;\n}\n\n.project-category[_ngcontent-%COMP%] {\n  font-weight: 600;\n  vertical-align: middle;\n}\n\n.project-list-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: 1rem;\n  width: 100%;\n}\n.project-list-item[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 150px;\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\n  margin-right: 2rem;\n}\n.project-list-item[_ngcontent-%COMP%]   .project-list-detail[_ngcontent-%COMP%] {\n  flex: 1 1 0;\n}\n.project-list-item[_ngcontent-%COMP%]   .p-rating[_ngcontent-%COMP%] {\n  margin: 0 0 0.5rem 0;\n}\n.project-list-item[_ngcontent-%COMP%]   .project-date[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: normal;\n  margin-bottom: 0.5rem;\n  align-self: flex-end;\n}\n.project-list-item[_ngcontent-%COMP%]   .project-list-action[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.project-list-item[_ngcontent-%COMP%]   p-button[_ngcontent-%COMP%] {\n  margin-bottom: 0.1rem;\n  align-self: flex-end;\n}\n\n.current-project-item[_ngcontent-%COMP%] {\n  background-color: var(--green-50);\n}\n\n@media screen and (max-width: 576px) {\n  [_nghost-%COMP%]     .product-list-item {\n    flex-direction: column;\n    align-items: center;\n  }\n  [_nghost-%COMP%]     .product-list-item img {\n    width: 75%;\n    margin: 2rem 0;\n  }\n  [_nghost-%COMP%]     .product-list-item .product-list-detail {\n    text-align: center;\n  }\n  [_nghost-%COMP%]     .product-list-item .product-price {\n    align-self: center;\n  }\n  [_nghost-%COMP%]     .product-list-item .product-list-action {\n    display: flex;\n    flex-direction: column;\n  }\n  [_nghost-%COMP%]     .product-list-item .product-list-action {\n    margin-top: 2rem;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n  }\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL2FwcHMvaWRlLXVpL3NyYy9hcHAvcm91dGVzL3Byb2plY3QvcHJvamVjdC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQTtFQUNDLG1CQUFBO0FBQUQ7O0FBR0E7RUFDRSxpQkFBQTtBQUFGOztBQUdBO0VBQ0UsaUJBQUE7RUFDQSxnQkFBQTtBQUFGOztBQUdBO0VBQ0Usa0JBQUE7QUFBRjs7QUFHQTtFQUNFLHNCQUFBO0VBQ0Esb0JBQUE7QUFBRjs7QUFHQTtFQUNFLGdCQUFBO0VBQ0Esc0JBQUE7QUFBRjs7QUFHQTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLGFBQUE7RUFDQSxXQUFBO0FBQUY7QUFFRTtFQUNFLFlBQUE7RUFDQSx3RUFBQTtFQUNBLGtCQUFBO0FBQUo7QUFHRTtFQUNFLFdBQUE7QUFESjtBQUlFO0VBQ0Usb0JBQUE7QUFGSjtBQUtFO0VBQ0UsZUFBQTtFQUNBLG1CQUFBO0VBQ0EscUJBQUE7RUFDQSxvQkFBQTtBQUhKO0FBTUU7RUFDRSxhQUFBO0VBQ0Esc0JBQUE7QUFKSjtBQU9FO0VBQ0UscUJBQUE7RUFDQSxvQkFBQTtBQUxKOztBQVNBO0VBQ0MsaUNBQUE7QUFORDs7QUFRQTtFQUNFO0lBQ0Usc0JBQUE7SUFDQSxtQkFBQTtFQUxGO0VBT0U7SUFDRSxVQUFBO0lBQ0EsY0FBQTtFQUxKO0VBUUU7SUFDRSxrQkFBQTtFQU5KO0VBU0U7SUFDRSxrQkFBQTtFQVBKO0VBVUU7SUFDRSxhQUFBO0lBQ0Esc0JBQUE7RUFSSjtFQVdFO0lBQ0UsZ0JBQUE7SUFDQSxtQkFBQTtJQUNBLDhCQUFBO0lBQ0EsbUJBQUE7SUFDQSxXQUFBO0VBVEo7QUFDRiIsInNvdXJjZXNDb250ZW50IjpbIlxuLmluLXBsYWNlLWVkaXQge1xuIG1hcmdpbi1ib3R0b206IDEuMHJlbTtcbn1cblxuLmVkaXQtaWNvbiB7XG4gIG1hcmdpbi1sZWZ0OiAxLjByZW07XG59XG5cbi5wcm9qZWN0LW5hbWUge1xuICBmb250LXNpemU6IDEuNXJlbTtcbiAgZm9udC13ZWlnaHQ6IDcwMDtcbn1cblxuLnByb2plY3QtZGVzY3JpcHRpb24ge1xuICBtYXJnaW46IDAgMCAxcmVtIDA7XG59XG5cbi5wcm9qZWN0LWNhdGVnb3J5LWljb24ge1xuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICBtYXJnaW4tcmlnaHQ6IC41cmVtO1xufVxuXG4ucHJvamVjdC1jYXRlZ29yeSB7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG5cbi5wcm9qZWN0LWxpc3QtaXRlbSB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIHBhZGRpbmc6IDFyZW07XG4gIHdpZHRoOiAxMDAlO1xuXG4gIGltZyB7XG4gICAgd2lkdGg6IDE1MHB4O1xuICAgIGJveC1zaGFkb3c6IDAgM3B4IDZweCByZ2JhKDAsIDAsIDAsIDAuMTYpLCAwIDNweCA2cHggcmdiYSgwLCAwLCAwLCAwLjIzKTtcbiAgICBtYXJnaW4tcmlnaHQ6IDJyZW07XG4gIH1cblxuICAucHJvamVjdC1saXN0LWRldGFpbCB7XG4gICAgZmxleDogMSAxIDA7XG4gIH1cblxuICAucC1yYXRpbmcge1xuICAgIG1hcmdpbjogMCAwIC41cmVtIDA7XG4gIH1cblxuICAucHJvamVjdC1kYXRlIHtcbiAgICBmb250LXNpemU6IDEuMHJlbTtcbiAgICBmb250LXdlaWdodDogbm9ybWFsO1xuICAgIG1hcmdpbi1ib3R0b206IC41cmVtO1xuICAgIGFsaWduLXNlbGY6IGZsZXgtZW5kO1xuICB9XG5cbiAgLnByb2plY3QtbGlzdC1hY3Rpb24ge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgfVxuXG4gIHAtYnV0dG9uIHtcbiAgICBtYXJnaW4tYm90dG9tOiAuMXJlbTtcbiAgICBhbGlnbi1zZWxmOiBmbGV4LWVuZDtcbiAgfVxufVxuXG4uY3VycmVudC1wcm9qZWN0LWl0ZW0ge1xuIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWdyZWVuLTUwKVxufVxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogNTc2cHgpIHtcbiAgOmhvc3QgOjpuZy1kZWVwIC5wcm9kdWN0LWxpc3QtaXRlbSB7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuXG4gICAgaW1nIHtcbiAgICAgIHdpZHRoOiA3NSU7XG4gICAgICBtYXJnaW46IDJyZW0gMDtcbiAgICB9XG5cbiAgICAucHJvZHVjdC1saXN0LWRldGFpbCB7XG4gICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgfVxuXG4gICAgLnByb2R1Y3QtcHJpY2Uge1xuICAgICAgYWxpZ24tc2VsZjogY2VudGVyO1xuICAgIH1cblxuICAgIC5wcm9kdWN0LWxpc3QtYWN0aW9uIHtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIH1cblxuICAgIC5wcm9kdWN0LWxpc3QtYWN0aW9uIHtcbiAgICAgIG1hcmdpbi10b3A6IDJyZW07XG4gICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICAgICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICAgIHdpZHRoOiAxMDAlO1xuICAgIH1cbiAgfVxufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
+  });
 }
-
-ProjectComponent.ɵfac = function ProjectComponent_Factory(t) {
-  return new (t || ProjectComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_shared_project_services_project_service__WEBPACK_IMPORTED_MODULE_0__.ProjectService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_shared_change_services_change_update_service__WEBPACK_IMPORTED_MODULE_2__.ChangeUpdateService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](primeng_api__WEBPACK_IMPORTED_MODULE_4__.ConfirmationService));
-};
-ProjectComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({
-  type: ProjectComponent,
-  selectors: [["ide-ui-project"]],
-  viewQuery: function ProjectComponent_Query(rf, ctx) {
-    if (rf & 1) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵviewQuery"](_c0, 5);
-    }
-    if (rf & 2) {
-      let _t;
-      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵloadQuery"]()) && (ctx.inPlaceName = _t.first);
-    }
-  },
-  features: [_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵInheritDefinitionFeature"]],
-  decls: 3,
-  vars: 1,
-  consts: [["layout", "list", 3, "value"], ["pTemplate", "listItem"], [1, "col-12"], [1, "project-list-item", 3, "ngClass"], ["class", "project-list-detail", 4, "ngIf"], [1, "project-list-action"], [1, "project-date"], ["icon", "pi pi-save", "label", "Save", 3, "onClick", 4, "ngIf"], ["icon", "pi pi-play", 3, "label", "onClick"], [1, "project-list-detail"], [1, "in-place-edit"], ["closeIcon", "pi pi-check", 3, "closable"], ["inPlaceName", ""], ["pTemplate", "display"], ["pTemplate", "content"], ["inPlaceDescription", ""], [1, "pi", "pi-inbox", "project-category-icon"], [1, "project-category"], [1, "project-name"], [1, "pi", "pi-pencil", "edit-icon"], ["type", "text", "id", "project-name-edit", "pInputText", "", 3, "ngModel", "ngModelChange", "focusout"], ["editName", ""], [1, "project-description"], ["type", "text", "id", "project-description-edit", "size", "50", "pInputText", "", 3, "ngModel", "ngModelChange", "focusout"], ["editDescription", ""], [4, "ngIf"], [1, "pi", "pi-bookmark", "project-category-icon"], [1, "pi", "pi-briefcase", "project-category-icon"], ["icon", "pi pi-save", "label", "Save", 3, "onClick"]],
-  template: function ProjectComponent_Template(rf, ctx) {
-    if (rf & 1) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](0, "p-confirmPopup");
-      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "p-dataView", 0);
-      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](2, ProjectComponent_ng_template_2_Template, 10, 8, "ng-template", 1);
-      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
-    }
-    if (rf & 2) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("value", ctx.projectService.projects);
-    }
-  },
-  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgIf, primeng_dataview__WEBPACK_IMPORTED_MODULE_6__.DataView, primeng_api__WEBPACK_IMPORTED_MODULE_4__.PrimeTemplate, primeng_button__WEBPACK_IMPORTED_MODULE_7__.Button, primeng_inplace__WEBPACK_IMPORTED_MODULE_8__.Inplace, _angular_forms__WEBPACK_IMPORTED_MODULE_9__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_9__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_9__.NgModel, primeng_confirmpopup__WEBPACK_IMPORTED_MODULE_10__.ConfirmPopup, _angular_common__WEBPACK_IMPORTED_MODULE_5__.DatePipe],
-  styles: [".in-place-edit[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n}\n\n.edit-icon[_ngcontent-%COMP%] {\n  margin-left: 1rem;\n}\n\n.project-name[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  font-weight: 700;\n}\n\n.project-description[_ngcontent-%COMP%] {\n  margin: 0 0 1rem 0;\n}\n\n.project-category-icon[_ngcontent-%COMP%] {\n  vertical-align: middle;\n  margin-right: 0.5rem;\n}\n\n.project-category[_ngcontent-%COMP%] {\n  font-weight: 600;\n  vertical-align: middle;\n}\n\n.project-list-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: 1rem;\n  width: 100%;\n}\n.project-list-item[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 150px;\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\n  margin-right: 2rem;\n}\n.project-list-item[_ngcontent-%COMP%]   .project-list-detail[_ngcontent-%COMP%] {\n  flex: 1 1 0;\n}\n.project-list-item[_ngcontent-%COMP%]   .p-rating[_ngcontent-%COMP%] {\n  margin: 0 0 0.5rem 0;\n}\n.project-list-item[_ngcontent-%COMP%]   .project-date[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: normal;\n  margin-bottom: 0.5rem;\n  align-self: flex-end;\n}\n.project-list-item[_ngcontent-%COMP%]   .project-list-action[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.project-list-item[_ngcontent-%COMP%]   p-button[_ngcontent-%COMP%] {\n  margin-bottom: 0.1rem;\n  align-self: flex-end;\n}\n\n.current-project-item[_ngcontent-%COMP%] {\n  background-color: var(--green-50);\n}\n\n@media screen and (max-width: 576px) {\n  [_nghost-%COMP%]     .product-list-item {\n    flex-direction: column;\n    align-items: center;\n  }\n  [_nghost-%COMP%]     .product-list-item img {\n    width: 75%;\n    margin: 2rem 0;\n  }\n  [_nghost-%COMP%]     .product-list-item .product-list-detail {\n    text-align: center;\n  }\n  [_nghost-%COMP%]     .product-list-item .product-price {\n    align-self: center;\n  }\n  [_nghost-%COMP%]     .product-list-item .product-list-action {\n    display: flex;\n    flex-direction: column;\n  }\n  [_nghost-%COMP%]     .product-list-item .product-list-action {\n    margin-top: 2rem;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n  }\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL2FwcHMvaWRlLXVpL3NyYy9hcHAvcm91dGVzL3Byb2plY3QvcHJvamVjdC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQTtFQUNDLG1CQUFBO0FBQUQ7O0FBR0E7RUFDRSxpQkFBQTtBQUFGOztBQUdBO0VBQ0UsaUJBQUE7RUFDQSxnQkFBQTtBQUFGOztBQUdBO0VBQ0Usa0JBQUE7QUFBRjs7QUFHQTtFQUNFLHNCQUFBO0VBQ0Esb0JBQUE7QUFBRjs7QUFHQTtFQUNFLGdCQUFBO0VBQ0Esc0JBQUE7QUFBRjs7QUFHQTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLGFBQUE7RUFDQSxXQUFBO0FBQUY7QUFFRTtFQUNFLFlBQUE7RUFDQSx3RUFBQTtFQUNBLGtCQUFBO0FBQUo7QUFHRTtFQUNFLFdBQUE7QUFESjtBQUlFO0VBQ0Usb0JBQUE7QUFGSjtBQUtFO0VBQ0UsZUFBQTtFQUNBLG1CQUFBO0VBQ0EscUJBQUE7RUFDQSxvQkFBQTtBQUhKO0FBTUU7RUFDRSxhQUFBO0VBQ0Esc0JBQUE7QUFKSjtBQU9FO0VBQ0UscUJBQUE7RUFDQSxvQkFBQTtBQUxKOztBQVNBO0VBQ0MsaUNBQUE7QUFORDs7QUFRQTtFQUNFO0lBQ0Usc0JBQUE7SUFDQSxtQkFBQTtFQUxGO0VBT0U7SUFDRSxVQUFBO0lBQ0EsY0FBQTtFQUxKO0VBUUU7SUFDRSxrQkFBQTtFQU5KO0VBU0U7SUFDRSxrQkFBQTtFQVBKO0VBVUU7SUFDRSxhQUFBO0lBQ0Esc0JBQUE7RUFSSjtFQVdFO0lBQ0UsZ0JBQUE7SUFDQSxtQkFBQTtJQUNBLDhCQUFBO0lBQ0EsbUJBQUE7SUFDQSxXQUFBO0VBVEo7QUFDRiIsInNvdXJjZXNDb250ZW50IjpbIlxuLmluLXBsYWNlLWVkaXQge1xuIG1hcmdpbi1ib3R0b206IDEuMHJlbTtcbn1cblxuLmVkaXQtaWNvbiB7XG4gIG1hcmdpbi1sZWZ0OiAxLjByZW07XG59XG5cbi5wcm9qZWN0LW5hbWUge1xuICBmb250LXNpemU6IDEuNXJlbTtcbiAgZm9udC13ZWlnaHQ6IDcwMDtcbn1cblxuLnByb2plY3QtZGVzY3JpcHRpb24ge1xuICBtYXJnaW46IDAgMCAxcmVtIDA7XG59XG5cbi5wcm9qZWN0LWNhdGVnb3J5LWljb24ge1xuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICBtYXJnaW4tcmlnaHQ6IC41cmVtO1xufVxuXG4ucHJvamVjdC1jYXRlZ29yeSB7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG5cbi5wcm9qZWN0LWxpc3QtaXRlbSB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIHBhZGRpbmc6IDFyZW07XG4gIHdpZHRoOiAxMDAlO1xuXG4gIGltZyB7XG4gICAgd2lkdGg6IDE1MHB4O1xuICAgIGJveC1zaGFkb3c6IDAgM3B4IDZweCByZ2JhKDAsIDAsIDAsIDAuMTYpLCAwIDNweCA2cHggcmdiYSgwLCAwLCAwLCAwLjIzKTtcbiAgICBtYXJnaW4tcmlnaHQ6IDJyZW07XG4gIH1cblxuICAucHJvamVjdC1saXN0LWRldGFpbCB7XG4gICAgZmxleDogMSAxIDA7XG4gIH1cblxuICAucC1yYXRpbmcge1xuICAgIG1hcmdpbjogMCAwIC41cmVtIDA7XG4gIH1cblxuICAucHJvamVjdC1kYXRlIHtcbiAgICBmb250LXNpemU6IDEuMHJlbTtcbiAgICBmb250LXdlaWdodDogbm9ybWFsO1xuICAgIG1hcmdpbi1ib3R0b206IC41cmVtO1xuICAgIGFsaWduLXNlbGY6IGZsZXgtZW5kO1xuICB9XG5cbiAgLnByb2plY3QtbGlzdC1hY3Rpb24ge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgfVxuXG4gIHAtYnV0dG9uIHtcbiAgICBtYXJnaW4tYm90dG9tOiAuMXJlbTtcbiAgICBhbGlnbi1zZWxmOiBmbGV4LWVuZDtcbiAgfVxufVxuXG4uY3VycmVudC1wcm9qZWN0LWl0ZW0ge1xuIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWdyZWVuLTUwKVxufVxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogNTc2cHgpIHtcbiAgOmhvc3QgOjpuZy1kZWVwIC5wcm9kdWN0LWxpc3QtaXRlbSB7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuXG4gICAgaW1nIHtcbiAgICAgIHdpZHRoOiA3NSU7XG4gICAgICBtYXJnaW46IDJyZW0gMDtcbiAgICB9XG5cbiAgICAucHJvZHVjdC1saXN0LWRldGFpbCB7XG4gICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgfVxuXG4gICAgLnByb2R1Y3QtcHJpY2Uge1xuICAgICAgYWxpZ24tc2VsZjogY2VudGVyO1xuICAgIH1cblxuICAgIC5wcm9kdWN0LWxpc3QtYWN0aW9uIHtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIH1cblxuICAgIC5wcm9kdWN0LWxpc3QtYWN0aW9uIHtcbiAgICAgIG1hcmdpbi10b3A6IDJyZW07XG4gICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICAgICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICAgIHdpZHRoOiAxMDAlO1xuICAgIH1cbiAgfVxufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
-});
 
 /***/ }),
 
@@ -352,16 +351,17 @@ const routes = [{
   path: '',
   component: _project_component__WEBPACK_IMPORTED_MODULE_0__.ProjectComponent
 }];
-class ProjectModule {}
-ProjectModule.ɵfac = function ProjectModule_Factory(t) {
-  return new (t || ProjectModule)();
-};
-ProjectModule.ɵmod = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineNgModule"]({
-  type: ProjectModule
-});
-ProjectModule.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector"]({
-  imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, _angular_router__WEBPACK_IMPORTED_MODULE_4__.RouterModule.forChild(routes), _angular_common_http__WEBPACK_IMPORTED_MODULE_5__.HttpClientModule, primeng_dataview__WEBPACK_IMPORTED_MODULE_6__.DataViewModule, primeng_button__WEBPACK_IMPORTED_MODULE_7__.ButtonModule, _shared_shared_module__WEBPACK_IMPORTED_MODULE_1__.SharedModule, primeng_inplace__WEBPACK_IMPORTED_MODULE_8__.InplaceModule, _angular_forms__WEBPACK_IMPORTED_MODULE_9__.FormsModule, primeng_confirmpopup__WEBPACK_IMPORTED_MODULE_10__.ConfirmPopupModule]
-});
+class ProjectModule {
+  static #_ = this.ɵfac = function ProjectModule_Factory(t) {
+    return new (t || ProjectModule)();
+  };
+  static #_2 = this.ɵmod = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineNgModule"]({
+    type: ProjectModule
+  });
+  static #_3 = this.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector"]({
+    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, _angular_router__WEBPACK_IMPORTED_MODULE_4__.RouterModule.forChild(routes), _angular_common_http__WEBPACK_IMPORTED_MODULE_5__.HttpClientModule, primeng_dataview__WEBPACK_IMPORTED_MODULE_6__.DataViewModule, primeng_button__WEBPACK_IMPORTED_MODULE_7__.ButtonModule, _shared_shared_module__WEBPACK_IMPORTED_MODULE_1__.SharedModule, primeng_inplace__WEBPACK_IMPORTED_MODULE_8__.InplaceModule, _angular_forms__WEBPACK_IMPORTED_MODULE_9__.FormsModule, primeng_confirmpopup__WEBPACK_IMPORTED_MODULE_10__.ConfirmPopupModule]
+  });
+}
 (function () {
   (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsetNgModuleScope"](ProjectModule, {
     declarations: [_project_component__WEBPACK_IMPORTED_MODULE_0__.ProjectComponent],
@@ -395,18 +395,18 @@ class IdeComponent {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
+  static #_ = this.ɵfac = function IdeComponent_Factory(t) {
+    return new (t || IdeComponent)();
+  };
+  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
+    type: IdeComponent,
+    selectors: [["ng-component"]],
+    decls: 0,
+    vars: 0,
+    template: function IdeComponent_Template(rf, ctx) {},
+    encapsulation: 2
+  });
 }
-IdeComponent.ɵfac = function IdeComponent_Factory(t) {
-  return new (t || IdeComponent)();
-};
-IdeComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
-  type: IdeComponent,
-  selectors: [["ng-component"]],
-  decls: 0,
-  vars: 0,
-  template: function IdeComponent_Template(rf, ctx) {},
-  encapsulation: 2
-});
 
 /***/ }),
 
