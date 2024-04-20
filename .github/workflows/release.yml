@@ -29,13 +29,13 @@ jobs:
         browser: [chromium, chrome]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{env.branch}}
           token: ${{secrets.DONTCODE_ACTIONS_TOKEN}}
       - name: Use Node.js 18
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
@@ -56,22 +56,22 @@ jobs:
       - name: E2E Tests on ${{matrix.browser}}
         run: |
           nx run ide-ui-e2e:e2e --browser ${{matrix.browser}}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         # Test run screenshots only on failure
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-${{matrix.browser}}-screenshots
           path: dist/cypress/apps/ide-ui-e2e/screenshots
         # Test run video was always captured, so this action uses "always()" condition
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-videos
+          name: cypress-${{matrix.browser}}-videos
           path: dist/cypress/apps/ide-ui-e2e/videos
       - name: Deploy the tester application in github pages
         if: ${{ success() && matrix.browser == 'chromium' && ( inputs.deploy == true ) }}
         run: |
-          nx run ide-ui:build:${{env.build}} --output-path="dist/apps/ide-ui/${{env.stage}}" --base-href "https://dont-code.net/ide-ui/${{env.stage}}/"
+          nx run ide-ui:build:${{env.build}} --output-path="dist/apps/ide-ui/${{env.stage}}" --base-href "https://run.dont-code.net/ide-ui/${{env.stage}}/"
       - if: ${{ success() && (matrix.browser == 'chromium') && ( inputs.deploy == true ) }}
         uses: gcollin/ghaction-github-pages@main
         with:

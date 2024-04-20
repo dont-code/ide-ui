@@ -1,7 +1,8 @@
 export const environment = {
   production: false,
-  webSocketUrl: 'wss://test.dont-code.net/demo/ide',
-  previewUrl: 'https://dont-code.net/preview-ui/next',
-  projectUrl: 'https://test.dont-code.net/demo/project'
+  previewUrl: 'https://run.dont-code.net/preview-ui/next',
+  //repositoryUrl: 'assets/repositories/next.json'
+  repositoryUrl: 'https://test.dont-code.net/demo/repository-next.json'
+
 };
 

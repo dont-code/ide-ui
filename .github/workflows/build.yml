@@ -1,17 +1,24 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Ide-Ui Development
+name: Ide-Ui Build
 
 on:
   workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch name to re-build ?
+        required: true
+        type: string
 
   push:
-    branches:
-    - Development
+  pull_request:
 
 jobs:
   build:
+    env:
+      branch: ${{ inputs.branch || github.ref_name }}
+      stage: ${{ inputs.branch == 'main' && 'latest' || github.ref_name == 'main' && 'latest' || 'next' }}
 
     runs-on: ubuntu-latest
 
@@ -20,13 +27,13 @@ jobs:
         browser: [chromium, chrome]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: 'Development'
+          ref: ${{ env.branch }}
           token: ${{secrets.DONTCODE_ACTIONS_TOKEN}}
       - name: Use Node.js version 18
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18.x'
           cache: 'npm'
@@ -34,7 +41,7 @@ jobs:
         run: |
           npm install -g nx
           npm install --force
-          npm install @dontcode/core@next @dontcode/plugin-common@next @dontcode/sandbox@next @dontcode/plugin-basic@next @dontcode/plugin-fields@next @dontcode/plugin-screen@next @dontcode/plugin-rest@next @dontcode/plugin-report@next @dontcode/plugin-commerce@next
+          npm install @dontcode/core@${{env.stage}} @dontcode/plugin-common@${{env.stage}} @dontcode/sandbox@${{env.stage}} @dontcode/plugin-basic@${{env.stage}} @dontcode/plugin-fields@${{env.stage}} @dontcode/plugin-screen@${{env.stage}} @dontcode/plugin-rest@${{env.stage}} @dontcode/plugin-report@${{env.stage}} @dontcode/plugin-commerce@${{env.stage}}
       - name: Build
         run: nx run ide-ui:build:production
       - name: Unit Tests
@@ -43,15 +50,15 @@ jobs:
       - name: E2E Tests on ${{matrix.browser}}
         run: |
           nx run ide-ui-e2e:e2e --browser ${{matrix.browser}}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         # Test run screenshots only on failure
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-${{matrix.browser}}-screenshots
           path: dist/cypress/apps/ide-ui-e2e/screenshots
         # Test run video was always captured, so this action uses "always()" condition
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-videos
+          name: cypress-${{matrix.browser}}-videos
           path: dist/cypress/apps/ide-ui-e2e/videos
