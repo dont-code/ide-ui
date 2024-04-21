@@ -12,7 +12,6 @@ on:
         type: string
 
   push:
-  pull_request:
 
 jobs:
   build:
