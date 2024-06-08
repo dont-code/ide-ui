@@ -3,7 +3,7 @@
   "name": "Dev Repository",
   "description": "Repository provided by Dont-code offering all defaults plugins running locally",
   
-  "ideWebSocketUrl": "ws://localhost:8082/ide",
+  "ideWebSocketUrl": "wss://localhost:8082/ide",
   "projectApiUrl": "/api/project"
 
 }
