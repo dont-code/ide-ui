@@ -1,4 +1,5 @@
 const { defineConfig } = require('cypress')
+const installLogsPrinter= require ('cypress-terminal-report/src/installLogsPrinter');
 
 module.exports = defineConfig({
   "fileServerFolder": ".",
@@ -9,8 +10,12 @@ module.exports = defineConfig({
   "screenshotsFolder": "../../dist/cypress/apps/ide-ui-e2e/screenshots",
   "chromeWebSecurity": false,
   e2e: {
-    setupNodeEvents(on, config) {},
-    specPattern: './src/integration/**/*.cy.{js,jsx,ts,tsx}',
+    setupNodeEvents(on, config) {
+      installLogsPrinter(on, {
+        printLogsToConsole: "always",
+      });
+  },
+  specPattern: './src/integration/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: './src/support/index.ts',
   },
 })
