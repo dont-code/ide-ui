@@ -16,7 +16,7 @@ export class InputElementComponent implements OnInit, OnDestroy {
 
   subscriptions = new Subscription ();
   
-  control = new FormControl<string>('', {updateOn:'blur'});
+  control = new FormControl<string>({value:'', disabled:false}, {updateOn:'blur'});
 
   constructor(protected changeService:ChangeUpdateService) { }
 
