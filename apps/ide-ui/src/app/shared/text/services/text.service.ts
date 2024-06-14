@@ -31,6 +31,7 @@ export class TextService {
 
 
   resetSchema () {
+    console.debug('TextElement: Resetting rootElement');
     this.rootElement=null;
     //this.mapOfJson.clear();
     //this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
@@ -47,11 +48,13 @@ export class TextService {
       this.rootElement = EditorElement.createNew(
         DontCodeModel.ROOT, DontCodeModel.ROOT,
         EditorElementType.label, rootSchema);
-    }
+        console.debug('TextElement: Setting new rootElement');
+      }
   }
 
   getRootElement (): EditorElement {
     if (!this.rootElement) throw new Error('No root elements to return');
+    console.debug('TextElement: returning rootElement');
     return this.rootElement;
   }
 }
