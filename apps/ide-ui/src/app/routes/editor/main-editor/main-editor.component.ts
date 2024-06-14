@@ -24,23 +24,35 @@ export class MainEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    try {
+      this.rootElement = this.textService.getRootElement();
+      console.debug('Got initial rootElement', this.rootElement.getChild('name')?.getEditedValue());
+    } catch (err) {
+      console.error('Error getting initial root element.', err);
+    }
+
     this.unsubscriber.add(this.changeListener.getChangeEvents()
       .subscribe(change => {
+        console.debug('Change receive for rootElement', this.rootElement?.getChild('name')?.getEditedValue());
         if (change.type===ChangeType.RESET) {
           if( change.position===DontCodeModel.ROOT || change.position==="") {
+            try {
             this.rootElement = this.textService.getRootElement();
             this.rootElement.setEditedValue(change.value?.creation);
-//            console.log('Reset received');
+            console.debug('Reset received, new root element', this.rootElement.getChild('name')?.getEditedValue());
             this.ref.markForCheck();
             this.ref.detectChanges();
+          } catch (err) {
+            console.error('Error getting the edited root element.', err);
+          }
           }
         }
       })
     );
-    this.rootElement = this.textService.getRootElement();
   }
 
   ngOnDestroy(): void {
+    console.debug('Closing with rootElement', this.rootElement?.getChild('name')?.getEditedValue());
     // unsubscribe to all observables
     this.unsubscriber.unsubscribe();
   }
