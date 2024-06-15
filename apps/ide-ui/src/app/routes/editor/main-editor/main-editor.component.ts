@@ -43,7 +43,7 @@ export class MainEditorComponent implements OnInit, OnDestroy {
         }
       })
     );
-    
+
     try {
       this.rootElement = this.textService.getRootElement();
       console.debug('Got initial rootElement', this.rootElement.getChild('name')?.getEditedValue());

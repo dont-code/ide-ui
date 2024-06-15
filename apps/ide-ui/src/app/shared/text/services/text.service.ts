@@ -26,6 +26,7 @@ export class TextService {
   //mapOfJson = new Map<string, DontCodeSchemaItem>();
 
   constructor(protected http:HttpClient) {
+    console.debug('TextElement: Constructor');
 
   }
 
@@ -48,7 +49,7 @@ export class TextService {
       this.rootElement = EditorElement.createNew(
         DontCodeModel.ROOT, DontCodeModel.ROOT,
         EditorElementType.label, rootSchema);
-        console.debug('TextElement: Setting new rootElement');
+        console.debug('TextElement: New rootElement');
       }
   }
 

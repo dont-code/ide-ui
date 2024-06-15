@@ -26,7 +26,11 @@ describe('main-editor', () => {
     // Function helper example, see `../support/app.po.ts` file
 
     getEditorMenu().click();
-    getAppNameInput().type('To Do App');
+      // Make sure we wait for all init to be done
+    const appName = getAppNameInput();
+    appName.should('be.enabled');
+    appName.click();
+    appName.type('To Do App');
     getIndexEntityName('a').type('ToDo');
     getIndexEntityFieldName('a','a').type('name');
     getIndexEntityFieldType('a','a').click();
@@ -49,7 +53,11 @@ describe('main-editor', () => {
   it('should support add/remove/up/down', () => {
 
     getEditorMenu().click();
-    getAppNameInput().type('To Do App');
+      // Make sure we wait for all init to be done
+    const appName = getAppNameInput();
+    appName.should('be.enabled');
+    appName.click();
+    appName.type('To Do App');
     getIndexEntityName('a').type('ToDo');
     getIndexEntityFieldName('a','a').type('name');
     getIndexEntityFieldType('a','a').click();

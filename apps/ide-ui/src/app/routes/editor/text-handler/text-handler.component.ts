@@ -14,7 +14,7 @@ export class TextHandlerComponent implements OnInit, OnChanges {
 
   listOfElements:EditorElement[] = [];
 
-  constructor(protected model: TextService, protected ref:ChangeDetectorRef) { }
+  constructor(protected ref:ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.listOfElements = this.element.getChildrenToDisplay();
