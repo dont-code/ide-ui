@@ -24,7 +24,11 @@ describe('plugin-support', () => {
     cy.intercept('POST','https://test.dont-code.net/e2e/project').as('Save');
 
     getEditorMenu().click();
-    getAppNameInput().type('Test Dynamic Url');
+      // Make sure we wait for all init to be done
+    const appName = getAppNameInput();
+    appName.should('be.enabled');
+    appName.click();
+    appName.type('Test Dynamic Url');
     getField('sources','a', 'name').type ("testSource");
     getDropDown('sources','a', 'type').click();
 
