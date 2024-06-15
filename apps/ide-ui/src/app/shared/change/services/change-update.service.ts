@@ -128,19 +128,23 @@ export class ChangeUpdateService {
     }
   }
 
-  pushChange (newChange:Change): void {
+  pushChange (newChange:Change): Promise<void> {
     //console.log('Change pushed');
     if( newChange.type===ChangeType.RESET) {
       this.listOfChanges.length=0;
     } else {
       this.listOfChanges.push(newChange);
     }
-    this.channel.postMessage(newChange);
-    this.updateSocket(new Message (MessageType.CHANGE, this.sessionId, newChange));
+    return Promise.all ([
+      this.channel.postMessage(newChange),
+      this.updateSocket(new Message (MessageType.CHANGE, this.sessionId, newChange))
+      ]
+    ).then ();
+    
   }
 
-  async updateSocket (newChange:Message) {
-    this.openWebSocket().then (socket => socket.next(newChange));
+  updateSocket (newChange:Message): Promise<void> {
+    return this.openWebSocket().then (socket => socket.next(newChange));
   }
 
   getListOfChanges (): Change[] {
