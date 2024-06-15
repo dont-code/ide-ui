@@ -72,8 +72,8 @@ export class MainComponent implements OnInit, OnDestroy{
     this.service.resetSchema();
     this.service.readSchema(dtcde.getSchemaManager().getSchema());
 //    this.service.readSchemaFormUrl('assets/core/'+DontCode.dtcde.getSchemaUri());
-/*    if (this.serverUrl.length!=0)
-      this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));*/
+    if (this.serverUrl.length!=0)
+      this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
     this.projectService.newCurrentProject();
 
     this.ref.detectChanges();
