@@ -26,13 +26,13 @@ export class TextService {
   //mapOfJson = new Map<string, DontCodeSchemaItem>();
 
   constructor(protected http:HttpClient) {
-//    console.debug('TextElement: Constructor');
+    console.debug('TextElement: Constructor');
 
   }
 
 
   resetSchema () {
-    //console.debug('TextElement: Resetting rootElement');
+    console.debug('TextElement: Resetting rootElement');
     this.rootElement=null;
   }
 
@@ -47,13 +47,13 @@ export class TextService {
       this.rootElement = EditorElement.createNew(
         DontCodeModel.ROOT, DontCodeModel.ROOT,
         EditorElementType.label, rootSchema);
-        //console.debug('TextElement: New rootElement');
+        console.debug('TextElement: New rootElement set');
       }
   }
 
   getRootElement (): EditorElement {
     if (!this.rootElement) throw new Error('No root elements to return');
-//    console.debug('TextElement: returning rootElement');
+    console.debug('TextElement: returning rootElement');
     return this.rootElement;
   }
 }
