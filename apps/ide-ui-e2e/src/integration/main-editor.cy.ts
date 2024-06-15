@@ -27,10 +27,9 @@ describe('main-editor', () => {
 
     getEditorMenu().click();
       // Make sure we wait for all init to be done
-    const appName = getAppNameInput();
-    appName.should('be.enabled');
-    appName.click();
-    appName.type('To Do App');
+    getAppNameInput().should('be.enabled');
+    getAppNameInput().click();
+    getAppNameInput().type('To Do App');
     getIndexEntityName('a').type('ToDo');
     getIndexEntityFieldName('a','a').type('name');
     getIndexEntityFieldType('a','a').click();
@@ -54,10 +53,9 @@ describe('main-editor', () => {
 
     getEditorMenu().click();
       // Make sure we wait for all init to be done
-    const appName = getAppNameInput();
-    appName.should('be.enabled');
-    appName.click();
-    appName.type('To Do App');
+    getAppNameInput().should('be.enabled');
+    getAppNameInput().click();
+    getAppNameInput().type('To Do App');
     getIndexEntityName('a').type('ToDo');
     getIndexEntityFieldName('a','a').type('name');
     getIndexEntityFieldType('a','a').click();

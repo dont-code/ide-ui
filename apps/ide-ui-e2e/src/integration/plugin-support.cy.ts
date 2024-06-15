@@ -25,10 +25,9 @@ describe('plugin-support', () => {
 
     getEditorMenu().click();
       // Make sure we wait for all init to be done
-    const appName = getAppNameInput();
-    appName.should('be.enabled');
-    appName.click();
-    appName.type('Test Dynamic Url');
+    getAppNameInput().should('be.enabled');
+    getAppNameInput().click();
+    getAppNameInput().type('Test Dynamic Url');
     getField('sources','a', 'name').type ("testSource");
     getDropDown('sources','a', 'type').click();
 

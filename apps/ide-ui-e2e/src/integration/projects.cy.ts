@@ -25,10 +25,9 @@ describe('projects', () => {
 
     getMenuWithText("Editor").click();
       // Make sure we wait for all init to be done
-    const appName = getAppNameInput();
-    appName.should('be.enabled');
-    appName.click();
-    appName.type('Task Manager');
+    getAppNameInput().should('be.enabled');
+    getAppNameInput().click();
+    getAppNameInput().type('Task Manager');
     getIndexEntityName('a').type('Task');
     getIndexEntityFieldName('a','a').type('Old Name');
     getIndexEntityFieldType('a','a').click();
