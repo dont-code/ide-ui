@@ -42,6 +42,9 @@ describe('main-editor', () => {
     getDevMenu ().click();
     getListOfChanges().should('have.length.greaterThan', 0);
     getEditorMenu().click();
+    // Wait for readiness
+    getIndexEntityFieldNameValue('a','a').should('be.enabled');
+
     getIndexEntityFieldNameValue('a','a').should('equal','name');
     getIndexEntityFieldTypeValue('a','a').should('equal','Text');
     getIndexEntityFieldNameValue('b','a').should('equal','description');
