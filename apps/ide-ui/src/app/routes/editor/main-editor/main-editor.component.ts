@@ -24,6 +24,12 @@ export class MainEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    try {
+      this.rootElement = this.textService.getRootElement();
+      //console.debug('Got initial rootElement', this.rootElement.getChild('name')?.getEditedValue());
+    } catch (err) {
+//      console.error('Error getting initial root element.', err);
+    }
 
     this.unsubscriber.add(this.changeListener.getChangeEvents()
       .subscribe(change => {
@@ -37,19 +43,13 @@ export class MainEditorComponent implements OnInit, OnDestroy {
             this.ref.markForCheck();
             this.ref.detectChanges();
           } catch (err) {
-            console.error('Error getting the edited root element.', err);
+  //          console.error('Error getting the edited root element.', err);
           }
           }
         }
       })
     );
 
-    try {
-      this.rootElement = this.textService.getRootElement();
-      //console.debug('Got initial rootElement', this.rootElement.getChild('name')?.getEditedValue());
-    } catch (err) {
-      console.error('Error getting initial root element.', err);
-    }
   }
 
   ngOnDestroy(): void {
