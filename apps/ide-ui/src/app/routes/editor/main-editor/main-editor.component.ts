@@ -26,9 +26,9 @@ export class MainEditorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     try {
       this.rootElement = this.textService.getRootElement();
-      //console.debug('Got initial rootElement', this.rootElement.getChild('name')?.getEditedValue());
+      console.debug('Got initial rootElement', this.rootElement.getChild('name')?.getEditedValue());
     } catch (err) {
-//      console.error('Error getting initial root element.', err);
+      console.error('Error getting initial root element.', err);
     }
 
     this.unsubscriber.add(this.changeListener.getChangeEvents()
@@ -39,11 +39,11 @@ export class MainEditorComponent implements OnInit, OnDestroy {
             try {
             this.rootElement = this.textService.getRootElement();
             this.rootElement.setEditedValue(change.value?.creation);
-            //console.debug('Reset received, new root element', this.rootElement.getChild('name')?.getEditedValue());
+            console.debug('Reset received, new root element', this.rootElement.getChild('name')?.getEditedValue());
             this.ref.markForCheck();
             this.ref.detectChanges();
           } catch (err) {
-  //          console.error('Error getting the edited root element.', err);
+            console.error('Error getting the edited root element.', err);
           }
           }
         }
@@ -53,7 +53,7 @@ export class MainEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    //console.debug('Closing with rootElement', this.rootElement?.getChild('name')?.getEditedValue());
+    console.debug('Closing with rootElement', this.rootElement?.getChild('name')?.getEditedValue());
     // unsubscribe to all observables
     this.unsubscriber.unsubscribe();
   }
