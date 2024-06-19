@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { ChangeUpdateService } from './change-update.service';
 import { BroadcastChannel } from 'broadcast-channel';
 import {Change, ChangeType, DontCodeChangeManager, dtcde} from '@dontcode/core';
-import { Observable, ReplaySubject } from 'rxjs';
-import {DontCodeModelManager} from "@dontcode/core";
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 
 /**
  * List to all the changes on the edited elements from the BroadCastChannel and updates
@@ -17,7 +16,7 @@ export class ChangeListenService {
   protected channel: BroadcastChannel<Change>;
   protected listOfChanges: Change[]=[];
 
-  protected changeEmitter = new ReplaySubject<Change> ();
+  protected changeEmitter = new Subject<Change> ();
 
   constructor(protected changeMgr:DontCodeChangeManager) {
     this.channel = new BroadcastChannel(ChangeUpdateService.CHANNEL_CHANGE_NAME);
@@ -42,9 +41,9 @@ export class ChangeListenService {
   }
 
   resetEmitter () {
-    const newReplay = new ReplaySubject<Change>();
+/*    const newReplay = new ReplaySubject<Change>();
     newReplay.observers=this.changeEmitter.observers;
-    this.changeEmitter=newReplay;
+    this.changeEmitter=newReplay;*/
   }
 
   getListOfChanges (): Change[] {

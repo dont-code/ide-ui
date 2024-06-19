@@ -24,6 +24,9 @@ describe('projects', () => {
     cy.intercept('GET','https://test.dont-code.net/e2e/project/**').as('Reload');
 
     getMenuWithText("Editor").click();
+      // Make sure we wait for all init to be done
+    getAppNameInput().should('be.enabled');
+    getAppNameInput().click();
     getAppNameInput().type('Task Manager');
     getIndexEntityName('a').type('Task');
     getIndexEntityFieldName('a','a').type('Old Name');

@@ -26,9 +26,12 @@ describe('main-editor', () => {
     // Function helper example, see `../support/app.po.ts` file
 
     getEditorMenu().click();
+      // Make sure we wait for all init to be done
+    getAppNameInput().should('be.enabled');
+    getAppNameInput().click();
     getAppNameInput().type('To Do App');
     getIndexEntityName('a').type('ToDo');
-    getIndexEntityFieldName('a','a').type('name');
+    getIndexEntityFieldName('a','a').type('name{enter}');
     getIndexEntityFieldType('a','a').click();
     selectPopupChoiceWithText('Text');
     getIndexEntityAddButton('a').click();
@@ -39,6 +42,7 @@ describe('main-editor', () => {
     getDevMenu ().click();
     getListOfChanges().should('have.length.greaterThan', 0);
     getEditorMenu().click();
+
     getIndexEntityFieldNameValue('a','a').should('equal','name');
     getIndexEntityFieldTypeValue('a','a').should('equal','Text');
     getIndexEntityFieldNameValue('b','a').should('equal','description');
@@ -49,6 +53,9 @@ describe('main-editor', () => {
   it('should support add/remove/up/down', () => {
 
     getEditorMenu().click();
+      // Make sure we wait for all init to be done
+    getAppNameInput().should('be.enabled');
+    getAppNameInput().click();
     getAppNameInput().type('To Do App');
     getIndexEntityName('a').type('ToDo');
     getIndexEntityFieldName('a','a').type('name');

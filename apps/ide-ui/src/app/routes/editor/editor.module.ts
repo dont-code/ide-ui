@@ -11,7 +11,7 @@ import {AccordionModule} from "primeng/accordion";
 import {ButtonModule} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
 import {InputTextModule} from "primeng/inputtext";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AutoCompleteModule} from "primeng/autocomplete";
 
 
@@ -28,6 +28,7 @@ import {AutoCompleteModule} from "primeng/autocomplete";
         DropdownModule,
         InputTextModule,
         FormsModule,
+        ReactiveFormsModule,
         AutoCompleteModule
     ]
 })

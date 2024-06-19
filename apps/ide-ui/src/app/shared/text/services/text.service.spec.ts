@@ -14,6 +14,7 @@ describe('TextService', () => {
   beforeEach(() => {
     const fakeUpdateService:ChangeUpdateService= jest.genMockFromModule('../../change/services/change-update.service');
     fakeUpdateService.pushChange =  jest.fn(change => {
+      return Promise.resolve();
     });
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],

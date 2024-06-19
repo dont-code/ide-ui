@@ -56,7 +56,7 @@ export class MainComponent implements OnInit, OnDestroy{
         return {status:status[0], sessionId:status[1]};
       }));
 
-    this.loadSchema();
+//    this.loadSchema();
     }
 
   logoClicked() {
@@ -68,15 +68,23 @@ export class MainComponent implements OnInit, OnDestroy{
     this.sidePanelVisible=$event.target.visible;
   }
 
+  /**
+   * User wants to re-start from scratch
+   */
   loadSchema () {
     this.service.resetSchema();
     this.service.readSchema(dtcde.getSchemaManager().getSchema());
-//    this.service.readSchemaFormUrl('assets/core/'+DontCode.dtcde.getSchemaUri());
-    if (this.serverUrl.length!=0)
-      this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null));
-    this.projectService.newCurrentProject();
-
-    this.ref.detectChanges();
+    this.updateService.pushChange(new Change(ChangeType.RESET, DontCodeModel.ROOT,null)).then (
+      () => {
+        this.projectService.newCurrentProject();
+        this.ref.detectChanges();
+      },
+      (reason) => {
+        console.error ('Error while resetting model after a loadSchema', reason);
+        this.projectService.newCurrentProject();
+        this.ref.detectChanges();
+      }
+    )
   }
 
   openDevUrl() {

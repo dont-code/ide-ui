@@ -1,2 +1,2 @@
 <span class="displayable">{{(element.schemaPosition | locale)}}</span>
-<input pInputText [id]="element.id" [name]="element.id" (change)="onChange($event)" [readonly]="element.isReadonly()" [value]="editedValue()">
+<input pInputText [id]="element.id" [name]="element.id" [formControl]="control">
