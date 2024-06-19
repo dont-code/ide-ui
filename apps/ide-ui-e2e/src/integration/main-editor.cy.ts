@@ -31,7 +31,7 @@ describe('main-editor', () => {
     getAppNameInput().click();
     getAppNameInput().type('To Do App');
     getIndexEntityName('a').type('ToDo');
-    getIndexEntityFieldName('a','a').type('name');
+    getIndexEntityFieldName('a','a').type('name{enter}');
     getIndexEntityFieldType('a','a').click();
     selectPopupChoiceWithText('Text');
     getIndexEntityAddButton('a').click();
