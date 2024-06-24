@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunkide_ui"] = self["webpackChunkide_ui"] || []).push([["apps_ide-ui_src_app_routes_project_project_module_ts"],{
 
-/***/ 1130:
+/***/ 8616:
 /*!*****************************************************************!*\
   !*** ./apps/ide-ui/src/app/routes/project/project.component.ts ***!
   \*****************************************************************/
@@ -11,17 +11,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ProjectComponent": () => (/* binding */ ProjectComponent)
 /* harmony export */ });
-/* harmony import */ var _shared_project_services_project_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../shared/project/services/project.service */ 876);
-/* harmony import */ var _shared_ui_IdeComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/ui/IdeComponent */ 4974);
-/* harmony import */ var _shared_change_services_change_update_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/change/services/change-update.service */ 1790);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 4666);
-/* harmony import */ var primeng_dataview__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primeng/dataview */ 1233);
-/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primeng/button */ 6328);
-/* harmony import */ var primeng_inplace__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primeng/inplace */ 2116);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var primeng_confirmpopup__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! primeng/confirmpopup */ 2919);
+/* harmony import */ var _shared_project_services_project_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../shared/project/services/project.service */ 4232);
+/* harmony import */ var _shared_ui_IdeComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/ui/IdeComponent */ 2387);
+/* harmony import */ var _shared_change_services_change_update_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/change/services/change-update.service */ 8722);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 8988);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primeng/api */ 9305);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 7651);
+/* harmony import */ var primeng_dataview__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primeng/dataview */ 211);
+/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primeng/button */ 4001);
+/* harmony import */ var primeng_inplace__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primeng/inplace */ 5431);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 4848);
+/* harmony import */ var primeng_confirmpopup__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! primeng/confirmpopup */ 9919);
 
 
 
@@ -314,7 +314,7 @@ class ProjectComponent extends _shared_ui_IdeComponent__WEBPACK_IMPORTED_MODULE_
 
 /***/ }),
 
-/***/ 8676:
+/***/ 2717:
 /*!**************************************************************!*\
   !*** ./apps/ide-ui/src/app/routes/project/project.module.ts ***!
   \**************************************************************/
@@ -324,17 +324,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ProjectModule": () => (/* binding */ ProjectModule)
 /* harmony export */ });
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 4666);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var _project_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./project.component */ 1130);
-/* harmony import */ var primeng_dataview__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primeng/dataview */ 1233);
-/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primeng/button */ 6328);
-/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/shared.module */ 2046);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var primeng_inplace__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primeng/inplace */ 2116);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var primeng_confirmpopup__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! primeng/confirmpopup */ 2919);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 7651);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 5592);
+/* harmony import */ var _project_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./project.component */ 8616);
+/* harmony import */ var primeng_dataview__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primeng/dataview */ 211);
+/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primeng/button */ 4001);
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/shared.module */ 2418);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ 8451);
+/* harmony import */ var primeng_inplace__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primeng/inplace */ 5431);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 4848);
+/* harmony import */ var primeng_confirmpopup__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! primeng/confirmpopup */ 9919);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 8988);
 
 
 
@@ -371,7 +371,7 @@ class ProjectModule {
 
 /***/ }),
 
-/***/ 4974:
+/***/ 2387:
 /*!*******************************************************!*\
   !*** ./apps/ide-ui/src/app/shared/ui/IdeComponent.ts ***!
   \*******************************************************/
@@ -381,8 +381,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "IdeComponent": () => (/* binding */ IdeComponent)
 /* harmony export */ });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ 6078);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ 2320);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 8988);
 
 
 /**
@@ -410,10 +410,10 @@ class IdeComponent {
 
 /***/ }),
 
-/***/ 2919:
-/*!****************************************************************!*\
-  !*** ./node_modules/primeng/fesm2020/primeng-confirmpopup.mjs ***!
-  \****************************************************************/
+/***/ 9919:
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ../../common/temp/node_modules/.pnpm/primeng@15.4.1_@angular+common@15.2.10_@angular+core@15.2.10_rxjs@7.8.1_zone.js@0.12.0__rxjs@_ee6zf7vjhoozpy3jizybudrpxu/node_modules/primeng/fesm2020/primeng-confirmpopup.mjs ***!
+  \****************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -421,13 +421,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ConfirmPopup": () => (/* binding */ ConfirmPopup),
 /* harmony export */   "ConfirmPopupModule": () => (/* binding */ ConfirmPopupModule)
 /* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 4666);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primeng/button */ 6328);
-/* harmony import */ var primeng_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! primeng/utils */ 8549);
-/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/animations */ 4851);
-/* harmony import */ var primeng_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primeng/dom */ 1420);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 8988);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 7651);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primeng/api */ 9305);
+/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primeng/button */ 4001);
+/* harmony import */ var primeng_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! primeng/utils */ 1115);
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/animations */ 3135);
+/* harmony import */ var primeng_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primeng/dom */ 5226);
 
 
 
@@ -449,40 +449,82 @@ function ConfirmPopup_div_0_i_3_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", "p-confirm-popup-icon");
   }
 }
+function ConfirmPopup_div_0_button_7_i_1_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "i");
+  }
+  if (rf & 2) {
+    const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMap"](ctx_r5.confirmation.rejectIcon);
+  }
+}
+function ConfirmPopup_div_0_button_7_2_ng_template_0_Template(rf, ctx) {}
+function ConfirmPopup_div_0_button_7_2_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, ConfirmPopup_div_0_button_7_2_ng_template_0_Template, 0, 0, "ng-template", null, 12, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplateRefExtractor"]);
+  }
+}
 function ConfirmPopup_div_0_button_7_Template(rf, ctx) {
   if (rf & 1) {
-    const _r6 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    const _r10 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function ConfirmPopup_div_0_button_7_Template_button_click_0_listener() {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r6);
-      const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
-      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r5.reject());
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r10);
+      const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r9.reject());
     });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, ConfirmPopup_div_0_button_7_i_1_Template, 1, 2, "i", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, ConfirmPopup_div_0_button_7_2_Template, 2, 0, null, 11);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
   }
   if (rf & 2) {
     const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMap"](ctx_r3.confirmation.rejectButtonStyleClass || "p-button-text");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("icon", ctx_r3.confirmation.rejectIcon)("label", ctx_r3.rejectButtonLabel)("ngClass", "p-confirm-popup-reject p-button-sm");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("label", ctx_r3.rejectButtonLabel)("ngClass", "p-confirm-popup-reject p-button-sm");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("aria-label", ctx_r3.rejectButtonLabel);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r3.confirmation.rejectIcon)("ngIfElse", ctx_r3.rejecticon);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngTemplateOutlet", ctx_r3.rejectIconTemplate);
+  }
+}
+function ConfirmPopup_div_0_button_8_i_1_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "i");
+  }
+  if (rf & 2) {
+    const ctx_r11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMap"](ctx_r11.confirmation.acceptIcon);
+  }
+}
+function ConfirmPopup_div_0_button_8_2_ng_template_0_Template(rf, ctx) {}
+function ConfirmPopup_div_0_button_8_2_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, ConfirmPopup_div_0_button_8_2_ng_template_0_Template, 0, 0, "ng-template", null, 13, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplateRefExtractor"]);
   }
 }
 function ConfirmPopup_div_0_button_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    const _r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function ConfirmPopup_div_0_button_8_Template_button_click_0_listener() {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r8);
-      const ctx_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
-      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r7.accept());
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r16);
+      const ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r15.accept());
     });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, ConfirmPopup_div_0_button_8_i_1_Template, 1, 2, "i", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, ConfirmPopup_div_0_button_8_2_Template, 2, 0, null, 11);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
   }
   if (rf & 2) {
     const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMap"](ctx_r4.confirmation.acceptButtonStyleClass);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("icon", ctx_r4.confirmation.acceptIcon)("label", ctx_r4.acceptButtonLabel)("ngClass", "p-confirm-popup-accept p-button-sm");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("label", ctx_r4.acceptButtonLabel)("ngClass", "p-confirm-popup-accept p-button-sm");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("aria-label", ctx_r4.acceptButtonLabel);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r4.confirmation.acceptIcon)("ngIfElse", ctx_r4.accepticon);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngTemplateOutlet", ctx_r4.acceptIconTemplate);
   }
 }
 const _c0 = function (a0, a1) {
@@ -499,20 +541,20 @@ const _c1 = function (a1) {
 };
 function ConfirmPopup_div_0_Template(rf, ctx) {
   if (rf & 1) {
-    const _r10 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    const _r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function ConfirmPopup_div_0_Template_div_click_0_listener($event) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r10);
-      const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r9.onOverlayClick($event));
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r18);
+      const ctx_r17 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r17.onOverlayClick($event));
     })("@animation.start", function ConfirmPopup_div_0_Template_div_animation_animation_start_0_listener($event) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r10);
-      const ctx_r11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r11.onAnimationStart($event));
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r18);
+      const ctx_r19 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r19.onAnimationStart($event));
     })("@animation.done", function ConfirmPopup_div_0_Template_div_animation_animation_done_0_listener($event) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r10);
-      const ctx_r12 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r12.onAnimationEnd($event));
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r18);
+      const ctx_r20 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r20.onAnimationEnd($event));
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 2, 3);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, ConfirmPopup_div_0_i_3_Template, 1, 3, "i", 4);
@@ -520,8 +562,8 @@ function ConfirmPopup_div_0_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, ConfirmPopup_div_0_button_7_Template, 1, 6, "button", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, ConfirmPopup_div_0_button_8_Template, 1, 6, "button", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, ConfirmPopup_div_0_button_7_Template, 3, 8, "button", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, ConfirmPopup_div_0_button_8_Template, 3, 8, "button", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
   }
   if (rf & 2) {
@@ -539,18 +581,20 @@ function ConfirmPopup_div_0_Template(rf, ctx) {
   }
 }
 class ConfirmPopup {
-  constructor(el, confirmationService, renderer, cd, config, overlayService) {
+  constructor(el, confirmationService, renderer, cd, config, overlayService, document) {
     this.el = el;
     this.confirmationService = confirmationService;
     this.renderer = renderer;
     this.cd = cd;
     this.config = config;
     this.overlayService = overlayService;
+    this.document = document;
     this.defaultFocus = 'accept';
     this.showTransitionOptions = '.12s cubic-bezier(0, 0, 0.2, 1)';
     this.hideTransitionOptions = '.1s linear';
     this.autoZIndex = true;
     this.baseZIndex = 0;
+    this.window = this.document.defaultView;
     this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
       if (!confirmation) {
         this.hide();
@@ -577,10 +621,22 @@ class ConfirmPopup {
     this._visible = value;
     this.cd.markForCheck();
   }
+  ngAfterContentInit() {
+    this.templates.forEach(item => {
+      switch (item.getType()) {
+        case 'rejecticon':
+          this.rejectIconTemplate = item.template;
+          break;
+        case 'accepticon':
+          this.acceptIconTemplate = item.template;
+          break;
+      }
+    });
+  }
   onAnimationStart(event) {
     if (event.toState === 'open') {
       this.container = event.element;
-      document.body.appendChild(this.container);
+      this.renderer.appendChild(this.document.body, this.container);
       this.align();
       this.bindListeners();
       const element = this.getElementToFocus();
@@ -663,7 +719,7 @@ class ConfirmPopup {
   bindDocumentClickListener() {
     if (!this.documentClickListener) {
       let documentEvent = primeng_dom__WEBPACK_IMPORTED_MODULE_1__.DomHandler.isIOS() ? 'touchstart' : 'click';
-      const documentTarget = this.el ? this.el.nativeElement.ownerDocument : document;
+      const documentTarget = this.el ? this.el.nativeElement.ownerDocument : this.document;
       this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, event => {
         let targetElement = this.confirmation.target;
         if (this.container !== event.target && !this.container.contains(event.target) && targetElement !== event.target && !targetElement.contains(event.target)) {
@@ -684,12 +740,13 @@ class ConfirmPopup {
     }
   }
   bindDocumentResizeListener() {
-    this.documentResizeListener = this.onWindowResize.bind(this);
-    window.addEventListener('resize', this.documentResizeListener);
+    if (!this.documentResizeListener) {
+      this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
+    }
   }
   unbindDocumentResizeListener() {
     if (this.documentResizeListener) {
-      window.removeEventListener('resize', this.documentResizeListener);
+      this.documentResizeListener();
       this.documentResizeListener = null;
     }
   }
@@ -729,7 +786,7 @@ class ConfirmPopup {
   }
   restoreAppend() {
     if (this.container) {
-      document.body.removeChild(this.container);
+      this.renderer.removeChild(this.document.body, this.container);
     }
     this.onContainerDestroy();
   }
@@ -747,11 +804,20 @@ class ConfirmPopup {
   }
 }
 ConfirmPopup.ɵfac = function ConfirmPopup_Factory(t) {
-  return new (t || ConfirmPopup)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](primeng_api__WEBPACK_IMPORTED_MODULE_3__.ConfirmationService), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.Renderer2), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ChangeDetectorRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](primeng_api__WEBPACK_IMPORTED_MODULE_3__.PrimeNGConfig), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](primeng_api__WEBPACK_IMPORTED_MODULE_3__.OverlayService));
+  return new (t || ConfirmPopup)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](primeng_api__WEBPACK_IMPORTED_MODULE_3__.ConfirmationService), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.Renderer2), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ChangeDetectorRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](primeng_api__WEBPACK_IMPORTED_MODULE_3__.PrimeNGConfig), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](primeng_api__WEBPACK_IMPORTED_MODULE_3__.OverlayService), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_common__WEBPACK_IMPORTED_MODULE_4__.DOCUMENT));
 };
 ConfirmPopup.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
   type: ConfirmPopup,
   selectors: [["p-confirmPopup"]],
+  contentQueries: function ConfirmPopup_ContentQueries(rf, ctx, dirIndex) {
+    if (rf & 1) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵcontentQuery"](dirIndex, primeng_api__WEBPACK_IMPORTED_MODULE_3__.PrimeTemplate, 4);
+    }
+    if (rf & 2) {
+      let _t;
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.templates = _t);
+    }
+  },
   hostAttrs: [1, "p-element"],
   inputs: {
     key: "key",
@@ -766,7 +832,7 @@ ConfirmPopup.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["
   },
   decls: 1,
   vars: 1,
-  consts: [[3, "ngClass", "ngStyle", "class", "click", 4, "ngIf"], [3, "ngClass", "ngStyle", "click"], [1, "p-confirm-popup-content"], ["content", ""], [3, "ngClass", "class", 4, "ngIf"], [1, "p-confirm-popup-message"], [1, "p-confirm-popup-footer"], ["type", "button", "pButton", "", 3, "icon", "label", "ngClass", "class", "click", 4, "ngIf"], [3, "ngClass"], ["type", "button", "pButton", "", 3, "icon", "label", "ngClass", "click"]],
+  consts: [[3, "ngClass", "ngStyle", "class", "click", 4, "ngIf"], [3, "ngClass", "ngStyle", "click"], [1, "p-confirm-popup-content"], ["content", ""], [3, "ngClass", "class", 4, "ngIf"], [1, "p-confirm-popup-message"], [1, "p-confirm-popup-footer"], ["type", "button", "pButton", "", 3, "label", "ngClass", "class", "click", 4, "ngIf"], [3, "ngClass"], ["type", "button", "pButton", "", 3, "label", "ngClass", "click"], [3, "class", 4, "ngIf", "ngIfElse"], [4, "ngTemplateOutlet"], ["rejecticon", ""], ["accepticon", ""]],
   template: function ConfirmPopup_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, ConfirmPopup_div_0_Template, 9, 14, "div", 0);
@@ -775,7 +841,7 @@ ConfirmPopup.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.visible);
     }
   },
-  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgIf, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgStyle, primeng_button__WEBPACK_IMPORTED_MODULE_5__.ButtonDirective],
+  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgIf, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgTemplateOutlet, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgStyle, primeng_button__WEBPACK_IMPORTED_MODULE_5__.ButtonDirective],
   styles: [".p-confirm-popup{position:absolute;margin-top:10px;top:0;left:0}.p-confirm-popup-flipped{margin-top:0;margin-bottom:10px}.p-confirm-popup:after,.p-confirm-popup:before{bottom:100%;left:calc(var(--overlayArrowLeft, 0) + 1.25rem);content:\" \";height:0;width:0;position:absolute;pointer-events:none}.p-confirm-popup:after{border-width:8px;margin-left:-8px}.p-confirm-popup:before{border-width:10px;margin-left:-10px}.p-confirm-popup-flipped:after,.p-confirm-popup-flipped:before{bottom:auto;top:100%}.p-confirm-popup.p-confirm-popup-flipped:after{border-bottom-color:transparent}.p-confirm-popup.p-confirm-popup-flipped:before{border-bottom-color:transparent}.p-confirm-popup .p-confirm-popup-content{display:flex;align-items:center}\n"],
   encapsulation: 2,
   data: {
@@ -813,25 +879,29 @@ ConfirmPopup.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["
                 <button
                     type="button"
                     pButton
-                    [icon]="confirmation.rejectIcon"
                     [label]="rejectButtonLabel"
                     (click)="reject()"
                     [ngClass]="'p-confirm-popup-reject p-button-sm'"
                     [class]="confirmation.rejectButtonStyleClass || 'p-button-text'"
                     *ngIf="confirmation.rejectVisible !== false"
                     [attr.aria-label]="rejectButtonLabel"
-                ></button>
+                >
+                    <i [class]="confirmation.rejectIcon" *ngIf="confirmation.rejectIcon; else rejecticon"></i>
+                    <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                </button>
                 <button
                     type="button"
                     pButton
-                    [icon]="confirmation.acceptIcon"
                     [label]="acceptButtonLabel"
                     (click)="accept()"
                     [ngClass]="'p-confirm-popup-accept p-button-sm'"
                     [class]="confirmation.acceptButtonStyleClass"
                     *ngIf="confirmation.acceptVisible !== false"
                     [attr.aria-label]="acceptButtonLabel"
-                ></button>
+                >
+                    <i [class]="confirmation.acceptIcon" *ngIf="confirmation.acceptIcon; else accepticon"></i>
+                    <ng-template #accepticon *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                </button>
             </div>
         </div>
     `,
@@ -862,6 +932,12 @@ ConfirmPopup.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["
       type: primeng_api__WEBPACK_IMPORTED_MODULE_3__.PrimeNGConfig
     }, {
       type: primeng_api__WEBPACK_IMPORTED_MODULE_3__.OverlayService
+    }, {
+      type: Document,
+      decorators: [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
+        args: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.DOCUMENT]
+      }]
     }];
   }, {
     key: [{
@@ -888,6 +964,10 @@ ConfirmPopup.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["
     styleClass: [{
       type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
     }],
+    templates: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ContentChildren,
+      args: [primeng_api__WEBPACK_IMPORTED_MODULE_3__.PrimeTemplate]
+    }],
     visible: [{
       type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
     }]
@@ -901,14 +981,14 @@ ConfirmPopupModule.ɵmod = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE
   type: ConfirmPopupModule
 });
 ConfirmPopupModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-  imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, primeng_button__WEBPACK_IMPORTED_MODULE_5__.ButtonModule]
+  imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, primeng_button__WEBPACK_IMPORTED_MODULE_5__.ButtonModule, primeng_api__WEBPACK_IMPORTED_MODULE_3__.SharedModule, primeng_api__WEBPACK_IMPORTED_MODULE_3__.SharedModule]
 });
 (function () {
   (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ConfirmPopupModule, [{
     type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
     args: [{
-      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, primeng_button__WEBPACK_IMPORTED_MODULE_5__.ButtonModule],
-      exports: [ConfirmPopup],
+      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, primeng_button__WEBPACK_IMPORTED_MODULE_5__.ButtonModule, primeng_api__WEBPACK_IMPORTED_MODULE_3__.SharedModule],
+      exports: [ConfirmPopup, primeng_api__WEBPACK_IMPORTED_MODULE_3__.SharedModule],
       declarations: [ConfirmPopup]
     }]
   }], null, null);
@@ -923,10 +1003,10 @@ ConfirmPopupModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE
 
 /***/ }),
 
-/***/ 2116:
-/*!***********************************************************!*\
-  !*** ./node_modules/primeng/fesm2020/primeng-inplace.mjs ***!
-  \***********************************************************/
+/***/ 5431:
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ../../common/temp/node_modules/.pnpm/primeng@15.4.1_@angular+common@15.2.10_@angular+core@15.2.10_rxjs@7.8.1_zone.js@0.12.0__rxjs@_ee6zf7vjhoozpy3jizybudrpxu/node_modules/primeng/fesm2020/primeng-inplace.mjs ***!
+  \***********************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -936,10 +1016,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "InplaceDisplay": () => (/* binding */ InplaceDisplay),
 /* harmony export */   "InplaceModule": () => (/* binding */ InplaceModule)
 /* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 4666);
-/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primeng/button */ 6328);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 8988);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 7651);
+/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primeng/button */ 4001);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primeng/api */ 9305);
+/* harmony import */ var primeng_icons_times__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primeng/icons/times */ 8029);
+
 
 
 
@@ -987,20 +1069,68 @@ function Inplace_div_2_ng_container_2_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainer"](0);
   }
 }
-function Inplace_div_2_button_3_Template(rf, ctx) {
+function Inplace_div_2_ng_container_3_button_1_Template(rf, ctx) {
   if (rf & 1) {
-    const _r9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function Inplace_div_2_button_3_Template_button_click_0_listener($event) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r9);
-      const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
-      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r8.onDeactivateClick($event));
+    const _r11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function Inplace_div_2_ng_container_3_button_1_Template_button_click_0_listener($event) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r11);
+      const ctx_r10 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r10.onDeactivateClick($event));
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
   }
   if (rf & 2) {
+    const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("icon", ctx_r8.icon);
+  }
+}
+function Inplace_div_2_ng_container_3_button_2_TimesIcon_1_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "TimesIcon");
+  }
+}
+function Inplace_div_2_ng_container_3_button_2_2_ng_template_0_Template(rf, ctx) {}
+function Inplace_div_2_ng_container_3_button_2_2_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, Inplace_div_2_ng_container_3_button_2_2_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function Inplace_div_2_ng_container_3_button_2_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function Inplace_div_2_ng_container_3_button_2_Template_button_click_0_listener($event) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r16);
+      const ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r15.onDeactivateClick($event));
+    });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, Inplace_div_2_ng_container_3_button_2_TimesIcon_1_Template, 1, 0, "TimesIcon", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, Inplace_div_2_ng_container_3_button_2_2_Template, 1, 0, null, 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+  }
+  if (rf & 2) {
+    const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", "p-button-icon-only");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx_r9.closeIconTemplate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngTemplateOutlet", ctx_r9.closeIconTemplate);
+  }
+}
+function Inplace_div_2_ng_container_3_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, Inplace_div_2_ng_container_3_button_1_Template, 1, 1, "button", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, Inplace_div_2_ng_container_3_button_2_Template, 3, 3, "button", 8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
+  }
+  if (rf & 2) {
     const ctx_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("icon", ctx_r7.closeIcon);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r7.icon);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx_r7.icon);
   }
 }
 function Inplace_div_2_Template(rf, ctx) {
@@ -1008,7 +1138,7 @@ function Inplace_div_2_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵprojection"](1, 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, Inplace_div_2_ng_container_2_Template, 1, 0, "ng-container", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, Inplace_div_2_button_3_Template, 1, 1, "button", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, Inplace_div_2_ng_container_3_Template, 3, 2, "ng-container", 6);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
   }
   if (rf & 2) {
@@ -1092,7 +1222,6 @@ InplaceContent.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__
 class Inplace {
   constructor(cd) {
     this.cd = cd;
-    this.closeIcon = 'pi pi-times';
     this.onActivate = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
     this.onDeactivate = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
   }
@@ -1101,6 +1230,9 @@ class Inplace {
       switch (item.getType()) {
         case 'display':
           this.displayTemplate = item.template;
+          break;
+        case 'closeicon':
+          this.closeIconTemplate = item.template;
           break;
         case 'content':
           this.contentTemplate = item.template;
@@ -1168,7 +1300,7 @@ Inplace.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
   ngContentSelectors: _c4,
   decls: 3,
   vars: 8,
-  consts: [[3, "ngClass", "ngStyle"], ["class", "p-inplace-display", "tabindex", "0", 3, "ngClass", "click", "keydown", 4, "ngIf"], ["class", "p-inplace-content", 4, "ngIf"], ["tabindex", "0", 1, "p-inplace-display", 3, "ngClass", "click", "keydown"], [4, "ngTemplateOutlet"], [1, "p-inplace-content"], ["type", "button", "pButton", "", 3, "icon", "click", 4, "ngIf"], ["type", "button", "pButton", "", 3, "icon", "click"]],
+  consts: [[3, "ngClass", "ngStyle"], ["class", "p-inplace-display", "tabindex", "0", 3, "ngClass", "click", "keydown", 4, "ngIf"], ["class", "p-inplace-content", 4, "ngIf"], ["tabindex", "0", 1, "p-inplace-display", 3, "ngClass", "click", "keydown"], [4, "ngTemplateOutlet"], [1, "p-inplace-content"], [4, "ngIf"], ["type", "button", "pButton", "", 3, "icon", "click", 4, "ngIf"], ["type", "button", "pButton", "", 3, "ngClass", "click", 4, "ngIf"], ["type", "button", "pButton", "", 3, "icon", "click"], ["type", "button", "pButton", "", 3, "ngClass", "click"]],
   template: function Inplace_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵprojectionDef"](_c2);
@@ -1186,7 +1318,9 @@ Inplace.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.active);
     }
   },
-  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_2__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_2__.NgIf, _angular_common__WEBPACK_IMPORTED_MODULE_2__.NgTemplateOutlet, _angular_common__WEBPACK_IMPORTED_MODULE_2__.NgStyle, primeng_button__WEBPACK_IMPORTED_MODULE_3__.ButtonDirective],
+  dependencies: function () {
+    return [_angular_common__WEBPACK_IMPORTED_MODULE_2__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_2__.NgIf, _angular_common__WEBPACK_IMPORTED_MODULE_2__.NgTemplateOutlet, _angular_common__WEBPACK_IMPORTED_MODULE_2__.NgStyle, primeng_button__WEBPACK_IMPORTED_MODULE_3__.ButtonDirective, primeng_icons_times__WEBPACK_IMPORTED_MODULE_4__.TimesIcon];
+  },
   styles: [".p-inplace .p-inplace-display{display:inline;cursor:pointer}.p-inplace .p-inplace-content{display:inline}.p-fluid .p-inplace.p-inplace-closable .p-inplace-content{display:flex}.p-fluid .p-inplace.p-inplace-closable .p-inplace-content>.p-inputtext{flex:1 1 auto;width:1%}\n"],
   encapsulation: 2,
   changeDetection: 0
@@ -1205,7 +1339,14 @@ Inplace.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
             <div class="p-inplace-content" *ngIf="active">
                 <ng-content select="[pInplaceContent]"></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-                <button type="button" [icon]="closeIcon" pButton (click)="onDeactivateClick($event)" *ngIf="closable"></button>
+
+                <ng-container *ngIf="closable">
+                    <button *ngIf="icon" type="button" [icon]="icon" pButton (click)="onDeactivateClick($event)"></button>
+                    <button *ngIf="!icon" type="button" pButton [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)">
+                        <TimesIcon *ngIf="!closeIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                    </button>
+                </ng-container>
             </div>
         </div>
     `,
@@ -1262,14 +1403,14 @@ InplaceModule.ɵmod = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__[
   type: InplaceModule
 });
 InplaceModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-  imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__.CommonModule, primeng_button__WEBPACK_IMPORTED_MODULE_3__.ButtonModule, primeng_button__WEBPACK_IMPORTED_MODULE_3__.ButtonModule]
+  imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__.CommonModule, primeng_button__WEBPACK_IMPORTED_MODULE_3__.ButtonModule, primeng_api__WEBPACK_IMPORTED_MODULE_1__.SharedModule, primeng_icons_times__WEBPACK_IMPORTED_MODULE_4__.TimesIcon, primeng_button__WEBPACK_IMPORTED_MODULE_3__.ButtonModule, primeng_api__WEBPACK_IMPORTED_MODULE_1__.SharedModule]
 });
 (function () {
   (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](InplaceModule, [{
     type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
     args: [{
-      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__.CommonModule, primeng_button__WEBPACK_IMPORTED_MODULE_3__.ButtonModule],
-      exports: [Inplace, InplaceDisplay, InplaceContent, primeng_button__WEBPACK_IMPORTED_MODULE_3__.ButtonModule],
+      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__.CommonModule, primeng_button__WEBPACK_IMPORTED_MODULE_3__.ButtonModule, primeng_api__WEBPACK_IMPORTED_MODULE_1__.SharedModule, primeng_icons_times__WEBPACK_IMPORTED_MODULE_4__.TimesIcon],
+      exports: [Inplace, InplaceDisplay, InplaceContent, primeng_button__WEBPACK_IMPORTED_MODULE_3__.ButtonModule, primeng_api__WEBPACK_IMPORTED_MODULE_1__.SharedModule],
       declarations: [Inplace, InplaceDisplay, InplaceContent]
     }]
   }], null, null);
