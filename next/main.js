@@ -10859,18 +10859,24 @@ class EasyParaScrapper extends _online_shop_scrapper__WEBPACK_IMPORTED_MODULE_0_
   searchProductsForNameOrId(nameOrId, isId) {
     // We copy the content
     let postContent = JSON.stringify(EasyParaScrapper.JSON_QUERY);
-    postContent = postContent.replace("QUERY_STRING", encodeURIComponent(nameOrId));
+    for (let i = 1; i < 4; i++) {
+      postContent = postContent.replace("QUERY_STRING", encodeURIComponent(nameOrId));
+    }
     postContent = JSON.parse(postContent);
-    return this.requestWithProxy("POST", EasyParaScrapper.SEARCH_ONLINE_URL, _online_shop_scrapper__WEBPACK_IMPORTED_MODULE_0__.ProxyEngine.CORSPROXY_IO, {
+    return this.requestWithProxy("POST", EasyParaScrapper.SEARCH_ONLINE_URL, _online_shop_scrapper__WEBPACK_IMPORTED_MODULE_0__.ProxyEngine.DONT_CODE, {
       body: postContent,
       responseType: "json",
-      observe: "body"
+      observe: "body",
+      headers: {
+        "x-algolia-api-key": "YTYyYzkyNzgyZDliZTZlMDk1OGE1MDQwNjRkYWY1ZmY4ZTE5OWZhYmU4ZGUyNTM2NDFjNmU4YjllNWMwNmJmNXRhZ0ZpbHRlcnM9",
+        "x-algolia-application-id": "JHU6ZVKSFY"
+      }
     }).then(jsonResult => {
       if (typeof jsonResult == "string") jsonResult = JSON.parse(jsonResult);
       const ret = new Array();
       const result = jsonResult.results;
       if (result.length > 0) {
-        const hits = result[0].hits;
+        const hits = result[1].hits;
         if (hits != null) {
           for (const aResult of hits) {
             const newProduct = new _online_shop_scrapper__WEBPACK_IMPORTED_MODULE_0__.ScrappedProduct();
@@ -10879,12 +10885,13 @@ class EasyParaScrapper extends _online_shop_scrapper__WEBPACK_IMPORTED_MODULE_0_
             newProduct.productName = aResult.name;
             newProduct.productDescription = aResult.short_description ?? aResult.description;
             newProduct.productId = aResult.ean_code?.toString();
-            if (newProduct.productId == null) {
+            if (newProduct.productId == null || newProduct.productId.length == 0) {
               console.warn("Product " + newProduct.productName + " searched by " + nameOrId + " for Shop " + this.getOnlineShopName() + " has no ean_code, getting objectId instead");
               newProduct.productId = aResult.objectID;
             }
             newProduct.productUrl = aResult.url;
             newProduct.productImageUrl = aResult.image_url;
+            newProduct.outOfStock = aResult.in_stock >= 1;
             this.checkScrappedProduct(nameOrId, newProduct);
             ret.push(newProduct);
           }
@@ -10894,17 +10901,24 @@ class EasyParaScrapper extends _online_shop_scrapper__WEBPACK_IMPORTED_MODULE_0_
     });
   }
 }
-EasyParaScrapper.SEARCH_ONLINE_URL = "https://jhu6zvksfy-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia+for+JavaScript+%283.35.1%29%3B+Browser%3B+Magento2+integration+%283.6.0%29%3B+autocomplete.js+0.38.0&x-algolia-application-id=JHU6ZVKSFY&x-algolia-api-key=YTYyYzkyNzgyZDliZTZlMDk1OGE1MDQwNjRkYWY1ZmY4ZTE5OWZhYmU4ZGUyNTM2NDFjNmU4YjllNWMwNmJmNXRhZ0ZpbHRlcnM9\n";
+EasyParaScrapper.SEARCH_ONLINE_URL = "https://jhu6zvksfy-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia+for+JavaScript+%284.14.3%29%3B+Browser%3B+Magento2+integration+%283.13.0%29%3B+autocomplete-core+%281.7.1%29%3B+autocomplete-js+%281.7.1%29";
 EasyParaScrapper.JSON_QUERY = {
   "requests": [{
+    "indexName": "prod_magento2_fr_suggestions",
+    "query": "QUERY_STRING",
+    "params": "hitsPerPage=5&highlightPreTag=__aa-highlight__&highlightPostTag=__%2Faa-highlight__&clickAnalytics=true"
+  }, {
+    "query": "QUERY_STRING",
     "indexName": "prod_magento2_fr_products",
-    "params": "query=QUERY_STRING&hitsPerPage=6&analyticsTags=autocomplete&clickAnalytics=true&facets=%5B%22categories.level0%22%5D&numericFilters=visibility_search%3D1&ruleContexts=%5B%22magento_filters%22%2C%22%22%5D"
+    "params": "hitsPerPage=6&highlightPreTag=__aa-highlight__&highlightPostTag=__%2Faa-highlight__&analyticsTags=autocomplete&clickAnalytics=true&distinct=true&facets=%5B%22categories.level0%22%5D&numericFilters=visibility_search%3D1&ruleContexts=%5B%22magento_filters%22%2C%22%22%5D"
   }, {
+    "query": "QUERY_STRING",
     "indexName": "prod_magento2_fr_section_manufacturer",
-    "params": "query=chardon%20marie&hitsPerPage=6&analyticsTags=autocomplete&clickAnalytics=true"
+    "params": "hitsPerPage=6&highlightPreTag=__aa-highlight__&highlightPostTag=__%2Faa-highlight__&analyticsTags=autocomplete&clickAnalytics=true&distinct=true"
   }, {
+    "query": "QUERY_STRING",
     "indexName": "prod_magento2_fr_categories",
-    "params": "query=chardon%20marie&hitsPerPage=4&analyticsTags=autocomplete&clickAnalytics=true&numericFilters=include_in_menu%3D1"
+    "params": "hitsPerPage=4&highlightPreTag=__aa-highlight__&highlightPostTag=__%2Faa-highlight__&analyticsTags=autocomplete&clickAnalytics=true&distinct=true&numericFilters=include_in_menu%3D1"
   }]
 };
 
@@ -11080,8 +11094,6 @@ class GreenWeezScrapper extends _online_shop_scrapper__WEBPACK_IMPORTED_MODULE_0
     let postContent = JSON.stringify(GreenWeezScrapper.JSON_QUERY);
     // 3 replacements to do
     postContent = postContent.replace("QUERY_STRING", encodeURIComponent(nameOrId));
-    postContent = postContent.replace("QUERY_STRING", encodeURIComponent(nameOrId));
-    postContent = postContent.replace("QUERY_STRING", encodeURIComponent(nameOrId));
     postContent = JSON.parse(postContent);
     return this.requestWithProxy("POST", GreenWeezScrapper.SEARCH_ONLINE_URL, _online_shop_scrapper__WEBPACK_IMPORTED_MODULE_0__.ProxyEngine.DONT_CODE, {
       body: postContent,
@@ -11090,51 +11102,43 @@ class GreenWeezScrapper extends _online_shop_scrapper__WEBPACK_IMPORTED_MODULE_0
     }).then(jsonResult => {
       if (typeof jsonResult == "string") jsonResult = JSON.parse(jsonResult);
       const ret = new Array();
-      const result = jsonResult.results;
-      if (result.length > 0) {
-        const hits = result[0].hits;
-        if (hits != null) {
-          for (const aResult of hits) {
-            const newProduct = new _online_shop_scrapper__WEBPACK_IMPORTED_MODULE_0__.ScrappedProduct();
-            newProduct.productPrice = aResult.shop_data.pricing.priceIncludedVat / 100;
-            newProduct.currencyCode = "EUR";
-            newProduct.productName = aResult.name;
-            newProduct.productDescription = undefined;
-            newProduct.productId = aResult.shop_data.variant.code;
-            newProduct.productUrl = this.calculateProductUrl(aResult.shop_data);
-            newProduct.productImageUrl = this.findImageUrl(aResult.shop_data.variant.images);
-            newProduct.marketPlace = aResult.flags.marketPlace === true;
-            this.checkScrappedProduct(nameOrId, newProduct);
-            ret.push(newProduct);
-          }
+      const offers = jsonResult.data?.search?.offers;
+      if (offers != null && offers.length > 0) {
+        for (const aResult of offers) {
+          const newProduct = new _online_shop_scrapper__WEBPACK_IMPORTED_MODULE_0__.ScrappedProduct();
+          newProduct.productPrice = aResult.pricing.priceIncludedVat / 100;
+          newProduct.currencyCode = "EUR";
+          newProduct.productName = aResult.name;
+          newProduct.productDescription = undefined;
+          newProduct.productId = aResult.variantCode;
+          newProduct.productUrl = this.calculateProductUrl(aResult);
+          newProduct.productImageUrl = this.findImageUrl(aResult.imageUrl);
+          newProduct.marketPlace = aResult.isMarketPlace === true;
+          newProduct.outOfStock = aResult.stock != null && aResult.stock <= 0;
+          this.checkScrappedProduct(nameOrId, newProduct);
+          ret.push(newProduct);
         }
       }
       return ret;
     });
   }
   calculateProductUrl(shopData) {
-    return GreenWeezScrapper.BASE_URL + '/produit/' + shopData.variant.product.slug + '/' + shopData.variant.code + '/' + shopData.id;
+    return GreenWeezScrapper.BASE_URL + '/produit/' + shopData.productSlug + '/' + shopData.variantCode;
   }
-  findImageUrl(images) {
-    for (const image of images) {
-      if (image.type == "variant") return GreenWeezScrapper.BASE_URL + "/_next/image?url=https%3A%2F%2Fcdn.greenweez.com%2Fproducts%2F" + image.path + "&w=640&q=75";
-    }
+  findImageUrl(imageUrl) {
+    if (imageUrl != null) return GreenWeezScrapper.BASE_URL + "/_next/image?url=https%3A%2F%2Fcdn.greenweez.com%2Fproducts%2F" + imageUrl + "&w=480&q=75";
     return;
   }
 }
-GreenWeezScrapper.SEARCH_ONLINE_URL = "https://54m7x8foua-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia for JavaScript (4.14.2); Browser (lite); instantsearch.js (4.48.0); react (17.0.2); react-instantsearch (6.36.0); react-instantsearch-hooks (6.36.0); JS Helper (3.11.1)&x-algolia-api-key=52441d0a775f924291679b7c224d6782&x-algolia-application-id=54M7X8FOUA";
+GreenWeezScrapper.SEARCH_ONLINE_URL = "https://api.greenweez.com/graphql";
 GreenWeezScrapper.BASE_URL = "https://greenweez.com";
 GreenWeezScrapper.JSON_QUERY = {
-  "requests": [{
-    "indexName": "france_prod_offers_genepi_fr_FR",
-    "params": "attributesToRetrieve=%5B%22main_category%22%2C%22attributes%22%2C%22capacity%22%2C%22discount.percent%22%2C%22flags%22%2C%22ObjectID%22%2C%22name%22%2C%22options.color.available_colors%22%2C%22seller%22%2C%22shop_data.id%22%2C%22shop_data.variant.images%22%2C%22shop_data.variant.product.id%22%2C%22shop_data.variant.product.legacyId%22%2C%22shop_data.variant.product.slug%22%2C%22shop_data.variant.product.brand.name%22%2C%22shop_data.variant.code%22%2C%22shop_data.sellerCatalog.seller%22%2C%22shop_data.pricing%22%2C%22shop_data.offerData%22%2C%22shop_data.onHand%22%2C%22stats%22%5D&clickAnalytics=true&facets=%5B%5D&filters=has_parent_objectID%3D0&highlightPostTag=__%2Fais-highlight__&highlightPreTag=__ais-highlight__&hitsPerPage=20&query=QUERY_STRING&tagFilters="
-  }, {
-    "indexName": "france_prod_brands_genepi_fr_FR",
-    "params": "attributesToRetrieve=%5B%22name%22%2C%22slug%22%5D&clickAnalytics=true&facets=%5B%5D&filters=&highlightPostTag=__%2Fais-highlight__&highlightPreTag=__ais-highlight__&hitsPerPage=6&query=QUERY_STRING&tagFilters="
-  }, {
-    "indexName": "france_prod_categories_genepi_fr_FR",
-    "params": "attributesToRetrieve=%5B%22parent%22%2C%22name%22%2C%22slug%22%2C%22level%22%5D&clickAnalytics=true&facets=%5B%5D&filters=&highlightPostTag=__%2Fais-highlight__&highlightPreTag=__ais-highlight__&hitsPerPage=6&query=QUERY_STRING&tagFilters="
-  }]
+  "query": "\n  query search($query: String!, $userId: String!) {\n    search(query: $query, userId: $userId) {\n      brands {\n        name\n        id\n        highlight\n      }\n      categories {\n        name\n        slug\n        highlight\n      }\n      offers {\n        ...indexOfferFragment\n      }\n      ads {\n        pageId\n        error\n        productAds {\n          adUnitId\n          index\n          adUnitSize\n          products {\n            id\n            type\n            adId\n            productId\n            offer {\n              ...indexOfferFragment\n            }\n          }\n        }\n      }\n      total\n    }\n  }\n  \n  fragment indexOfferFragment on IndexOffer {\n    analytics {\n      queryId\n      position\n    }\n    brand\n    brands {\n      name\n      images {\n        path\n        type\n      }\n    }\n    colorVariants\n    imageUrl\n    info {\n      amount\n      unit\n    }\n    isFresh\n    isMarketplace\n    isRefurbished\n    isSecondHand\n    legacyProductId\n    mainCategory\n    merchantName\n    name\n    objectID\n    offerId\n    pricing {\n      channelCode\n      price\n      originalPrice\n      minimumPrice\n      discount\n      priceIncludedVat\n      priceHasIncludedVat\n      taxAmount\n      taxPercent\n      originalTaxAmount\n      originalPriceIncludedVat\n      appliedPromotion {\n        id\n        name\n        startDate\n        endDate\n        discount_value\n        discountValue\n        discountType\n      }\n    }\n    pricingInfos {\n      isCommitted\n      discountPercent\n      original\n      current\n      hasShortExpiration\n    }\n    productFlagType\n    productId\n    productSlug\n    ratingAverage\n    shippingLabel\n    slug\n    stock\n    totalNbOfRating\n    variant\n    variantCode\n    variantId\n  }\n\n",
+  "variables": {
+    "query": "QUERY_STRING",
+    "userId": "e212209f-2820-4be0-bc9c-022d6f3636a7"
+  },
+  "operationName": "search"
 };
 
 /***/ }),
